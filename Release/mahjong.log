@@ -1,0 +1,18 @@
+﻿  mahjong.cpp
+d:\mahjong\mahjong\mahjong\mj_def.h(47): warning C4005: 'NAN': 巨集重複定義
+  c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\corecrt_math.h(94): note: 請參閱 'NAN' 之前的定義
+d:\mahjong\mahjong\mahjong\scene.h(2): warning C4005: '_WIN32_WINNT': 巨集重複定義
+  c:\program files (x86)\windows kits\10\include\10.0.17134.0\shared\sdkddkver.h(215): note: 請參閱 '_WIN32_WINNT' 之前的定義
+  Macro definition of max detected - undefining
+  Macro definition of min detected - undefining
+d:\mahjong\mahjong\mahjong\nstdlib.h(16): warning C4091: 'extern ': 當沒有宣告變數時，忽略 'Entity' 的左方
+d:\mahjong\mahjong\mahjong\rule.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+d:\mahjong\mahjong\mahjong\mahjong.cpp(111): warning C4305: '引數': 從 'double' 轉換為 'GLclampf'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjong.cpp(120): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjong.cpp(166): warning C4018: '<': signed/unsigned 不相符
+  正在產生程式碼
+  129 of 798 functions (16.2%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    9 functions had inline decision re-evaluated but remain unchanged
+  已完成程式碼產生
+  mahjong.vcxproj -> D:\mahjong\mahjong\Release\mahjong.exe
