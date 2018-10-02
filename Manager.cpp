@@ -1,8 +1,9 @@
 #include "stdafx.h"
 #include "Manager.h"
 
-std::vector<Layout *> Manager::LayoutList;
+std::map<std::string, Layout *> Manager::LayoutList;
 Room *Manager::GameRoom = new Room();
+std::string Manager::CurrentLayout = "Menu";
 
 Manager::Manager()
 {

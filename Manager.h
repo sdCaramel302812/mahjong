@@ -2,7 +2,8 @@
 #include "Layout.h"
 #include <vector>
 #include "Room.h"
-
+#include <string>
+#include <map>
 
 class Manager
 {
@@ -12,6 +13,12 @@ public:
 
 	static Room *GameRoom;
 
-	static std::vector<Layout *> LayoutList;
+	static std::map<std::string, Layout *> LayoutList;
+
+	/*
+	Menu
+	Game		¹CÀ¸¤¤
+	*/
+	static std::string CurrentLayout;
 };
 

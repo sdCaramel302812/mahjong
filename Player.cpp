@@ -5,7 +5,7 @@
 Player::Player()
 {
 	tehai = new Tehai();
-	agent = new Agent(&Suteru, &NakuState);
+	agent = new Agent(&Suteru, &NakuState, &tehai->tehai);
 	Init();
 }
 
@@ -45,6 +45,7 @@ int Player::Kiru()
 	if (Suteru != -1) {
 		int s = Suteru;
 		tehai->Kiru(s);
+		Sutehai.push_back(s);
 		agent->WaitForKiru = false;
 		Suteru = -1;
 		return s;

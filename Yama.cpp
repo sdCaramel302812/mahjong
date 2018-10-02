@@ -55,12 +55,33 @@ void Yama::Init(bool aka)
 
 std::vector<std::vector<int>> Yama::Peipai()
 {
-	return std::vector<std::vector<int>>();
+	std::vector<std::vector<int>> pai;
+	std::vector<int> p1, p2, p3, p4;
+	for (int i = 0; i < 13; ++i) {
+		p1.push_back(PaiSan.back());
+		PaiSan.pop_back();
+		p2.push_back(PaiSan.back());
+		PaiSan.pop_back();
+		p3.push_back(PaiSan.back());
+		PaiSan.pop_back();
+		p4.push_back(PaiSan.back());
+		PaiSan.pop_back();
+	}
+	pai.push_back(p1);
+	pai.push_back(p2);
+	pai.push_back(p3);
+	pai.push_back(p4);
+	return pai;
 }
 
 int Yama::MoPai()
 {
-	return 0;
+	if (PaiSan.size() > Haiteihai) {
+		int p = PaiSan.back();
+		PaiSan.pop_back();
+		return p;
+	}
+	return -1;
 }
 
 int Yama::MoRinshan()

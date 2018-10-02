@@ -10,6 +10,8 @@ Room::Room()
 	pl2 = new Player();
 	pl3 = new Player();
 	pl4 = new Player();
+
+	pl1->agent->IsAI = false;
 }
 
 
@@ -24,6 +26,8 @@ void Room::Init()
 	pl2->Init();
 	pl3->Init();
 	pl4->Init();
+
+	round = 1;
 }
 
 void Room::Play()
@@ -62,6 +66,7 @@ void Room::Play()
 				break;
 			}
 			if (Sutehai != -1) {
+				UpdateScene = true;
 				bool wait = NakuCheck(Sutehai);
 				if (wait) {
 					WaitingState = 1;
@@ -73,6 +78,7 @@ void Room::Play()
 					{
 					case 1:
 						pl1->Tsumo(yama->MoPai());
+						++round;
 						break;
 					case 2:
 						pl2->Tsumo(yama->MoPai());
@@ -91,6 +97,7 @@ void Room::Play()
 			int result1;
 			int result2;
 			int result3;
+			UpdateScene = true;						//不確定
 			switch (CurrentPlayer)
 			{
 			case 1:
@@ -400,14 +407,27 @@ void Room::Play()
 
 void Room::NextKyouku()
 {
-	yama->Init(rule->Aka);
+	Init();
 	std::vector<std::vector<int>> pp = yama->Peipai();
 	pl1->tehai->Peipai(pp.at(0));
 	pl2->tehai->Peipai(pp.at(1));
 	pl3->tehai->Peipai(pp.at(2));
 	pl4->tehai->Peipai(pp.at(3));
-
 	
+	switch (CurrentPlayer) {
+	case 1:
+		pl1->Tsumo(yama->MoPai());
+		break;
+	case 2:
+		pl2->Tsumo(yama->MoPai());
+		break;
+	case 3:
+		pl3->Tsumo(yama->MoPai());
+		break;
+	case 4:
+		pl4->Tsumo(yama->MoPai());
+		break;
+	}
 }
 
 bool Room::NakuCheck(int pai)
@@ -421,7 +441,7 @@ bool Room::NakuCheck(int pai)
 		result1 = pl2->NakuDekiru(pai);
 		result2 = pl3->NakuDekiru(pai);
 		result3 = pl4->NakuDekiru(pai);
-		if (result1 && result2 && result3) {
+		if (!result1 && !result2 && !result3) {
 			return false;
 		}
 		else {
@@ -432,7 +452,7 @@ bool Room::NakuCheck(int pai)
 		result1 = pl1->NakuDekiru(pai);
 		result2 = pl3->NakuDekiru(pai);
 		result3 = pl4->NakuDekiru(pai);
-		if (result1 && result2 && result3) {
+		if (!result1 && !result2 && !result3) {
 			return false;
 		}
 		else {
@@ -443,7 +463,7 @@ bool Room::NakuCheck(int pai)
 		result1 = pl1->NakuDekiru(pai);
 		result2 = pl2->NakuDekiru(pai);
 		result3 = pl4->NakuDekiru(pai);
-		if (result1 && result2 && result3) {
+		if (!result1 && !result2 && !result3) {
 			return false;
 		}
 		else {
@@ -454,7 +474,7 @@ bool Room::NakuCheck(int pai)
 		result1 = pl1->NakuDekiru(pai);
 		result2 = pl2->NakuDekiru(pai);
 		result3 = pl3->NakuDekiru(pai);
-		if (result1 && result2 && result3) {
+		if (!result1 && !result2 && !result3) {
 			return false;
 		}
 		else {

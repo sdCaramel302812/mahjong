@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Tehai.h"
+#include <iostream>
 
 
 Tehai::Tehai()

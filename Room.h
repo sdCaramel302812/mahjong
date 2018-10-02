@@ -23,6 +23,7 @@ public:
 	int Oya = 1;
 	bool kyoukuover = true;
 	bool gameover = false;
+	int round = 1;			//¨µ¼Æ
 
 	void NextKyouku();
 	bool NakuCheck(int pai);
@@ -31,6 +32,8 @@ public:
 	bool WaitForTsumo = true;
 	bool WaitForKiru = false;
 	bool WaitForNaku = false;
+
+	bool UpdateScene = true;
 
 	/*
 	0 : wait for kiru
