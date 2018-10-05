@@ -1,6 +1,9 @@
 ﻿#pragma once
 #include "Tehai.h"
 #include "Agent.h"
+#include "tenpai.h"
+
+enum Naki { Chi, Pon, Kan };
 
 class Player
 {
@@ -20,6 +23,8 @@ public:
 	int Suteru = -1;
 	void Tsumo(int pai);			//自摸				//***
 
+	std::vector<Naki> FuRouOrder;
+
 	/*
 	由外部更改
 	-1 : 未決定
@@ -29,6 +34,8 @@ public:
 	 3 : 吃，形式為 1 2 3
 	 4 : 吃，形式為 2 1 3
 	 5 : 吃，形式為 3 1 2
+	 6 : 和
+	 7 : 自摸
 	*/
 	int NakuState = -1;	
 	/*
@@ -36,7 +43,7 @@ public:
 	return  0 : 不鳴牌
 	return  1 : 鳴牌
 	*/
-	int Naku();						//鳴牌				//***
+	int Naku(int pai);	//鳴牌				//***
 
 	void Nakasareru();				//被鳴牌
 	void Nagashu();					//流局
@@ -47,6 +54,9 @@ public:
 	bool ibatsu = false;			//一發狀態
 	bool firstR = true;				//首巡
 	bool Furiten = false;			//振聽
+
+	bool *Agari;					//來自ROOM
+	void SetAgariCallback(bool *a);
 
 	int Point;
 

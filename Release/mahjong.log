@@ -1,22 +1,12 @@
-﻿  MahJongRoom.cpp
-  Macro definition of max detected - undefining
-  Macro definition of min detected - undefining
-d:\mahjong\mahjong\mahjong\scene.h(2): warning C4005: '_WIN32_WINNT': 巨集重複定義
-  c:\program files (x86)\windows kits\10\include\10.0.17134.0\shared\sdkddkver.h(215): note: 請參閱 '_WIN32_WINNT' 之前的定義
+﻿  Player.cpp
 d:\mahjong\mahjong\mahjong\mj_def.h(47): warning C4005: 'NAN': 巨集重複定義
   c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\corecrt_math.h(94): note: 請參閱 'NAN' 之前的定義
-d:\mahjong\mahjong\mahjong\mahjongroom.cpp(78): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
-d:\mahjong\mahjong\mahjong\mahjongroom.cpp(81): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
-d:\mahjong\mahjong\mahjong\mahjongroom.cpp(85): warning C4018: '>': signed/unsigned 不相符
-d:\mahjong\mahjong\mahjong\mahjongroom.cpp(155): warning C4018: '<': signed/unsigned 不相符
-d:\mahjong\mahjong\mahjong\mahjongroom.cpp(361): warning C4018: '<': signed/unsigned 不相符
-d:\mahjong\mahjong\mahjong\mahjongroom.cpp(553): warning C4018: '>': signed/unsigned 不相符
-d:\mahjong\mahjong\mahjong\mahjongroom.cpp(671): warning C4018: '>': signed/unsigned 不相符
-d:\mahjong\mahjong\mahjong\mahjongroom.cpp(789): warning C4018: '>': signed/unsigned 不相符
-d:\mahjong\mahjong\mahjong\mahjongroom.cpp(907): warning C4018: '>': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\player.cpp(32): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\player.cpp(50): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\player.cpp(57): warning C4018: '<': signed/unsigned 不相符
   正在產生程式碼
-  16 of 909 functions ( 1.8%) were compiled, the rest were copied from previous compilation.
+  2 of 1211 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    13 functions had inline decision re-evaluated but remain unchanged
+    19 functions had inline decision re-evaluated but remain unchanged
   已完成程式碼產生
   mahjong.vcxproj -> D:\mahjong\mahjong\Release\mahjong.exe

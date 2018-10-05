@@ -17,6 +17,9 @@ extern class Entity;
 
 
 //namespace nstd {
+	//骰骰子
+	int XDX(int DiceNumber, int SurfaceNumber);
+
 	int bstrncmp(const char *s1, const char *s2, int n);		//從後向前比較 n 個字
 
 	//*****			template hash table			*****//

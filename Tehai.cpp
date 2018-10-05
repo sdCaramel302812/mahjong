@@ -6,11 +6,23 @@
 Tehai::Tehai()
 {
 	tehai.resize(13);
+	agarihai.resize(13);
 }
 
 
 Tehai::~Tehai()
 {
+}
+
+void Tehai::Init()
+{
+	chi.clear();
+	pon.clear();
+	minkan.clear();
+	ankan.clear();
+	tsumohai = -1;
+	ronhai = -1;
+	tehai.resize(13);
 }
 
 void Tehai::Peipai(int p1, int p2, int p3, int p4, int p5, int p6, int p7, int p8, int p9, int p10, int p11, int p12, int p13)
@@ -29,6 +41,7 @@ void Tehai::Peipai(int p1, int p2, int p3, int p4, int p5, int p6, int p7, int p
 	tehai.at(11) = p12;
 	tehai.at(12) = p13;
 	std::sort(tehai.begin(), tehai.end());
+	agarihai = tehai;
 }
 
 void Tehai::Peipai(int * pai)
@@ -47,15 +60,17 @@ void Tehai::Peipai(int * pai)
 	tehai.at(11) = pai[11];
 	tehai.at(12) = pai[12];
 	std::sort(tehai.begin(), tehai.end());
+	agarihai = tehai;
 }
 
 void Tehai::Peipai(std::vector<int> pai)
 {
 	tehai = pai;
 	std::sort(tehai.begin(), tehai.end());
+	agarihai = tehai;
 }
 
-void Tehai::Chi(int p1, int p2, int p3)
+bool Tehai::Chi(int p1, int p2, int p3)
 {
 	bool first = false;
 	bool second = false;
@@ -68,7 +83,7 @@ void Tehai::Chi(int p1, int p2, int p3)
 		}
 	}
 	if (!first || !second) {
-		return;
+		return false;
 	}
 
 	for (std::vector<int>::iterator i = tehai.begin(); i != tehai.end(); ++i) {
@@ -101,38 +116,64 @@ void Tehai::Chi(int p1, int p2, int p3)
 	chipai.push_back(p2);
 	chipai.push_back(p3);
 	chi.push_back(chipai);
-	return;
+	return true;
 }
 
-void Tehai::Pon(int pai, int from)
+bool Tehai::Pon(int pai, int from)
 {
 	bool first = false;
 	bool second = false;
-	for (std::vector<int>::iterator i = agarihai.begin(); i != agarihai.end(); ++i) {
-		if (*i == pai) {
-			if (!first) {
-				first = true;
-				continue;
+
+	int PaiNoR = pai;
+
+	int pai1;
+	int pai2;
+	if (PaiNoR == 0 || PaiNoR == 10 || PaiNoR == 20) {
+		PaiNoR += 5;
+	}
+	for (std::vector<int>::iterator i = tehai.begin(); i != tehai.end(); ++i) {
+		if (*i != 0 && *i != 10 && *i != 20) {
+			if (*i == PaiNoR) {
+				if (!first) {
+					first = true;
+					pai1 = *i;
+					continue;
+				}
+				else {
+					second = true;
+					pai2 = *i;
+					break;
+				}
 			}
-			else {
-				second = true;
-				break;
+		}
+		else {
+			if (*i == pai) {
+				if (!first) {
+					first = true;
+					pai1 = *i;
+					continue;
+				}
+				else {
+					second = true;
+					pai2 = *i;
+					break;
+				}
 			}
 		}
 	}
 	if (!first || !second) {
-		return;
+		return false;
 	}
 
 	for (int j = 0; j < 2; ++j) {
 		for (std::vector<int>::iterator i = tehai.begin(); i != tehai.end(); ++i) {
-			if (*i == pai) {
+			if (*i == pai1 || *i == pai2) {
 				tehai.erase(i);
 				break;
 			}
 		}
 		for (std::vector<int>::iterator i = agarihai.begin(); i != agarihai.end(); ++i) {
-			if (*i == pai) {
+			if (*i == pai1 || *i == pai2) {
 				agarihai.erase(i);
 				break;
 			}
@@ -141,12 +182,14 @@ void Tehai::Pon(int pai, int from)
 
 	std::vector<int> ponpai;
 	ponpai.push_back(pai);
+	ponpai.push_back(pai1);
+	ponpai.push_back(pai2);
 	ponpai.push_back(from);
 	pon.push_back(ponpai);
-	return;
+	return true;
 }
 
-void Tehai::Daiminkan(int pai, int from)
+bool Tehai::Daiminkan(int pai, int from)
 {
 	bool first = false;
 	bool second = false;
@@ -168,7 +211,7 @@ void Tehai::Daiminkan(int pai, int from)
 		}
 	}
 	if (!first || !second || !third) {
-		return;
+		return false;
 	}
 
 	for (int j = 0; j < 3; ++j) {
@@ -190,10 +233,10 @@ void Tehai::Daiminkan(int pai, int from)
 	kanpai.push_back(pai);
 	kanpai.push_back(from);
 	minkan.push_back(kanpai);
-	return;
+	return true;
 }
 
-void Tehai::Kakan(int pai)
+bool Tehai::Kakan(int pai)
 {
 	for (std::vector<std::vector<int>>::iterator i = pon.begin(); i != pon.end(); ++i) {
 		if (i->at(0) == pai) {
@@ -215,11 +258,14 @@ void Tehai::Kakan(int pai)
 				}
 			}
 			break;
+			return true;
 		}
+
+		return false;
 	}
 }
 
-void Tehai::Ankan(int pai)
+bool Tehai::Ankan(int pai)
 {
 	bool first = false;
 	bool second = false;
@@ -246,7 +292,7 @@ void Tehai::Ankan(int pai)
 		}
 	}
 	if (!first || !second || !third || !forth) {
-		return;
+		return false;
 	}
 
 	for (int j = 0; j < 4; ++j) {
@@ -265,7 +311,7 @@ void Tehai::Ankan(int pai)
 	}
 
 	ankan.push_back(pai);
-	return;
+	return true;
 }
 
 void Tehai::Tsumo(int pai)

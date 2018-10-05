@@ -28,16 +28,64 @@ void Player::Init()
 {
 	Suteru = -1;
 	NakuState = -1;
+	tehai->Init();
 	for (int i = 0; i < tehai->tehai.size(); ++i) {
 		tehai->tehai.at(i) = -1;
 	}
+	Sutehai.clear();
+	agent->Init();
 	ibatsu = false;
 	firstR = true;
+
+	FuRouOrder.clear();
 }
 
 bool Player::NakuDekiru(int pai)
 {
-	return false;
+	agent->RonDekiru = false;
+	tehai->ronhai = pai;
+
+	///////////////////////////////				½T»{¥i§_¦Y
+	///////////////////////////////				½T»{¥i§_¸I
+	for (int i = 0; i < tehai->tehai.size() - 1; ++i) {
+		if (tehai->tehai.at(i) == tehai->tehai.at(i + 1) && tehai->tehai.at(i) == pai) {
+			agent->PonDekiruPai = pai;
+			agent->PonDekiru = true;
+		}
+	}
+	///////////////////////////////				½T»{¥i§_ºb
+	for (int i = 0; i < tehai->tehai.size() - 2; ++i) {
+		if (tehai->tehai.at(i) == tehai->tehai.at(i + 1) && tehai->tehai.at(i) == tehai->tehai.at(i + 2) && tehai->tehai.at(i) == pai) {
+			agent->KanDekiruList.push_back(pai);
+			agent->KanDekiru = true;
+		}
+	}
+	///////////////////////////////				½T»{¥i§_ºa©M
+	if (AgariCheck(tehai)) {
+
+		cout << endl;
+		cout << "fuck error" << endl;
+		tehai->ShowTehai();
+		cout << "fuck error" << endl;
+		Yaku yaku = YakuCheck(tehai, TON, TON);
+		yaku.ShowYaku();
+		cout << endl;
+
+	
+
+		agent->RonDekiru = true;
+	}
+	else {
+		tehai->ronhai = -1;
+	}
+
+
+	if (agent->RonDekiru || agent->PonDekiru || agent->KanDekiru || agent->ChiDekiru) {
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 
 int Player::Kiru()
@@ -59,35 +107,23 @@ void Player::Tsumo(int pai)
 	agent->WaitForKiru = true;
 }
 
-int Player::Naku()
+int Player::Naku(int pai)
 {
-	if (NakuState == -1) {
-		return -1;
+	if (!agent->ChiDekiru && !agent->PonDekiru && !agent->RonDekiru && !agent->KanDekiru && !agent->NakuDekiru) {
+	//	NakuState = 0;
 	}
-	else if (NakuState == 0) {
-		NakuState = -1;
-		return 0;
+	if (4 - tehai->tehai.size() / 3 == FuRouOrder.size()) {
+		if (NakuState == 1) {
+			FuRouOrder.push_back(Pon);
+		}
+		else if (NakuState == 2) {
+			FuRouOrder.push_back(Kan);
+		}
+		else if (NakuState == 3 || NakuState == 4 || NakuState == 5) {
+			FuRouOrder.push_back(Chi);
+		}
 	}
-	else if (NakuState == 1) {		//‹L“¾•âŠ®
-		NakuState = -1;
-		return 1;
-	}
-	else if (NakuState == 2) {
-		NakuState = -1;
-		return 1;
-	}
-	else if (NakuState == 3) {
-		NakuState = -1;
-		return 1;
-	}
-	else if (NakuState == 4) {
-		NakuState = -1;
-		return 1;
-	}
-	else if (NakuState == 5) {
-		NakuState = -1;
-		return 1;
-	}
+	return NakuState;
 }
 
 void Player::Nakasareru()
@@ -100,4 +136,10 @@ void Player::Nakasareru()
 
 void Player::Nagashu()
 {
+}
+
+void Player::SetAgariCallback(bool * a)
+{
+	Agari = a;
+	agent->Agari = a;
 }

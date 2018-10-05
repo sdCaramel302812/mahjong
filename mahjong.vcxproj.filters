@@ -72,6 +72,9 @@
     <ClInclude Include="MahJongRoom.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
+    <ClInclude Include="Debug.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -126,6 +129,9 @@
       <Filter>來源檔案</Filter>
     </ClCompile>
     <ClCompile Include="MahJongRoom.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
   </ItemGroup>

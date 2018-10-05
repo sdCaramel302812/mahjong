@@ -265,6 +265,15 @@ wstring &TString::data()
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
+int XDX(int DiceNumber, int SurfaceNumber)
+{
+	int number = 0;
+	for (int i = 0; i < DiceNumber; ++i) {
+		number += rand() % SurfaceNumber + 1;
+	}
+	return number;
+}
+
 int bstrncmp(const char * s1, const char * s2, int n)
 {
 	int count = 0;

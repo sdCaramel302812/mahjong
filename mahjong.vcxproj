@@ -154,6 +154,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Agent.h" />
+    <ClInclude Include="Debug.h" />
     <ClInclude Include="GLFW_Event.h" />
     <ClInclude Include="GM.h" />
     <ClInclude Include="GUI.h" />
@@ -175,6 +176,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Agent.cpp" />
+    <ClCompile Include="Debug.cpp" />
     <ClCompile Include="GLFW_Event.cpp" />
     <ClCompile Include="GM.cpp" />
     <ClCompile Include="GUI.cpp" />

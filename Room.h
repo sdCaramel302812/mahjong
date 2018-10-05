@@ -3,6 +3,8 @@
 #include "rule.h"
 #include "GM.h"
 #include "Player.h"
+#include "tenpai.h"
+#include "Debug.h"
 
 class Room
 {
@@ -17,13 +19,15 @@ public:
 	Rule *rule;
 
 	int Chanfon = TON;		//初
-	int Kyuku = 1;			//Ы计
+	int Kyouku = 0;			//Ы计
 	int Honba = 0;			//セ初计
 	int Kyoutaku = 0;		//ㄑ癠
 	int Oya = 1;
 	bool kyoukuover = true;
 	bool gameover = false;
 	int round = 1;			//ǖ计
+
+	bool WhoIsAgari[4] = { false };
 
 	void NextKyouku();
 	bool NakuCheck(int pai);
@@ -38,6 +42,7 @@ public:
 	/*
 	0 : wait for kiru
 	1 : wait for naku
+	2 : wait for next kyouku
 	*/
 	int WaitingState = 0;
 

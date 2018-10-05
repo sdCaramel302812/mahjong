@@ -32,14 +32,16 @@ public:
 	std::vector<int>				ankan;
 	bool							richi;
 
+	void Init();
+
 	void Peipai(int p1, int p2, int p3, int p4, int p5, int p6, int p7, int p8, int p9, int p10, int p11, int p12, int p13);
 	void Peipai(int *pai);
 	void Peipai(std::vector<int> pai);
-	void Chi(int p1, int p2, int p3);
-	void Pon(int pai, int from);
-	void Daiminkan(int pai, int from);
-	void Kakan(int pai);
-	void Ankan(int pai);
+	bool Chi(int p1, int p2, int p3);
+	bool Pon(int pai, int from);
+	bool Daiminkan(int pai, int from);
+	bool Kakan(int pai);
+	bool Ankan(int pai);
 	void Tsumo(int pai);
 	int Kiru(int pai);
 	void Ron(int pai);

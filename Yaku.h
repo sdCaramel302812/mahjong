@@ -38,6 +38,8 @@ public:
 	int akadora = 0;	//赤寶牌
 	int uradora = 0;	//裏寶牌
 
+	bool YakuAri = false;	//是否有役
+
 	bool Pinhu = false;		//平和
 	bool Tanyao = false;	//斷么
 	bool Haku = false;		//白

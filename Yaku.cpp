@@ -24,6 +24,10 @@ void Yaku::ShowYaku()
 	if (!agari) {
 		return;
 	}
+	if (!YakuAri) {
+		cout << "無役" << endl;
+		return;
+	}
 	pair<int, int>point = LookupTable(oya, tsumo, Fu, Han);
 	if (point.second == 0) {
 		cout << "親 " << point.first << " all" << endl;
@@ -182,23 +186,23 @@ void Yaku::ShowYaku()
 	}
 	if (Han >= 5 || (Han == 4 && Fu >= 40) || Han == 3 && Fu >= 70) {
 		if (Han <= 5) {
-			cout << Han << "飜 滿貫" << endl;
+			cout << Han << "翻 滿貫" << endl;
 		}
 		else if(Han <= 7) {
-			cout << Han << "飜 跳滿" << endl;
+			cout << Han << "翻 跳滿" << endl;
 		}
 		else if (Han <= 10) {
-			cout << Han << "飜 倍滿" << endl;
+			cout << Han << "翻 倍滿" << endl;
 		}
 		else if (Han <= 12) {
-			cout << Han << "飜 三倍滿" << endl;
+			cout << Han << "翻 三倍滿" << endl;
 		}
 		else {
-			cout << Han << "飜 役滿" << endl;
+			cout << Han << "翻 役滿" << endl;
 		}
 	}
 	else {
-		cout << Fu << " 符 " << Han << " 飜" << endl;
+		cout << Fu << " 符 " << Han << " 翻" << endl;
 	}
 }
 

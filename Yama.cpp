@@ -86,7 +86,9 @@ int Yama::MoPai()
 
 int Yama::MoRinshan()
 {
-	return 0;
+	++Rinshanhai;
+	++Haiteihai;
+	return PaiSan.at(Rinshanhai - 1);
 }
 
 void Yama::Kan()
