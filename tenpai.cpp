@@ -4,9 +4,11 @@
 Yaku YakuCheck(Tehai *pai, int Chanfon, int Menfon, bool last, bool first, bool rinshan, bool chankan, bool ibatsu)
 {
 	if (AgariCheck(pai)) {
+		
+
 		Yaku yaku;
 		yaku.agari = true;
-		yaku.oya = Menfon == TON ? true : false;
+		yaku.oya = (Menfon == TON ? true : false);
 		yaku.tsumo = pai->tsumohai != -1 ? true : false;
 
 		int minko19 = 0;		//么九明刻數量
@@ -64,9 +66,6 @@ Yaku YakuCheck(Tehai *pai, int Chanfon, int Menfon, bool last, bool first, bool 
 		std::vector<std::vector<int>> mentsu;
 		Tehai checkpai = *pai;
 
-		if (checkpai.ronhai != -1 && checkpai.tsumohai == -1 && checkpai.agarihai.size() % 3 == 2) {
-			checkpai.agarihai.back() = pai->ronhai;
-		}
 		if (checkpai.ronhai != -1 && checkpai.tsumohai == -1 && checkpai.agarihai.size() % 3 == 1) {
 			checkpai.agarihai.push_back(pai->ronhai);
 		}
@@ -95,7 +94,7 @@ Yaku YakuCheck(Tehai *pai, int Chanfon, int Menfon, bool last, bool first, bool 
 			}
 		}
 		for (int i = 0; i < checkpai.chi.size(); ++i) {
-			for (int j = 0; j < 3; ++j) {
+			for (int j = 0; j < checkpai.chi.at(i).size(); ++j) {
 				if (checkpai.chi.at(i).at(j) == 0) {
 					checkpai.chi.at(i).at(j) = 5;
 					++yaku.akadora;
@@ -127,20 +126,20 @@ Yaku YakuCheck(Tehai *pai, int Chanfon, int Menfon, bool last, bool first, bool 
 			}
 		}
 		for (int i = 0; i < checkpai.minkan.size(); ++i) {
-			for (int j = 0; j < 4; ++j) {
-				if (checkpai.minkan.at(i).at(j) == 0) {
-					checkpai.minkan.at(i).at(j) = 5;
+		//	for (int j = 0; j < 4; ++j) {
+				if (checkpai.minkan.at(i).at(0) == 0) {
+					checkpai.minkan.at(i).at(0) = 5;
 					++yaku.akadora;
 				}
-				if (checkpai.minkan.at(i).at(j) == 10) {
-					checkpai.minkan.at(i).at(j) = 15;
+				if (checkpai.minkan.at(i).at(0) == 10) {
+					checkpai.minkan.at(i).at(0) = 15;
 					++yaku.akadora;
 				}
-				if (checkpai.minkan.at(i).at(j) == 20) {
-					checkpai.minkan.at(i).at(j) = 25;
+				if (checkpai.minkan.at(i).at(0) == 20) {
+					checkpai.minkan.at(i).at(0) = 25;
 					++yaku.akadora;
 				}
-			}
+		//	}
 		}
 		std::sort(checkpai.agarihai.begin(), checkpai.agarihai.end());
 
@@ -150,6 +149,31 @@ Yaku YakuCheck(Tehai *pai, int Chanfon, int Menfon, bool last, bool first, bool 
 		for (int i = 0; i < checkpai.pon.size(); ++i) {
 			if (checkpai.pon.at(i).at(0) == 1 || checkpai.pon.at(i).at(0) == 9 || checkpai.pon.at(i).at(0) == 11 || checkpai.pon.at(i).at(0) == 19 || checkpai.pon.at(i).at(0) == 21 || checkpai.pon.at(i).at(0) >= 29) {
 				++minko19;
+				if (checkpai.pon.at(i).at(0) == Chanfon) {
+					yaku.Chanfon = true;
+					yaku.YakuAri = true;
+					++yaku.Han;
+				}
+				if (checkpai.pon.at(i).at(0) == Menfon) {
+					yaku.Menfon = true;
+					yaku.YakuAri = true;
+					++yaku.Han;
+				}
+				if (checkpai.pon.at(i).at(0) == HAKU) {
+					yaku.YakuAri = true;
+					yaku.Haku = true;
+					++yaku.Han;
+				}
+				if (checkpai.pon.at(i).at(0) == FA) {
+					yaku.Fa = true;
+					yaku.YakuAri = true;
+					++yaku.Han;
+				}
+				if (checkpai.pon.at(i).at(0) == CHUN) {
+					yaku.Chun = true;
+					yaku.YakuAri = true;
+					++yaku.Han;
+				}
 				tanyau = false;
 			}
 			else {
@@ -159,6 +183,31 @@ Yaku YakuCheck(Tehai *pai, int Chanfon, int Menfon, bool last, bool first, bool 
 		for (int i = 0; i < checkpai.minkan.size(); ++i) {
 			if (checkpai.minkan.at(i).at(0) == 1 || checkpai.minkan.at(i).at(0) == 9 || checkpai.minkan.at(i).at(0) == 11 || checkpai.minkan.at(i).at(0) == 19 || checkpai.minkan.at(i).at(0) == 21 || checkpai.minkan.at(i).at(0) >= 29) {
 				++minkan19;
+				if (checkpai.minkan.at(i).at(0) == Chanfon) {
+					yaku.Chanfon = true;
+					yaku.YakuAri = true;
+					++yaku.Han;
+				}
+				if (checkpai.minkan.at(i).at(0) == Menfon) {
+					yaku.Menfon = true;
+					yaku.YakuAri = true;
+					++yaku.Han;
+				}
+				if (checkpai.minkan.at(i).at(0) == HAKU) {
+					yaku.YakuAri = true;
+					yaku.Haku = true;
+					++yaku.Han;
+				}
+				if (checkpai.minkan.at(i).at(0) == FA) {
+					yaku.Fa = true;
+					yaku.YakuAri = true;
+					++yaku.Han;
+				}
+				if (checkpai.minkan.at(i).at(0) == CHUN) {
+					yaku.Chun = true;
+					yaku.YakuAri = true;
+					++yaku.Han;
+				}
 				tanyau = false;
 			}
 			else {
@@ -168,6 +217,31 @@ Yaku YakuCheck(Tehai *pai, int Chanfon, int Menfon, bool last, bool first, bool 
 		for (int i = 0; i < checkpai.ankan.size(); ++i) {
 			if (checkpai.ankan.at(i) == 1 || checkpai.ankan.at(i) == 9 || checkpai.ankan.at(i) == 11 || checkpai.ankan.at(i) == 19 || checkpai.ankan.at(i) == 21 || checkpai.ankan.at(i) >= 29) {
 				++ankan19;
+				if (checkpai.ankan.at(i) == Chanfon) {
+					yaku.Chanfon = true;
+					yaku.YakuAri = true;
+					++yaku.Han;
+				}
+				if (checkpai.ankan.at(i) == Menfon) {
+					yaku.Menfon = true;
+					yaku.YakuAri = true;
+					++yaku.Han;
+				}
+				if (checkpai.ankan.at(i) == HAKU) {
+					yaku.YakuAri = true;
+					yaku.Haku = true;
+					++yaku.Han;
+				}
+				if (checkpai.ankan.at(i) == FA) {
+					yaku.Fa = true;
+					yaku.YakuAri = true;
+					++yaku.Han;
+				}
+				if (checkpai.ankan.at(i) == CHUN) {
+					yaku.Chun = true;
+					yaku.YakuAri = true;
+					++yaku.Han;
+				}
 				tanyau = false;
 			}
 			else {
@@ -178,8 +252,14 @@ Yaku YakuCheck(Tehai *pai, int Chanfon, int Menfon, bool last, bool first, bool 
 		
 
 		//確認面子
-		if (!KokushiCheck(&checkpai)) {
+		if (checkpai.agarihai.size() == 2) {
+			jantou = checkpai.agarihai.at(0);
+			tenpaifu = true;
+			pinhu = false;
+		}
+		if (!KokushiCheck(&checkpai) && checkpai.agarihai.size() > 2) {
 			bool done = false;
+
 			for (int i = 0; i < checkpai.agarihai.size() - 1; ++i) {
 				if (done) {
 					break;
@@ -201,13 +281,13 @@ Yaku YakuCheck(Tehai *pai, int Chanfon, int Menfon, bool last, bool first, bool 
 					}
 					mentsu.clear();
 					//確認面子
-					for (int j = nokoripai.size() - 1;;) {
+					for (int j = (int)nokoripai.size() - 1;;) {
 						if (j <= 0) {
 							done = true;
 							break;
 						}
 						if (nokoripai.at(j) >= 30) {
-							if (nokoripai.at(j) == nokoripai.at(j - 1) && nokoripai.at(j) == nokoripai.at(j - 2)) {
+							if (j > 2 && nokoripai.at(j) == nokoripai.at(j - 1) && nokoripai.at(j) == nokoripai.at(j - 2)) {
 								std::vector<int> men;
 								men.push_back(nokoripai.at(j));
 								men.push_back(nokoripai.at(j));
@@ -224,7 +304,7 @@ Yaku YakuCheck(Tehai *pai, int Chanfon, int Menfon, bool last, bool first, bool 
 							}
 						}
 						else if (nokoripai.at(j) > 20) {
-							if (nokoripai.at(j) == nokoripai.at(j - 1) && nokoripai.at(j) == nokoripai.at(j - 2)) {
+							if (j > 2 && nokoripai.at(j) == nokoripai.at(j - 1) && nokoripai.at(j) == nokoripai.at(j - 2)) {
 								std::vector<int> men;
 								men.push_back(nokoripai.at(j));
 								men.push_back(nokoripai.at(j));
@@ -236,7 +316,7 @@ Yaku YakuCheck(Tehai *pai, int Chanfon, int Menfon, bool last, bool first, bool 
 								j -= 3;
 								continue;
 							}
-							else if (nokoripai.at(j) - nokoripai.at(j - 1) == 1 && nokoripai.at(j - 1) - nokoripai.at(j - 2) == 1) {
+							else if (j > 2 && nokoripai.at(j) - nokoripai.at(j - 1) == 1 && nokoripai.at(j - 1) - nokoripai.at(j - 2) == 1) {
 								std::vector<int> men;
 								men.push_back(nokoripai.at(j));
 								men.push_back(nokoripai.at(j - 1));
@@ -249,7 +329,7 @@ Yaku YakuCheck(Tehai *pai, int Chanfon, int Menfon, bool last, bool first, bool 
 								
 								continue;
 							}
-							else if (j >= 3 && nokoripai.at(j - 1) == nokoripai.at(j - 2) && nokoripai.at(j - 1) == nokoripai.at(j - 3)) {
+							else if (j > 3 && nokoripai.at(j - 1) == nokoripai.at(j - 2) && nokoripai.at(j - 1) == nokoripai.at(j - 3)) {
 								std::vector<int> men;
 								men.push_back(nokoripai.at(j - 1));
 								men.push_back(nokoripai.at(j - 1));
@@ -264,7 +344,7 @@ Yaku YakuCheck(Tehai *pai, int Chanfon, int Menfon, bool last, bool first, bool 
 								j -= 3;
 								
 							}
-							else if (j >= 3 && nokoripai.at(j) - nokoripai.at(j - 1) == 1 && nokoripai.at(j - 1) - nokoripai.at(j - 3) == 1) {
+							else if (j > 3 && nokoripai.at(j) - nokoripai.at(j - 1) == 1 && nokoripai.at(j - 1) - nokoripai.at(j - 3) == 1) {
 								std::vector<int> men;
 								men.push_back(nokoripai.at(j));
 								men.push_back(nokoripai.at(j - 1));
@@ -312,7 +392,7 @@ Yaku YakuCheck(Tehai *pai, int Chanfon, int Menfon, bool last, bool first, bool 
 							}
 						}
 						else if (nokoripai.at(j) > 10) {
-							if (nokoripai.at(j) == nokoripai.at(j - 1) && nokoripai.at(j) == nokoripai.at(j - 2)) {
+							if (j > 2 && nokoripai.at(j) == nokoripai.at(j - 1) && nokoripai.at(j) == nokoripai.at(j - 2)) {
 								std::vector<int> men;
 								men.push_back(nokoripai.at(j));
 								men.push_back(nokoripai.at(j));
@@ -325,7 +405,7 @@ Yaku YakuCheck(Tehai *pai, int Chanfon, int Menfon, bool last, bool first, bool 
 								
 								continue;
 							}
-							else if (nokoripai.at(j) - nokoripai.at(j - 1) == 1 && nokoripai.at(j - 1) - nokoripai.at(j - 2) == 1) {
+							else if (j > 2 && nokoripai.at(j) - nokoripai.at(j - 1) == 1 && nokoripai.at(j - 1) - nokoripai.at(j - 2) == 1) {
 								std::vector<int> men;
 								men.push_back(nokoripai.at(j));
 								men.push_back(nokoripai.at(j - 1));
@@ -338,7 +418,7 @@ Yaku YakuCheck(Tehai *pai, int Chanfon, int Menfon, bool last, bool first, bool 
 								
 								continue;
 							}
-							else if (j >= 3 && nokoripai.at(j - 1) == nokoripai.at(j - 2) && nokoripai.at(j - 1) == nokoripai.at(j - 3)) {
+							else if (j > 3 && nokoripai.at(j - 1) == nokoripai.at(j - 2) && nokoripai.at(j - 1) == nokoripai.at(j - 3)) {
 								std::vector<int> men;
 								men.push_back(nokoripai.at(j - 1));
 								men.push_back(nokoripai.at(j - 1));
@@ -353,7 +433,7 @@ Yaku YakuCheck(Tehai *pai, int Chanfon, int Menfon, bool last, bool first, bool 
 								j -= 3;
 								
 							}
-							else if (j >= 3 && nokoripai.at(j) - nokoripai.at(j - 1) == 1 && nokoripai.at(j - 1) - nokoripai.at(j - 3) == 1) {
+							else if (j > 3 && nokoripai.at(j) - nokoripai.at(j - 1) == 1 && nokoripai.at(j - 1) - nokoripai.at(j - 3) == 1) {
 								std::vector<int> men;
 								men.push_back(nokoripai.at(j));
 								men.push_back(nokoripai.at(j - 1));
@@ -369,7 +449,7 @@ Yaku YakuCheck(Tehai *pai, int Chanfon, int Menfon, bool last, bool first, bool 
 								
 								continue;
 							}
-							else if (j >= 5 && nokoripai.at(j) - nokoripai.at(j - 2) == 1 && nokoripai.at(j - 2) - nokoripai.at(j - 4) == 1 && nokoripai.at(j - 2) == nokoripai.at(j - 3)) {
+							else if (j > 5 && nokoripai.at(j) - nokoripai.at(j - 2) == 1 && nokoripai.at(j - 2) - nokoripai.at(j - 4) == 1 && nokoripai.at(j - 2) == nokoripai.at(j - 3)) {
 								std::vector<int> men;
 								men.push_back(nokoripai.at(j));
 								men.push_back(nokoripai.at(j - 2));
@@ -401,7 +481,7 @@ Yaku YakuCheck(Tehai *pai, int Chanfon, int Menfon, bool last, bool first, bool 
 							}
 						}
 						else {
-							if (nokoripai.at(j) == nokoripai.at(j - 1) && nokoripai.at(j) == nokoripai.at(j - 2)) {
+							if (j > 2 && nokoripai.at(j) == nokoripai.at(j - 1) && nokoripai.at(j) == nokoripai.at(j - 2)) {
 								std::vector<int> men;
 								men.push_back(nokoripai.at(j));
 								men.push_back(nokoripai.at(j));
@@ -414,7 +494,7 @@ Yaku YakuCheck(Tehai *pai, int Chanfon, int Menfon, bool last, bool first, bool 
 								
 								continue;
 							}
-							else if (nokoripai.at(j) - nokoripai.at(j - 1) == 1 && nokoripai.at(j - 1) - nokoripai.at(j - 2) == 1) {
+							else if (j > 2 && nokoripai.at(j) - nokoripai.at(j - 1) == 1 && nokoripai.at(j - 1) - nokoripai.at(j - 2) == 1) {
 								std::vector<int> men;
 								men.push_back(nokoripai.at(j));
 								men.push_back(nokoripai.at(j - 1));
@@ -427,7 +507,7 @@ Yaku YakuCheck(Tehai *pai, int Chanfon, int Menfon, bool last, bool first, bool 
 								
 								continue;
 							}
-							else if (j >= 3 && nokoripai.at(j - 1) == nokoripai.at(j - 2) && nokoripai.at(j - 1) == nokoripai.at(j - 3)) {
+							else if (j > 3 && nokoripai.at(j - 1) == nokoripai.at(j - 2) && nokoripai.at(j - 1) == nokoripai.at(j - 3)) {
 								std::vector<int> men;
 								men.push_back(nokoripai.at(j - 1));
 								men.push_back(nokoripai.at(j - 1));
@@ -442,7 +522,7 @@ Yaku YakuCheck(Tehai *pai, int Chanfon, int Menfon, bool last, bool first, bool 
 								j -= 3;
 								
 							}
-							else if (j >= 3 && nokoripai.at(j) - nokoripai.at(j - 1) == 1 && nokoripai.at(j - 1) - nokoripai.at(j - 3) == 1) {
+							else if (j > 3 && nokoripai.at(j) - nokoripai.at(j - 1) == 1 && nokoripai.at(j - 1) - nokoripai.at(j - 3) == 1) {
 								std::vector<int> men;
 								men.push_back(nokoripai.at(j));
 								men.push_back(nokoripai.at(j - 1));
@@ -458,7 +538,7 @@ Yaku YakuCheck(Tehai *pai, int Chanfon, int Menfon, bool last, bool first, bool 
 
 								continue;
 							}
-							else if (j >= 5 && nokoripai.at(j) - nokoripai.at(j - 2) == 1 && nokoripai.at(j - 2) - nokoripai.at(j - 4) == 1 && nokoripai.at(j - 2) == nokoripai.at(j - 3)) {
+							else if (j > 5 && nokoripai.at(j) - nokoripai.at(j - 2) == 1 && nokoripai.at(j - 2) - nokoripai.at(j - 4) == 1 && nokoripai.at(j - 2) == nokoripai.at(j - 3)) {
 								std::vector<int> men;
 								men.push_back(nokoripai.at(j));
 								men.push_back(nokoripai.at(j - 2));
@@ -514,6 +594,7 @@ Yaku YakuCheck(Tehai *pai, int Chanfon, int Menfon, bool last, bool first, bool 
 				}
 				if (mentsu.at(i).at(0) == 34) {
 					yaku.Haku = true;
+					yaku.YakuAri = true;
 					++yaku.Han;
 					if (anko) {
 						++anko19;
@@ -526,6 +607,7 @@ Yaku YakuCheck(Tehai *pai, int Chanfon, int Menfon, bool last, bool first, bool 
 				else if (mentsu.at(i).at(0) == 35) {
 					yaku.Fa = true;
 					++yaku.Han;
+					yaku.YakuAri = true;
 					if (anko) {
 						++anko19;
 					}
@@ -537,6 +619,7 @@ Yaku YakuCheck(Tehai *pai, int Chanfon, int Menfon, bool last, bool first, bool 
 				else if (mentsu.at(i).at(0) == 36) {
 					yaku.Chun = true;
 					++yaku.Han;
+					yaku.YakuAri = true;
 					if (anko) {
 						++anko19;
 					}
@@ -613,7 +696,7 @@ Yaku YakuCheck(Tehai *pai, int Chanfon, int Menfon, bool last, bool first, bool 
 				
 			}
 		}
-
+		
 		//符數計算
 		int fu = 20;
 		fu += minko28 * 2;
@@ -677,7 +760,7 @@ Yaku YakuCheck(Tehai *pai, int Chanfon, int Menfon, bool last, bool first, bool 
 			fu = 110;
 		}
 		yaku.Fu = fu;
-
+		//cout << "crash" << endl;
 		//役種確認
 		if (yaku.akadora > 0) {
 			yaku.Han += yaku.akadora;
@@ -927,6 +1010,9 @@ Yaku YakuCheck(Tehai *pai, int Chanfon, int Menfon, bool last, bool first, bool 
 						min = checkpai.chi.at(i).at(j);
 					}
 				}
+				if (min % 10 == 0) {
+					min += 5;
+				}
 				if (min > 20 && (min - 20) % 3 == 1) {
 					++sou[(min - 20) / 3];
 				}
@@ -941,14 +1027,36 @@ Yaku YakuCheck(Tehai *pai, int Chanfon, int Menfon, bool last, bool first, bool 
 				if (mentsu.at(i).at(0) == mentsu.at(i).at(1)) {
 					continue;
 				}
-				if (mentsu.at(i).at(2) > 20 && (mentsu.at(i).at(2) - 20) % 3 == 1) {
-					++sou[(mentsu.at(i).at(2) - 20) / 3];
-				}
-				else if (mentsu.at(i).at(2) > 10 && (mentsu.at(i).at(2) - 10) % 3 == 1) {
-					++man[(mentsu.at(i).at(2) - 10) / 3];
-				}
-				else if (mentsu.at(i).at(2) % 3 == 1) {
-					++pin[mentsu.at(i).at(2) / 3];
+				int smallPai = mentsu.at(i).at(2);
+				switch (smallPai)
+				{
+				case 1:
+					++pin[0];
+					break;
+				case 4:
+					++pin[1];
+					break;
+				case 7:
+					++pin[2];
+					break;
+				case 11:
+					++man[0];
+					break;
+				case 14:
+					++man[1];
+					break;
+				case 17:
+					++man[2];
+					break;
+				case 21:
+					++sou[0];
+					break;
+				case 24:
+					++sou[1];
+					break;
+				case 27:
+					++sou[2];
+					break;
 				}
 			}
 			if ((pin[0] > 0 && pin[1] > 0 && pin[2] > 0) || (man[0] > 0 && man[1] > 0 && man[2] > 0) || (sou[0] > 0 && sou[1] > 0 && sou[2] > 0)) {
@@ -1083,7 +1191,7 @@ Yaku YakuCheck(Tehai *pai, int Chanfon, int Menfon, bool last, bool first, bool 
 		if (yaku.Chun) {
 			++sangen;
 		}
-		if (sangen == 2) {
+		if (sangen == 2 && jantou >= HAKU) {
 			yaku.Shousangen = true;
 			yaku.Han += 2;
 			yakunashi = false;
@@ -1153,6 +1261,7 @@ Yaku YakuCheck(Tehai *pai, int Chanfon, int Menfon, bool last, bool first, bool 
 			}
 			if (fonNum == 4) {
 				yaku.DaiSushi = true;
+				yaku.Han = 13;
 				yakunashi = false;
 			}
 			//小四喜
@@ -1160,6 +1269,7 @@ Yaku YakuCheck(Tehai *pai, int Chanfon, int Menfon, bool last, bool first, bool 
 				for (int i = 0; i < 4; ++i) {
 					if (fonPai[i] == 0 && jantou - 30 == i) {
 						yaku.Shousushi = true;
+						yaku.Han = 13;
 						yakunashi = false;
 					}
 				}
@@ -1267,7 +1377,7 @@ Yaku YakuCheck(Tehai *pai, int Chanfon, int Menfon, bool last, bool first, bool 
 
 		}
 
-
+		
 		yaku.YakuAri = !yakunashi;
 		return yaku;
 	}
@@ -1278,15 +1388,18 @@ Yaku YakuCheck(Tehai *pai, int Chanfon, int Menfon, bool last, bool first, bool 
 
 bool AgariCheck(Tehai *pai)
 {
+	
 	Tehai checkpai = *pai;
-
 	if (checkpai.ronhai != -1 && checkpai.tsumohai == -1 && checkpai.agarihai.size() % 3 == 2) {
-		checkpai.agarihai.back() = pai->ronhai;
+	//	checkpai.agarihai.back() = pai->ronhai;
 	}
 	if (checkpai.ronhai != -1 && checkpai.tsumohai == -1 && checkpai.agarihai.size() % 3 == 1) {
 		checkpai.agarihai.push_back(pai->ronhai);
 	}
 	if (checkpai.agarihai.size() % 3 != 2) {
+		return false;
+	}
+	if (checkpai.ronhai == -1 && checkpai.tsumohai == -1) {
 		return false;
 	}
 
@@ -1304,6 +1417,7 @@ bool AgariCheck(Tehai *pai)
 	}
 	std::sort(checkpai.agarihai.begin(), checkpai.agarihai.end());
 
+
 	if (ChitoiCheck(&checkpai)) {
 		return true;
 	}
@@ -1313,7 +1427,19 @@ bool AgariCheck(Tehai *pai)
 
 	bool agari = false;
 
-	for (int i = 0; i < checkpai.agarihai.size() - 1; ++i) {
+	if (checkpai.agarihai.size() < 2) {
+		return false;
+	}
+	if (checkpai.agarihai.size() == 2) {
+		if (checkpai.agarihai.at(0) == checkpai.agarihai.at(1)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	for (int i = 0; i < (int)checkpai.agarihai.size() - 1; ++i) {
 		//cout << "size" << checkpai.agarihai.size() << endl;
 		//找雀頭
 		if (agari) {
@@ -1321,6 +1447,7 @@ bool AgariCheck(Tehai *pai)
 		}
 		std::vector<int> nokoripai;		//扣除雀頭後的手牌
 		if (checkpai.agarihai.at(i) == checkpai.agarihai.at(i + 1)) {
+			
 			for (int j = 0; j < checkpai.agarihai.size(); ++j) {
 				if (j != i && j != i + 1) {
 					nokoripai.push_back(checkpai.agarihai.at(j));
@@ -1328,7 +1455,8 @@ bool AgariCheck(Tehai *pai)
 			}
 
 			//確認面子
-			for (int j = nokoripai.size() - 1;;) {
+			int size = nokoripai.size();
+			for (int j = size - 1;;) {
 				if (j <= 0) {
 					agari = true;
 					break;
@@ -1354,14 +1482,14 @@ bool AgariCheck(Tehai *pai)
 						nokoripai.pop_back();
 						j -= 3;
 						continue;
-					}
+					}//	3s	4s	5s
 					else if (nokoripai.at(j) - nokoripai.at(j - 1) == 1 && nokoripai.at(j - 1) - nokoripai.at(j - 2) == 1) {
 						nokoripai.pop_back();
 						nokoripai.pop_back();
 						nokoripai.pop_back();
 						j -= 3;
 						continue;
-					}
+					}//	3s	4s	4s	4s	4s	5s
 					else if (j >= 3 && nokoripai.at(j - 1) == nokoripai.at(j - 2) && nokoripai.at(j - 1) == nokoripai.at(j - 3)) {
 						int temp = nokoripai.at(j);
 						nokoripai.pop_back();
@@ -1371,7 +1499,7 @@ bool AgariCheck(Tehai *pai)
 						nokoripai.push_back(temp);
 						j -= 3;
 						continue;
-					}
+					}//	3s	4s	4s	5s	5s	6s
 					else if (j >= 3 && nokoripai.at(j) - nokoripai.at(j - 1) == 1 && nokoripai.at(j - 1) - nokoripai.at(j - 3) == 1) {
 						int temp = nokoripai.at(j - 1);
 						nokoripai.pop_back();
@@ -1381,7 +1509,7 @@ bool AgariCheck(Tehai *pai)
 						nokoripai.push_back(temp);
 						j -= 3;
 						continue;
-					}
+					}//	3s	3s	4s	4s	5s	5s
 					else if (j >= 5 && nokoripai.at(j) - nokoripai.at(j - 2) == 1 && nokoripai.at(j - 2) - nokoripai.at(j - 4) == 1 && nokoripai.at(j - 2) == nokoripai.at(j - 3)) {
 						int temp1 = nokoripai.at(j);
 						int temp2 = nokoripai.at(j - 2);
@@ -1536,6 +1664,11 @@ bool ChitoiCheck(Tehai *pai)
 	for (int i = 0; i < pai->agarihai.size(); i += 2) {
 		if (pai->agarihai.at(i) != pai->agarihai.at(i + 1)) {
 			return false;
+		}
+		if (i < 10) {
+			if (pai->agarihai.at(i) == pai->agarihai.at(i + 2)) {
+				return false;
+			}
 		}
 	}
 	return true;

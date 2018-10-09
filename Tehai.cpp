@@ -74,12 +74,29 @@ bool Tehai::Chi(int p1, int p2, int p3)
 {
 	bool first = false;
 	bool second = false;
+	bool p2red = false;
+	bool p3red = false;
+	//////////////////////////////////////////////////////////
+	//						¥¼³B²z¨ªµP						//
+	//////////////////////////////////////////////////////////
 	for (std::vector<int>::iterator i = agarihai.begin(); i != agarihai.end(); ++i) {
-		if (*i == p2) {
-			first = true;
+		if (*i != 0 && *i != 10 && *i != 20) {
+			if (*i == p2) {
+				first = true;
+			}
+			if (*i == p3) {
+				second = true;
+			}
 		}
-		if (*i == p3) {
-			second = true;
+		else {
+			if (*i + 5 == p2) {
+				first = true;
+				p2red = true;
+			}
+			if (*i + 5 == p3) {
+				second = true;
+				p3red = true;
+			}
 		}
 	}
 	if (!first || !second) {
@@ -87,34 +104,49 @@ bool Tehai::Chi(int p1, int p2, int p3)
 	}
 
 	for (std::vector<int>::iterator i = tehai.begin(); i != tehai.end(); ++i) {
-		if (*i == p2) {
-			tehai.erase(i);
-			break;
+		if (*i != 0 && *i != 10 && *i != 20) {
+			if (*i == p2) {
+				tehai.erase(i);
+				break;
+			}
+		}
+		else {
+			if (*i + 5 == p2) {
+				tehai.erase(i);
+				break;
+			}
 		}
 	}
 	for (std::vector<int>::iterator i = tehai.begin(); i != tehai.end(); ++i) {
-		if (*i == p3) {
-			tehai.erase(i);
-			break;
+		if (*i != 0 && *i != 10 && *i != 20) {
+			if (*i == p3) {
+				tehai.erase(i);
+				break;
+			}
+		}
+		else {
+			if (*i + 5 == p3) {
+				tehai.erase(i);
+				break;
+			}
 		}
 	}
-	for (std::vector<int>::iterator i = agarihai.begin(); i != agarihai.end(); ++i) {
-		if (*i == p2) {
-			agarihai.erase(i);
-			break;
-		}
-	}
-	for (std::vector<int>::iterator i = agarihai.begin(); i != agarihai.end(); ++i) {
-		if (*i == p3) {
-			agarihai.erase(i);
-			break;
-		}
-	}
+	agarihai = tehai;
 
 	std::vector<int> chipai;
 	chipai.push_back(p1);
-	chipai.push_back(p2);
-	chipai.push_back(p3);
+	if (!p2red) {
+		chipai.push_back(p2);
+	}
+	else {
+		chipai.push_back(p2 - 5);
+	}
+	if (!p3red) {
+		chipai.push_back(p3);
+	}
+	else {
+		chipai.push_back(p3 - 5);
+	}
 	chi.push_back(chipai);
 	return true;
 }
@@ -125,12 +157,12 @@ bool Tehai::Pon(int pai, int from)
 	bool second = false;
 
 	int PaiNoR = pai;
-
-	int pai1;
-	int pai2;
 	if (PaiNoR == 0 || PaiNoR == 10 || PaiNoR == 20) {
 		PaiNoR += 5;
 	}
+	int pai1;
+	int pai2;
+	
 	for (std::vector<int>::iterator i = tehai.begin(); i != tehai.end(); ++i) {
 		if (*i != 0 && *i != 10 && *i != 20) {
 			if (*i == PaiNoR) {
@@ -147,7 +179,7 @@ bool Tehai::Pon(int pai, int from)
 			}
 		}
 		else {
-			if (*i == pai) {
+			if (*i == PaiNoR - 5) {
 				if (!first) {
 					first = true;
 					pai1 = *i;
@@ -172,13 +204,8 @@ bool Tehai::Pon(int pai, int from)
 				break;
 			}
 		}
-		for (std::vector<int>::iterator i = agarihai.begin(); i != agarihai.end(); ++i) {
-			if (*i == pai1 || *i == pai2) {
-				agarihai.erase(i);
-				break;
-			}
-		}
 	}
+	agarihai = tehai;
 
 	std::vector<int> ponpai;
 	ponpai.push_back(pai);
@@ -194,26 +221,49 @@ bool Tehai::Daiminkan(int pai, int from)
 	bool first = false;
 	bool second = false;
 	bool third = false;
-	for (std::vector<int>::iterator i = agarihai.begin(); i != agarihai.end(); ++i) {
-		if (*i == pai) {
-			if (!first) {
-				first = true;
-				continue;
+	int PaiNoR = pai;
+	if (PaiNoR == 0 || PaiNoR == 10 || PaiNoR == 20) {
+		PaiNoR += 5;
+	}
+	for (std::vector<int>::iterator i = tehai.begin(); i != tehai.end(); ++i) {
+		if (*i != 0 && *i != 10 && *i != 20) {
+			if (*i == PaiNoR) {
+				if (!first) {
+					first = true;
+					continue;
+				}
+				else if (!second) {
+					second = true;
+					continue;
+				}
+				else {
+					third = true;
+					break;
+				}
 			}
-			else if(!second){
-				second = true;
-				continue;
+		}
+		else {
+			if (*i == PaiNoR - 5) {
+				if (!first) {
+					first = true;
+					continue;
+				}
+				else if (!second) {
+					second = true;
+					continue;
+				}
+				else {
+					third = true;
+					break;
+				}
 			}
-			else {
-				third = true;
-				break;
-			}
+
 		}
 	}
 	if (!first || !second || !third) {
 		return false;
 	}
-
+	
 	for (int j = 0; j < 3; ++j) {
 		for (std::vector<int>::iterator i = tehai.begin(); i != tehai.end(); ++i) {
 			if (*i == pai) {
@@ -221,13 +271,8 @@ bool Tehai::Daiminkan(int pai, int from)
 				break;
 			}
 		}
-		for (std::vector<int>::iterator i = agarihai.begin(); i != agarihai.end(); ++i) {
-			if (*i == pai) {
-				agarihai.erase(i);
-				break;
-			}
-		}
 	}
+	agarihai = tehai;
 
 	std::vector<int> kanpai;
 	kanpai.push_back(pai);
@@ -251,12 +296,7 @@ bool Tehai::Kakan(int pai)
 					break;
 				}
 			}
-			for (std::vector<int>::iterator i = agarihai.begin(); i != agarihai.end(); ++i) {
-				if (*i == pai) {
-					agarihai.erase(i);
-					break;
-				}
-			}
+			agarihai = tehai;
 			break;
 			return true;
 		}
@@ -302,13 +342,8 @@ bool Tehai::Ankan(int pai)
 				break;
 			}
 		}
-		for (std::vector<int>::iterator i = agarihai.begin(); i != agarihai.end(); ++i) {
-			if (*i == pai) {
-				agarihai.erase(i);
-				break;
-			}
-		}
 	}
+	agarihai = tehai;
 
 	ankan.push_back(pai);
 	return true;
@@ -319,7 +354,11 @@ void Tehai::Tsumo(int pai)
 	tsumohai = pai;
 	agarihai = tehai;
 	agarihai.push_back(tsumohai);
-	//std::sort(agarihai.begin(), agarihai.end());
+	std::sort(agarihai.begin(), agarihai.end());
+
+
+	//cout << "fuck " << pai << endl;
+	//ShowTehai();
 }
 
 /*
@@ -331,6 +370,7 @@ int Tehai::Kiru(int pai)
 {
 	if (pai == tsumohai) {
 		tsumohai = -1;
+		agarihai = tehai;
 		return 2;
 	}
 	for (std::vector<int>::iterator i = tehai.begin(); i != tehai.end(); ++i) {
@@ -340,10 +380,12 @@ int Tehai::Kiru(int pai)
 				tehai.push_back(tsumohai);
 			}
 			std::sort(tehai.begin(), tehai.end());
+			agarihai = tehai;
 			tsumohai = -1;
 			return 1;
 		}
 	}
+
 	return 0;
 }
 

@@ -3,7 +3,7 @@
 #include "Agent.h"
 #include "tenpai.h"
 
-enum Naki { Chi, Pon, Kan };
+enum Naki { Chi, Pon, MinKan, AnKan };
 
 class Player
 {
@@ -16,7 +16,7 @@ public:
 
 	void Init();
 
-	bool NakuDekiru(int pai);		//確認能否鳴牌
+	bool NakuDekiru(int pai, bool ShanJa);		//確認能否鳴牌
 
 	//return 牌的編號	
 	int Kiru();						//切牌				//***
@@ -24,6 +24,9 @@ public:
 	void Tsumo(int pai);			//自摸				//***
 
 	std::vector<Naki> FuRouOrder;
+
+	int Chanfon;
+	int Menfon;
 
 	/*
 	由外部更改
@@ -46,7 +49,7 @@ public:
 	int Naku(int pai);	//鳴牌				//***
 
 	void Nakasareru();				//被鳴牌
-	void Nagashu();					//流局
+	void Nagasu();					//流局
 
 	Tehai *tehai;					//手牌
 	std::vector<int> Sutehai;		//捨牌
@@ -61,5 +64,6 @@ public:
 	int Point;
 
 	Agent *agent;
+	int id = 0;
 };
 

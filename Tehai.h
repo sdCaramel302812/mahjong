@@ -37,8 +37,23 @@ public:
 	void Peipai(int p1, int p2, int p3, int p4, int p5, int p6, int p7, int p8, int p9, int p10, int p11, int p12, int p13);
 	void Peipai(int *pai);
 	void Peipai(std::vector<int> pai);
+	/*
+	p1 為來自上家的牌
+	*/
 	bool Chi(int p1, int p2, int p3);
+	/*
+	from :
+	0 : 來自下家
+	1 : 來自對家
+	2 : 來自上家
+	*/
 	bool Pon(int pai, int from);
+	/*
+	from :
+	0 : 來自下家
+	1 : 來自對家
+	2 : 來自上家
+	*/
 	bool Daiminkan(int pai, int from);
 	bool Kakan(int pai);
 	bool Ankan(int pai);

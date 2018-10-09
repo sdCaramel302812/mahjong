@@ -1,12 +1,7 @@
-﻿  Player.cpp
-d:\mahjong\mahjong\mahjong\mj_def.h(47): warning C4005: 'NAN': 巨集重複定義
-  c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\corecrt_math.h(94): note: 請參閱 'NAN' 之前的定義
-d:\mahjong\mahjong\mahjong\player.cpp(32): warning C4018: '<': signed/unsigned 不相符
-d:\mahjong\mahjong\mahjong\player.cpp(50): warning C4018: '<': signed/unsigned 不相符
-d:\mahjong\mahjong\mahjong\player.cpp(57): warning C4018: '<': signed/unsigned 不相符
+﻿  Agent.cpp
   正在產生程式碼
-  2 of 1211 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
+  2 of 1243 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    19 functions had inline decision re-evaluated but remain unchanged
+    4 functions had inline decision re-evaluated but remain unchanged
   已完成程式碼產生
   mahjong.vcxproj -> D:\mahjong\mahjong\Release\mahjong.exe

@@ -15,6 +15,7 @@ MahJongRoom::~MahJongRoom()
 
 bool MahJongRoom::init()
 {
+	//vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv		GUI 相關
 	m_gui->init("../GUI");
 	m_gui->loadScheme("AlfiskoSkin.scheme");
 	m_gui->loadScheme("TaharezLook.scheme");
@@ -22,6 +23,7 @@ bool MahJongRoom::init()
 	m_gui->setFont("HanSansTC-14");
 	background = m_gui->createWidget("MJ_material/Image", glm::vec4(0, 0, 1, 1), glm::vec4(), "background");
 	background->setProperty("Image", "MJ_material/MJ_Table");
+	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^		GUI 相關
 
 	topPaiSan.resize(17);
 	downPaiSan.resize(17);
@@ -39,7 +41,7 @@ bool MahJongRoom::init()
 		int left[] = { 0.729, 0.768, 0.802 };
 		int shift = 0.115;
 	}
-	for (int i = 0; i < 4; ++i) {
+	for (int i = 0; i < 4; ++i) {					//	自家副露
 		CEGUI::Window *tmp1 = m_gui->createWidget("MJ_material/Image", glm::vec4(0.768 + 0.115 * -i, 0.92 + 0.08 * 0, 0.034, 0.08), glm::vec4(), "", background);
 		tmp1->setProperty("Image", "MJ_material/Nothing");
 		CEGUI::Window *tmp2 = m_gui->createWidget("MJ_material/Image", glm::vec4(0.729 + 0.115 * -i, 0.928 + 0.08 * 0, 0.034, 0.08), glm::vec4(), "", background);
@@ -67,10 +69,10 @@ bool MahJongRoom::init()
 		int left[] = { 0.13, 0.058, -0.005 };
 		int shift = 0.207;
 	}
-	for (int i = 0; i < 4; ++i) {
+	for (int i = 0; i < 4; ++i) {					//	下家副露
 		CEGUI::Window *tmp1 = m_gui->createWidget("MJ_material/Image", glm::vec4(0.798 + 0.115 * 0, -0.005 + 0.207 * i, 0.034, 0.08), glm::vec4(), "", background);
 		tmp1->setProperty("Image", "MJ_material/Nothing");
-		tmp1->setRotation(CEGUI::Quaternion::axisAngleDegrees(CEGUI::Vector3f(0, 0, 1), 90));
+		tmp1->setRotation(CEGUI::Quaternion::axisAngleDegrees(CEGUI::Vector3f(0, 0, 1), 270));
 		CEGUI::Window *tmp2 = m_gui->createWidget("MJ_material/Image", glm::vec4(0.802 + 0.115 * 0, 0.13 + 0.207 * i, 0.034, 0.08), glm::vec4(), "", background);
 		tmp2->setProperty("Image", "MJ_material/Nothing");
 		tmp2->setRotation(CEGUI::Quaternion::axisAngleDegrees(CEGUI::Vector3f(0, 0, 1), 180));
@@ -79,7 +81,7 @@ bool MahJongRoom::init()
 		tmp3->setRotation(CEGUI::Quaternion::axisAngleDegrees(CEGUI::Vector3f(0, 0, 1), 180));
 		CEGUI::Window *tmp4 = m_gui->createWidget("MJ_material/Image", glm::vec4(0.798 + 0.115 * 0, 0.058 + 0.207 * i, 0.034, 0.08), glm::vec4(), "", background);
 		tmp4->setProperty("Image", "MJ_material/Nothing");
-		tmp4->setRotation(CEGUI::Quaternion::axisAngleDegrees(CEGUI::Vector3f(0, 0, 1), 90));
+		tmp4->setRotation(CEGUI::Quaternion::axisAngleDegrees(CEGUI::Vector3f(0, 0, 1), 270));
 		std::vector<CEGUI::Window *> furou;
 		tmp1->setEnabled(false);
 		tmp2->setEnabled(false);
@@ -97,17 +99,17 @@ bool MahJongRoom::init()
 		int left[] = { 0.792, 0.865, 0.928 };
 		int shift = 0.207;
 	}
-	for (int i = 0; i < 4; ++i) {
+	for (int i = 0; i < 4; ++i) {					//	上家副露
 		CEGUI::Window *tmp1 = m_gui->createWidget("MJ_material/Image", glm::vec4(0.17 + 0.115 * 0, 0.865 + 0.207 * -i, 0.034, 0.08), glm::vec4(), "", background);
 		tmp1->setProperty("Image", "MJ_material/Nothing");
-		tmp1->setRotation(CEGUI::Quaternion::axisAngleDegrees(CEGUI::Vector3f(0, 0, 1), 270));
+		tmp1->setRotation(CEGUI::Quaternion::axisAngleDegrees(CEGUI::Vector3f(0, 0, 1), 90));
 		CEGUI::Window *tmp2 = m_gui->createWidget("MJ_material/Image", glm::vec4(0.164 + 0.115 * 0, 0.792 + 0.207 * -i, 0.034, 0.08), glm::vec4(), "", background);
 		tmp2->setProperty("Image", "MJ_material/Nothing");
 		CEGUI::Window *tmp3 = m_gui->createWidget("MJ_material/Image", glm::vec4(0.198 + 0.115 * 0, 0.792 + 0.207 * -i, 0.034, 0.08), glm::vec4(), "", background);
 		tmp3->setProperty("Image", "MJ_material/Nothing");
 		CEGUI::Window *tmp4 = m_gui->createWidget("MJ_material/Image", glm::vec4(0.17 + 0.115 * 0, 0.928 + 0.207 * -i, 0.034, 0.08), glm::vec4(), "", background);
 		tmp4->setProperty("Image", "MJ_material/Nothing");
-		tmp4->setRotation(CEGUI::Quaternion::axisAngleDegrees(CEGUI::Vector3f(0, 0, 1), 270));
+		tmp4->setRotation(CEGUI::Quaternion::axisAngleDegrees(CEGUI::Vector3f(0, 0, 1), 90));
 		std::vector<CEGUI::Window *> furou;
 		tmp1->setEnabled(false);
 		tmp2->setEnabled(false);
@@ -125,7 +127,7 @@ bool MahJongRoom::init()
 		int left[] = { 0.239, 0.199, 0.164 };
 		int shift = 0.207;
 	}
-	for (int i = 0; i < 4; ++i) {
+	for (int i = 0; i < 4; ++i) {					//	對家副露
 		CEGUI::Window *tmp1 = m_gui->createWidget("MJ_material/Image", glm::vec4(0.164 + 0.115 * i, 0.005 + 0.207 * 0, 0.034, 0.08), glm::vec4(), "", background);
 		tmp1->setProperty("Image", "MJ_material/Nothing");
 		tmp1->setRotation(CEGUI::Quaternion::axisAngleDegrees(CEGUI::Vector3f(0, 0, 1), 180));
@@ -195,29 +197,323 @@ bool MahJongRoom::init()
 		tmp->setRotation(CEGUI::Quaternion::axisAngleDegrees(CEGUI::Vector3f(0, 0, 1), 270));
 		rightPlayer.at(i) = tmp;
 	}
-	for (int i = 0; i < 14; ++i) {
+	for (int i = 0; i < 14; ++i) {				//		手牌按鈕
 		CEGUI::Window *tmp = m_gui->createWidget("MJ_material/Button", glm::vec4(0.23 + 0.035 * i, 1 - 0.08295, 0.035, 0.08295), glm::vec4(), "", background);
 		tmp->setProperty("NormalImage", "MJ_material/PaiVer");
 		tmp->setProperty("HoverImage", "MJ_material/PaiVer");
 		tmp->setProperty("PushedImage", "MJ_material/PaiVer");
-		tmp->subscribeEvent(CEGUI::PushButton::EventMouseEntersArea, CEGUI::Event::Subscriber([=]() {
+		//vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv			hover in function
+/*		tmp->subscribeEvent(CEGUI::PushButton::EventMouseEntersArea, CEGUI::Event::Subscriber([=]() {
 			tmp->setYPosition(tmp->getYPosition() + CEGUI::UDim(-0.01, 0));
-		}));
-		tmp->subscribeEvent(CEGUI::PushButton::EventMouseLeavesArea, CEGUI::Event::Subscriber([=]() {
-			tmp->setYPosition(tmp->getYPosition() + CEGUI::UDim(0.01, 0));
-		}));
-		tmp->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber([=]() {
-			if (player->WaitForKiru) {
-				player->WantToTsumo = -1;
-				player->WantToKan = -1;
-				if (reorder.size() > i) {
-					*player->Suteru = reorder.at(i);
-				}
-				else if (tsumohai != -1) {
-					*player->Suteru = tsumohai;
+			if (switchChi && tmp->isVisible()) {									//	選擇吃牌
+																					//
+																					//ChiDekiruList.at(k).second : 吃牌方式
+																					//3 : 1 2 3	只有選到第二張時才能吃
+																					//4 : 2 1 3	不管選哪張都能吃
+																					//5 : 3 1 2	只有選到第一張時才能吃
+																					//
+				for (int k = 0; k < player->ChiDekiruList.size(); ++k) {			//	可以吃牌的種類清單
+					if (reorder.size() <= i) {
+						break;
+					}
+					//cout << player->ChiDekiruList.at(k).first.first << " " << player->ChiDekiruList.at(k).first.second << " " << player->ChiDekiruList.at(k).second  << endl;
+																					//	若此牌非赤牌時
+					if (reorder.at(i) != 0 && reorder.at(i) != 10 && reorder.at(i) != 20) {
+						if (player->ChiDekiruList.at(k).first.first == reorder.at(i) && player->ChiDekiruList.at(k).second == 5) {
+							for (int j = 0; j < reorder.size(); ++j) {				//	找另一張牌
+								int secondpai = (reorder.at(j) == 0 || reorder.at(j) == 10 || reorder.at(j) == 20) ? reorder.at(j) + 5 : reorder.at(j);
+								if (secondpai == player->ChiDekiruList.at(k).first.second) {
+									myPai.at(j)->setYPosition(myPai.at(j)->getYPosition() + CEGUI::UDim(-0.01, 0));
+									break;
+								}
+							}
+						}
+						if (player->ChiDekiruList.at(k).first.first == reorder.at(i) && player->ChiDekiruList.at(k).second == 4) {
+							for (int j = 0; j < reorder.size(); ++j) {
+								int secondpai = (reorder.at(j) == 0 || reorder.at(j) == 10 || reorder.at(j) == 20) ? reorder.at(j) + 5 : reorder.at(j);
+								if (secondpai == player->ChiDekiruList.at(k).first.second) {
+									myPai.at(j)->setYPosition(myPai.at(j)->getYPosition() + CEGUI::UDim(-0.01, 0));
+									break;
+								}
+							}
+						}
+						if (player->ChiDekiruList.at(k).first.second == reorder.at(i) && player->ChiDekiruList.at(k).second == 4) {
+							for (int j = 0; j < reorder.size(); ++j) {
+								int secondpai = (reorder.at(j) == 0 || reorder.at(j) == 10 || reorder.at(j) == 20) ? reorder.at(j) + 5 : reorder.at(j);
+								if (secondpai == player->ChiDekiruList.at(k).first.first) {
+									myPai.at(j)->setYPosition(myPai.at(j)->getYPosition() + CEGUI::UDim(-0.01, 0));
+									break;
+								}
+							}
+						}
+						if (player->ChiDekiruList.at(k).first.second == reorder.at(i) && player->ChiDekiruList.at(k).second == 3) {
+							for (int j = 0; j < reorder.size(); ++j) {
+								int secondpai = (reorder.at(j) == 0 || reorder.at(j) == 10 || reorder.at(j) == 20) ? reorder.at(j) + 5 : reorder.at(j);
+								if (secondpai == player->ChiDekiruList.at(k).first.first) {
+									myPai.at(j)->setYPosition(myPai.at(j)->getYPosition() + CEGUI::UDim(-0.01, 0));
+									break;
+								}
+							}
+						}
+					}																//	若此牌為赤牌時
+					else {
+						if (player->ChiDekiruList.at(k).first.first == reorder.at(i) + 5 && player->ChiDekiruList.at(k).second == 5) {
+							for (int j = 0; j < reorder.size(); ++j) {
+								int secondpai = (reorder.at(j) == 0 || reorder.at(j) == 10 || reorder.at(j) == 20) ? reorder.at(j) + 5 : reorder.at(j);
+								if (secondpai == player->ChiDekiruList.at(k).first.second) {
+									myPai.at(j)->setYPosition(myPai.at(j)->getYPosition() + CEGUI::UDim(-0.01, 0));
+									break;
+								}
+							}
+						}
+						if (player->ChiDekiruList.at(k).first.first == reorder.at(i) + 5 && player->ChiDekiruList.at(k).second == 4) {
+							for (int j = 0; j < reorder.size(); ++j) {
+								int secondpai = (reorder.at(j) == 0 || reorder.at(j) == 10 || reorder.at(j) == 20) ? reorder.at(j) + 5 : reorder.at(j);
+								if (secondpai == player->ChiDekiruList.at(k).first.second) {
+									myPai.at(j)->setYPosition(myPai.at(j)->getYPosition() + CEGUI::UDim(-0.01, 0));
+									break;
+								}
+							}
+						}
+						if (player->ChiDekiruList.at(k).first.second == reorder.at(i) + 5 && player->ChiDekiruList.at(k).second == 4) {
+							for (int j = 0; j < reorder.size(); ++j) {
+								int secondpai = (reorder.at(j) == 0 || reorder.at(j) == 10 || reorder.at(j) == 20) ? reorder.at(j) + 5 : reorder.at(j);
+								if (secondpai == player->ChiDekiruList.at(k).first.first) {
+									myPai.at(j)->setYPosition(myPai.at(j)->getYPosition() + CEGUI::UDim(-0.01, 0));
+									break;
+								}
+							}
+						}
+						if (player->ChiDekiruList.at(k).first.second == reorder.at(i) + 5 && player->ChiDekiruList.at(k).second == 3) {
+							for (int j = 0; j < reorder.size(); ++j) {
+								int secondpai = (reorder.at(j) == 0 || reorder.at(j) == 10 || reorder.at(j) == 20) ? reorder.at(j) + 5 : reorder.at(j);
+								if (secondpai == player->ChiDekiruList.at(k).first.first) {
+									myPai.at(j)->setYPosition(myPai.at(j)->getYPosition() + CEGUI::UDim(-0.01, 0));
+									break;
+								}
+							}
+						}
+					}
 				}
 			}
 		}));
+*/
+		//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^			hover in function
+		//vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv			hover out function
+/*		tmp->subscribeEvent(CEGUI::PushButton::EventMouseLeavesArea, CEGUI::Event::Subscriber([=]() {
+			tmp->setYPosition(tmp->getYPosition() + CEGUI::UDim(0.01, 0));
+			if (switchChi && tmp->isVisible()) {
+				for (int k = 0; k < player->ChiDekiruList.size(); ++k) {
+					if (reorder.size() <= i) {
+						break;
+					}
+					if (reorder.at(i) != 0 && reorder.at(i) != 10 && reorder.at(i) != 20) {
+						if (player->ChiDekiruList.at(k).first.first == reorder.at(i) && player->ChiDekiruList.at(k).second == 5) {
+							for (int j = 0; j < reorder.size(); ++j) {
+								int secondpai = (reorder.at(j) == 0 || reorder.at(j) == 10 || reorder.at(j) == 20) ? reorder.at(j) + 5 : reorder.at(j);
+								if (secondpai == player->ChiDekiruList.at(k).first.second) {
+									myPai.at(j)->setYPosition(myPai.at(j)->getYPosition() + CEGUI::UDim(0.01, 0));
+									break;
+								}
+							}
+						}
+						if (player->ChiDekiruList.at(k).first.first == reorder.at(i) && player->ChiDekiruList.at(k).second == 4) {
+							for (int j = 0; j < reorder.size(); ++j) {
+								int secondpai = (reorder.at(j) == 0 || reorder.at(j) == 10 || reorder.at(j) == 20) ? reorder.at(j) + 5 : reorder.at(j);
+								if (secondpai == player->ChiDekiruList.at(k).first.second) {
+									myPai.at(j)->setYPosition(myPai.at(j)->getYPosition() + CEGUI::UDim(0.01, 0));
+									break;
+								}
+							}
+						}
+						if (player->ChiDekiruList.at(k).first.second == reorder.at(i) && player->ChiDekiruList.at(k).second == 4) {
+							for (int j = 0; j < reorder.size(); ++j) {
+								int secondpai = (reorder.at(j) == 0 || reorder.at(j) == 10 || reorder.at(j) == 20) ? reorder.at(j) + 5 : reorder.at(j);
+								if (secondpai == player->ChiDekiruList.at(k).first.first) {
+									myPai.at(j)->setYPosition(myPai.at(j)->getYPosition() + CEGUI::UDim(0.01, 0));
+									break;
+								}
+							}
+						}
+						if (player->ChiDekiruList.at(k).first.second == reorder.at(i) && player->ChiDekiruList.at(k).second == 3) {
+							for (int j = 0; j < reorder.size(); ++j) {
+								int secondpai = (reorder.at(j) == 0 || reorder.at(j) == 10 || reorder.at(j) == 20) ? reorder.at(j) + 5 : reorder.at(j);
+								if (secondpai == player->ChiDekiruList.at(k).first.first) {
+									myPai.at(j)->setYPosition(myPai.at(j)->getYPosition() + CEGUI::UDim(0.01, 0));
+									break;
+								}
+							}
+						}
+					}
+					else {
+						if (player->ChiDekiruList.at(k).first.first == reorder.at(i) + 5 && player->ChiDekiruList.at(k).second == 5) {
+							for (int j = 0; j < reorder.size(); ++j) {
+								int secondpai = (reorder.at(j) == 0 || reorder.at(j) == 10 || reorder.at(j) == 20) ? reorder.at(j) + 5 : reorder.at(j);
+								if (secondpai == player->ChiDekiruList.at(k).first.second) {
+									myPai.at(j)->setYPosition(myPai.at(j)->getYPosition() + CEGUI::UDim(0.01, 0));
+									break;
+								}
+							}
+						}
+						if (player->ChiDekiruList.at(k).first.first == reorder.at(i) + 5 && player->ChiDekiruList.at(k).second == 4) {
+							for (int j = 0; j < reorder.size(); ++j) {
+								int secondpai = (reorder.at(j) == 0 || reorder.at(j) == 10 || reorder.at(j) == 20) ? reorder.at(j) + 5 : reorder.at(j);
+								if (secondpai == player->ChiDekiruList.at(k).first.second) {
+									myPai.at(j)->setYPosition(myPai.at(j)->getYPosition() + CEGUI::UDim(0.01, 0));
+									break;
+								}
+							}
+						}
+						if (player->ChiDekiruList.at(k).first.second == reorder.at(i) + 5 && player->ChiDekiruList.at(k).second == 4) {
+							for (int j = 0; j < reorder.size(); ++j) {
+								int secondpai = (reorder.at(j) == 0 || reorder.at(j) == 10 || reorder.at(j) == 20) ? reorder.at(j) + 5 : reorder.at(j);
+								if (secondpai == player->ChiDekiruList.at(k).first.first) {
+									myPai.at(j)->setYPosition(myPai.at(j)->getYPosition() + CEGUI::UDim(0.01, 0));
+									break;
+								}
+							}
+						}
+						if (player->ChiDekiruList.at(k).first.second == reorder.at(i) + 5 && player->ChiDekiruList.at(k).second == 3) {
+							for (int j = 0; j < reorder.size(); ++j) {
+								int secondpai = (reorder.at(j) == 0 || reorder.at(j) == 10 || reorder.at(j) == 20) ? reorder.at(j) + 5 : reorder.at(j);
+								if (secondpai == player->ChiDekiruList.at(k).first.first) {
+									myPai.at(j)->setYPosition(myPai.at(j)->getYPosition() + CEGUI::UDim(0.01, 0));
+									break;
+								}
+							}
+						}
+					}
+				}
+			}
+		}));
+*/
+		//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^			hover out function
+		//vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv			click function
+		tmp->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber([=]() {
+			try {
+				if (player->WaitForKiru) {							//	捨牌時
+					player->WantToTsumo = -1;
+					player->WantToKan = -1;
+					if (reorder.size() > i) {
+						*player->Suteru = reorder.at(i);
+					}
+					else if (tsumohai != -1) {
+						*player->Suteru = tsumohai;
+					}
+				}
+				else if (switchChi && tmp->isVisible()) {				//	選擇吃牌時
+					for (int k = 0; k < player->ChiDekiruList.size(); ++k) {
+						if (reorder.size() <= i) {
+							break;
+						}
+						if (reorder.at(i) != 0 && reorder.at(i) != 10 && reorder.at(i) != 20) {
+							if (player->ChiDekiruList.at(k).first.first == reorder.at(i) && player->ChiDekiruList.at(k).second == 5) {
+								for (int j = 0; j < reorder.size(); ++j) {
+									int secondpai = (reorder.at(j) == 0 || reorder.at(j) == 10 || reorder.at(j) == 20) ? reorder.at(j) + 5 : reorder.at(j);
+									if (secondpai == player->ChiDekiruList.at(k).first.second) {
+										myPai.at(j)->setYPosition(myPai.at(j)->getYPosition() + CEGUI::UDim(0.01, 0));
+										player->ChiCase = k;
+										//*player->NakuState = 5;
+										switchChi = false;
+										break;
+									}
+								}
+							}
+							if (player->ChiDekiruList.at(k).first.first == reorder.at(i) && player->ChiDekiruList.at(k).second == 4) {
+								for (int j = 0; j < reorder.size(); ++j) {
+									int secondpai = (reorder.at(j) == 0 || reorder.at(j) == 10 || reorder.at(j) == 20) ? reorder.at(j) + 5 : reorder.at(j);
+									if (secondpai == player->ChiDekiruList.at(k).first.second) {
+										myPai.at(j)->setYPosition(myPai.at(j)->getYPosition() + CEGUI::UDim(0.01, 0));
+										player->ChiCase = k;
+										//*player->NakuState = 4;
+										switchChi = false;
+										break;
+									}
+								}
+							}
+							if (player->ChiDekiruList.at(k).first.second == reorder.at(i) && player->ChiDekiruList.at(k).second == 4) {
+								for (int j = 0; j < reorder.size(); ++j) {
+									int secondpai = (reorder.at(j) == 0 || reorder.at(j) == 10 || reorder.at(j) == 20) ? reorder.at(j) + 5 : reorder.at(j);
+									if (secondpai == player->ChiDekiruList.at(k).first.first) {
+										myPai.at(j)->setYPosition(myPai.at(j)->getYPosition() + CEGUI::UDim(0.01, 0));
+										player->ChiCase = k;
+										//*player->NakuState = 4;
+										switchChi = false;
+										break;
+									}
+								}
+							}
+							if (player->ChiDekiruList.at(k).first.second == reorder.at(i) && player->ChiDekiruList.at(k).second == 3) {
+								for (int j = 0; j < reorder.size(); ++j) {
+									int secondpai = (reorder.at(j) == 0 || reorder.at(j) == 10 || reorder.at(j) == 20) ? reorder.at(j) + 5 : reorder.at(j);
+									if (secondpai == player->ChiDekiruList.at(k).first.first) {
+										myPai.at(j)->setYPosition(myPai.at(j)->getYPosition() + CEGUI::UDim(0.01, 0));
+										player->ChiCase = k;
+										//*player->NakuState = 3;
+										switchChi = false;
+										break;
+									}
+								}
+							}
+						}
+						else {
+							if (player->ChiDekiruList.at(k).first.first == reorder.at(i) + 5 && player->ChiDekiruList.at(k).second == 5) {
+								for (int j = 0; j < reorder.size(); ++j) {
+									int secondpai = (reorder.at(j) == 0 || reorder.at(j) == 10 || reorder.at(j) == 20) ? reorder.at(j) + 5 : reorder.at(j);
+									if (secondpai == player->ChiDekiruList.at(k).first.second) {
+										myPai.at(j)->setYPosition(myPai.at(j)->getYPosition() + CEGUI::UDim(0.01, 0));
+										player->ChiCase = k;
+										//*player->NakuState = 5;
+										switchChi = false;
+										break;
+									}
+								}
+							}
+							if (player->ChiDekiruList.at(k).first.first == reorder.at(i) + 5 && player->ChiDekiruList.at(k).second == 4) {
+								for (int j = 0; j < reorder.size(); ++j) {
+									int secondpai = (reorder.at(j) == 0 || reorder.at(j) == 10 || reorder.at(j) == 20) ? reorder.at(j) + 5 : reorder.at(j);
+									if (secondpai == player->ChiDekiruList.at(k).first.second) {
+										myPai.at(j)->setYPosition(myPai.at(j)->getYPosition() + CEGUI::UDim(0.01, 0));
+										player->ChiCase = k;
+										//*player->NakuState = 4;
+										switchChi = false;
+										break;
+									}
+								}
+							}
+							if (player->ChiDekiruList.at(k).first.second == reorder.at(i) + 5 && player->ChiDekiruList.at(k).second == 4) {
+								for (int j = 0; j < reorder.size(); ++j) {
+									int secondpai = (reorder.at(j) == 0 || reorder.at(j) == 10 || reorder.at(j) == 20) ? reorder.at(j) + 5 : reorder.at(j);
+									if (secondpai == player->ChiDekiruList.at(k).first.first) {
+										myPai.at(j)->setYPosition(myPai.at(j)->getYPosition() + CEGUI::UDim(0.01, 0));
+										player->ChiCase = k;
+										//*player->NakuState = 4;
+										switchChi = false;
+										break;
+									}
+								}
+							}
+							if (player->ChiDekiruList.at(k).first.second == reorder.at(i) + 5 && player->ChiDekiruList.at(k).second == 3) {
+								for (int j = 0; j < reorder.size(); ++j) {
+									int secondpai = (reorder.at(j) == 0 || reorder.at(j) == 10 || reorder.at(j) == 20) ? reorder.at(j) + 5 : reorder.at(j);
+									if (secondpai == player->ChiDekiruList.at(k).first.first) {
+										myPai.at(j)->setYPosition(myPai.at(j)->getYPosition() + CEGUI::UDim(0.01, 0));
+										player->ChiCase = k;
+										//*player->NakuState = 3;
+										switchChi = false;
+										break;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			catch (...) {
+				cout << "crash situation : pai button click" << endl;
+			}
+		}));
+		//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^			click function
 		myPai.at(i) = tmp;
 	}
 	//^^^^^^^^^^^^^^^^^^^		手牌初始化
@@ -317,11 +613,21 @@ void MahJongRoom::update()
 
 void MahJongRoom::Act()
 {
+	//******************							決定按鈕狀態								******************//
+
 	if (!player->ChiDekiru && !player->PonDekiru && !player->KanDekiru && !player->RonDekiru && player->TsumoDekiru) {
 		ButtonCase = 1;
 		button2->setVisible(true);
 		button3->setVisible(true);
 		wstring text = TString().str2wstr("自摸");
+		button2->setText("Pass");
+		button3->setText(wcharToUTF8(text));
+	}
+	else if (player->ChiDekiru && !player->PonDekiru && !player->KanDekiru && !player->RonDekiru && !player->TsumoDekiru) {
+		ButtonCase = 3;
+		button2->setVisible(true);
+		button3->setVisible(true);
+		wstring text = TString().str2wstr("吃");
 		button2->setText("Pass");
 		button3->setText(wcharToUTF8(text));
 	}
@@ -341,7 +647,7 @@ void MahJongRoom::Act()
 		button2->setText("Pass");
 		button3->setText(wcharToUTF8(text));
 	}
-	else if (player->KanDekiru) {
+	else if (!player->ChiDekiru && player->PonDekiru && player->KanDekiru && !player->RonDekiru && !player->TsumoDekiru) {
 		ButtonCase = 7;
 		button2->setVisible(true);
 		button3->setVisible(true);
@@ -350,12 +656,33 @@ void MahJongRoom::Act()
 		button2->setText("Pass");
 		button3->setText(wcharToUTF8(text));
 	}
+	else if (player->ChiDekiru && player->PonDekiru && !player->KanDekiru && !player->RonDekiru && !player->TsumoDekiru) {
+		ButtonCase = 8;
+		button1->setVisible(true);
+		button2->setVisible(true);
+		button3->setVisible(true);
+		wstring text1 = TString().str2wstr("吃");
+		wstring text2 = TString().str2wstr("碰");
+		button1->setText("Pass");
+		button2->setText(wcharToUTF8(text1));
+		button3->setText(wcharToUTF8(text2));
+	}
 	else if (!player->ChiDekiru && player->PonDekiru && !player->KanDekiru && player->RonDekiru && !player->TsumoDekiru) {
 		ButtonCase = 14;
 		button1->setVisible(true);
 		button2->setVisible(true);
 		button3->setVisible(true);
 		wstring text1 = TString().str2wstr("碰");
+		wstring text2 = TString().str2wstr("和");
+		button2->setText(wcharToUTF8(text1));
+		button3->setText(wcharToUTF8(text2));
+	}
+	else if (player->ChiDekiru && !player->PonDekiru && !player->KanDekiru && player->RonDekiru && !player->TsumoDekiru) {
+		ButtonCase = 15;
+		button1->setVisible(true);
+		button2->setVisible(true);
+		button3->setVisible(true);
+		wstring text1 = TString().str2wstr("吃");
 		wstring text2 = TString().str2wstr("和");
 		button2->setText(wcharToUTF8(text1));
 		button3->setText(wcharToUTF8(text2));
@@ -369,6 +696,17 @@ void MahJongRoom::Act()
 		wstring text = TString().str2wstr("碰");
 		button2->setText("Pass");
 		button3->setText(wcharToUTF8(text));
+	}
+	else if (player->ChiDekiru && player->PonDekiru && !player->KanDekiru && player->RonDekiru && !player->TsumoDekiru) {
+		ButtonCase = 17;
+		button1->setVisible(true);
+		button2->setVisible(true);
+		button3->setVisible(true);
+		button5->setVisible(true);
+		wstring text1 = TString().str2wstr("吃");
+		wstring text2 = TString().str2wstr("碰");
+		button2->setText(wcharToUTF8(text2));
+		button3->setText(wcharToUTF8(text2));
 	}
 	else {
 		button1->setVisible(false);
@@ -426,19 +764,22 @@ void MahJongRoom::ShowTehai()
 void MahJongRoom::GetInfo(const Player * pai1, const Player * pai2, const Player * pai3, const Player * pai4)
 {
 	reorder = pai1->tehai->tehai;
-	for (int i = 0; i < reorder.size() - 1; ++i) {
-		if ((reorder.at(i) == 0 && reorder.at(i + 1) < 5) || (reorder.at(i) == 10 && reorder.at(i + 1) < 15) || (reorder.at(i) == 20 && reorder.at(i + 1) < 25)) {
-			int tmp = reorder.at(i);
-			reorder.at(i) = reorder.at(i + 1);
-			reorder.at(i + 1) = tmp;
-		}
-	}
-	if (reorder.at(0) == 0) {
+	if (reorder.size() > 1) {
 		for (int i = 0; i < reorder.size() - 1; ++i) {
 			if ((reorder.at(i) == 0 && reorder.at(i + 1) < 5) || (reorder.at(i) == 10 && reorder.at(i + 1) < 15) || (reorder.at(i) == 20 && reorder.at(i + 1) < 25)) {
 				int tmp = reorder.at(i);
 				reorder.at(i) = reorder.at(i + 1);
 				reorder.at(i + 1) = tmp;
+			}
+		}
+		//		處理第二張赤五餅
+		if (reorder.at(0) == 0) {
+			for (int i = 0; i < reorder.size() - 1; ++i) {
+				if ((reorder.at(i) == 0 && reorder.at(i + 1) < 5) || (reorder.at(i) == 10 && reorder.at(i + 1) < 15) || (reorder.at(i) == 20 && reorder.at(i + 1) < 25)) {
+					int tmp = reorder.at(i);
+					reorder.at(i) = reorder.at(i + 1);
+					reorder.at(i + 1) = tmp;
+				}
 			}
 		}
 	}
@@ -452,6 +793,7 @@ void MahJongRoom::GetInfo(const Player * pai1, const Player * pai2, const Player
 	}
 		if (pai1->tehai->tsumohai != -1) {
 			tsumohai = pai1->tehai->tsumohai;
+			
 			switch (pai1->tehai->tsumohai)
 			{
 			case 0:
@@ -1354,13 +1696,472 @@ void MahJongRoom::GetInfo(const Player * pai1, const Player * pai2, const Player
 			}
 		}
 		//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^		捨牌情報
-		//vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv		副露情報
+		//vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv		副露情報更新
+		int ChiNumber = 0;
+		int PonNumber = 0;
+		int MinKanNumber = 0;
+		int AnKanNumber = 0;
+		//vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv		自家
+			for (int i = 0; i < pai1->FuRouOrder.size(); ++i) {										//		設定副露牌及橫倒方向
+				if (pai1->FuRouOrder.at(i) == Chi && pai1->tehai->chi.size() > ChiNumber) {
+					std::vector<int> furou;
+					furou.push_back(pai1->tehai->chi.at(ChiNumber).at(0));
+					furou.push_back(-1);
+					furou.push_back(pai1->tehai->chi.at(ChiNumber).at(1));
+					furou.push_back(pai1->tehai->chi.at(ChiNumber).at(2));
+					++ChiNumber;
+					if (myFuRouPai.size() < pai1->FuRouOrder.size() && myFuRouPai.size() <= i) {
+						myFuRouPai.push_back(furou);
+					}
+					else {
+						myFuRouPai.at(i) = furou;
+					}
+					myFuRou.at(i).at(0)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.729 + 0.115 * -i, 0), CEGUI::UDim(0.928, 0)));
+					myFuRou.at(i).at(1)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.729 + 0.115 * -i, 0), CEGUI::UDim(0.865, 0)));
+					myFuRou.at(i).at(2)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.768 + 0.115 * -i, 0), CEGUI::UDim(0.92, 0)));
+					myFuRou.at(i).at(3)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.802 + 0.115 * -i, 0), CEGUI::UDim(0.92, 0)));
+				}
+				else if (pai1->FuRouOrder.at(i) == Pon && pai1->tehai->pon.size() > PonNumber) {
+					std::vector<int> furou;
+					furou.push_back(pai1->tehai->pon.at(PonNumber).at(0));
+					furou.push_back(-1);
+					furou.push_back(pai1->tehai->pon.at(PonNumber).at(1));
+					furou.push_back(pai1->tehai->pon.at(PonNumber).at(2));
+					++PonNumber;
+					if (myFuRouPai.size() < pai1->FuRouOrder.size() && myFuRouPai.size() <= i) {
+						myFuRouPai.push_back(furou);
+					}
+					else {
+						myFuRouPai.at(i) = furou;
+					}
+					switch (pai1->tehai->pon.at(PonNumber - 1).at(3))
+					{
+					case 0:
+						myFuRou.at(i).at(0)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.798 + 0.115 * -i, 0), CEGUI::UDim(0.928, 0)));
+						myFuRou.at(i).at(1)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.798 + 0.115 * -i, 0), CEGUI::UDim(0.865, 0)));
+						myFuRou.at(i).at(2)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.723 + 0.115 * -i, 0), CEGUI::UDim(0.92, 0)));
+						myFuRou.at(i).at(3)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.758 + 0.115 * -i, 0), CEGUI::UDim(0.92, 0)));
+						break;
+					case 1:
+						myFuRou.at(i).at(0)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.763 + 0.115 * -i, 0), CEGUI::UDim(0.928, 0)));
+						myFuRou.at(i).at(1)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.763 + 0.115 * -i, 0), CEGUI::UDim(0.865, 0)));
+						myFuRou.at(i).at(2)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.723 + 0.115 * -i, 0), CEGUI::UDim(0.92, 0)));
+						myFuRou.at(i).at(3)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.802 + 0.115 * -i, 0), CEGUI::UDim(0.92, 0)));
+						break;
+					case 2:
+						myFuRou.at(i).at(0)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.729 + 0.115 * -i, 0), CEGUI::UDim(0.928, 0)));
+						myFuRou.at(i).at(1)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.729 + 0.115 * -i, 0), CEGUI::UDim(0.865, 0)));
+						myFuRou.at(i).at(2)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.768 + 0.115 * -i, 0), CEGUI::UDim(0.92, 0)));
+						myFuRou.at(i).at(3)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.802 + 0.115 * -i, 0), CEGUI::UDim(0.92, 0)));
+						break;
+					}
+				}
+				else if (pai1->FuRouOrder.at(i) == MinKan && pai1->tehai->minkan.size() > MinKanNumber) {
+					std::vector<int> furou;
+					furou.push_back(pai1->tehai->minkan.at(MinKanNumber).at(0));
+					furou.push_back(pai1->tehai->minkan.at(MinKanNumber).at(0));
+					furou.push_back(pai1->tehai->minkan.at(MinKanNumber).at(0));
+					furou.push_back(pai1->tehai->minkan.at(MinKanNumber).at(0));
+					++MinKanNumber;
+					if (myFuRouPai.size() < pai1->FuRouOrder.size() && myFuRouPai.size() <= i) {
+						myFuRouPai.push_back(furou);
+					}
+					else {
+						myFuRouPai.at(i) = furou;
+					}
+					switch (pai1->tehai->minkan.at(MinKanNumber - 1).at(1))
+					{
+					case 0:
+						myFuRou.at(i).at(0)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.798 + 0.115 * -i, 0), CEGUI::UDim(0.928, 0)));
+						myFuRou.at(i).at(1)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.798 + 0.115 * -i, 0), CEGUI::UDim(0.865, 0)));
+						myFuRou.at(i).at(2)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.723 + 0.115 * -i, 0), CEGUI::UDim(0.92, 0)));
+						myFuRou.at(i).at(3)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.758 + 0.115 * -i, 0), CEGUI::UDim(0.92, 0)));
+						break;
+					case 1:
+						myFuRou.at(i).at(0)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.763 + 0.115 * -i, 0), CEGUI::UDim(0.928, 0)));
+						myFuRou.at(i).at(1)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.763 + 0.115 * -i, 0), CEGUI::UDim(0.865, 0)));
+						myFuRou.at(i).at(2)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.723 + 0.115 * -i, 0), CEGUI::UDim(0.92, 0)));
+						myFuRou.at(i).at(3)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.802 + 0.115 * -i, 0), CEGUI::UDim(0.92, 0)));
+						break;
+					case 2:
+						myFuRou.at(i).at(0)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.729 + 0.115 * -i, 0), CEGUI::UDim(0.928, 0)));
+						myFuRou.at(i).at(1)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.729 + 0.115 * -i, 0), CEGUI::UDim(0.865, 0)));
+						myFuRou.at(i).at(2)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.768 + 0.115 * -i, 0), CEGUI::UDim(0.92, 0)));
+						myFuRou.at(i).at(3)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.802 + 0.115 * -i, 0), CEGUI::UDim(0.92, 0)));
+						break;
+					}
+				}
+				else if (pai1->FuRouOrder.at(i) == AnKan && pai1->tehai->ankan.size() > AnKanNumber) {
+					std::vector<int> furou;
+					furou.push_back(pai1->tehai->ankan.at(AnKanNumber));
+					furou.push_back(pai1->tehai->ankan.at(AnKanNumber));
+					furou.push_back(37);
+					furou.push_back(37);
+					++AnKanNumber;
+					if (myFuRouPai.size() < pai1->FuRouOrder.size() && myFuRouPai.size() <= i) {
+						myFuRouPai.push_back(furou);
+					}
+					else {
+						myFuRouPai.at(i) = furou;
+					}
+					myFuRou.at(i).at(0)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.763 + 0.115 * -i, 0), CEGUI::UDim(0.928, 0)));
+					myFuRou.at(i).at(1)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.763 + 0.115 * -i, 0), CEGUI::UDim(0.865, 0)));
+					myFuRou.at(i).at(2)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.723 + 0.115 * -i, 0), CEGUI::UDim(0.92, 0)));
+					myFuRou.at(i).at(3)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.802 + 0.115 * -i, 0), CEGUI::UDim(0.92, 0)));
+				}
+			}
+		//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^		自家
+		ChiNumber = 0;
+		PonNumber = 0;
+		MinKanNumber = 0;
+		AnKanNumber = 0;
+		//vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv		下家
+			for (int i = 0; i < pai2->FuRouOrder.size(); ++i) {										//		設定副露牌及橫倒方向
+				if (pai2->FuRouOrder.at(i) == Chi && pai2->tehai->chi.size() > ChiNumber) {
+					std::vector<int> furou;
+					furou.push_back(pai2->tehai->chi.at(ChiNumber).at(0));
+					furou.push_back(-1);
+					furou.push_back(pai2->tehai->chi.at(ChiNumber).at(1));
+					furou.push_back(pai2->tehai->chi.at(ChiNumber).at(2));
+					++ChiNumber;
+					if (rightFuRouPai.size() < pai2->FuRouOrder.size() && rightFuRouPai.size() <= i) {
+						rightFuRouPai.push_back(furou);
+					}
+					else {
+						rightFuRouPai.at(i) = furou;
+					}
+					rightFuRou.at(i).at(0)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.802, 0), CEGUI::UDim(0.13 + 0.207 * i, 0)));
+					rightFuRou.at(i).at(1)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.768, 0), CEGUI::UDim(0.13 + 0.207 * i, 0)));
+					rightFuRou.at(i).at(2)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.798, 0), CEGUI::UDim(0.058 + 0.207 * i, 0)));
+					rightFuRou.at(i).at(3)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.798, 0), CEGUI::UDim(-0.005 + 0.207 * i, 0)));
+				}
+				else if (pai2->FuRouOrder.at(i) == Pon && pai2->tehai->pon.size() > PonNumber) {
+					std::vector<int> furou;
+					furou.push_back(pai2->tehai->pon.at(PonNumber).at(0));
+					furou.push_back(-1);
+					furou.push_back(pai2->tehai->pon.at(PonNumber).at(1));
+					furou.push_back(pai2->tehai->pon.at(PonNumber).at(2));
+					++PonNumber;
+					if (rightFuRouPai.size() < pai2->FuRouOrder.size() && rightFuRouPai.size() <= i) {
+						rightFuRouPai.push_back(furou);
+					}
+					else {
+						rightFuRouPai.at(i) = furou;
+					}
+					switch (pai2->tehai->pon.at(PonNumber - 1).at(3))
+					{
+					case 0:
+						rightFuRou.at(i).at(0)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.802, 0), CEGUI::UDim(0.005 + 0.207 * i, 0)));
+						rightFuRou.at(i).at(1)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.768, 0), CEGUI::UDim(0.005 + 0.207 * i, 0)));
+						rightFuRou.at(i).at(2)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.798, 0), CEGUI::UDim(0.138 + 0.207 * i, 0)));
+						rightFuRou.at(i).at(3)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.798, 0), CEGUI::UDim(0.0755 + 0.207 * i, 0)));
+						break;
+					case 1:
+						rightFuRou.at(i).at(0)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.802, 0), CEGUI::UDim(0.065 + 0.207 * i, 0)));
+						rightFuRou.at(i).at(1)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.768, 0), CEGUI::UDim(0.065 + 0.207 * i, 0)));
+						rightFuRou.at(i).at(2)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.798, 0), CEGUI::UDim(0.138 + 0.207 * i, 0)));
+						rightFuRou.at(i).at(3)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.798, 0), CEGUI::UDim(-0.005 + 0.207 * i, 0)));
+						break;
+					case 2:
+						rightFuRou.at(i).at(0)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.802, 0), CEGUI::UDim(0.13 + 0.207 * i, 0)));
+						rightFuRou.at(i).at(1)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.768, 0), CEGUI::UDim(0.13 + 0.207 * i, 0)));
+						rightFuRou.at(i).at(2)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.798, 0), CEGUI::UDim(0.058 + 0.207 * i, 0)));
+						rightFuRou.at(i).at(3)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.798, 0), CEGUI::UDim(-0.005 + 0.207 * i, 0)));
+						break;
+					}
+				}
+				else if (pai2->FuRouOrder.at(i) == MinKan && pai2->tehai->minkan.size() > MinKanNumber) {
+					std::vector<int> furou;
+					furou.push_back(pai2->tehai->minkan.at(MinKanNumber).at(0));
+					furou.push_back(pai2->tehai->minkan.at(MinKanNumber).at(0));
+					furou.push_back(pai2->tehai->minkan.at(MinKanNumber).at(0));
+					furou.push_back(pai2->tehai->minkan.at(MinKanNumber).at(0));
+					++MinKanNumber;
+					if (rightFuRouPai.size() < pai2->FuRouOrder.size() && rightFuRouPai.size() <= i) {
+						rightFuRouPai.push_back(furou);
+					}
+					else {
+						rightFuRouPai.at(i) = furou;
+					}
+					switch (pai2->tehai->minkan.at(MinKanNumber - 1).at(1))
+					{
+					case 0:
+						rightFuRou.at(i).at(0)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.802, 0), CEGUI::UDim(0.005 + 0.207 * i, 0)));
+						rightFuRou.at(i).at(1)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.768, 0), CEGUI::UDim(0.005 + 0.207 * i, 0)));
+						rightFuRou.at(i).at(2)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.798, 0), CEGUI::UDim(0.138 + 0.207 * i, 0)));
+						rightFuRou.at(i).at(3)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.798, 0), CEGUI::UDim(0.0755 + 0.207 * i, 0)));
+						break;
+					case 1:
+						rightFuRou.at(i).at(0)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.802, 0), CEGUI::UDim(0.065 + 0.207 * i, 0)));
+						rightFuRou.at(i).at(1)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.768, 0), CEGUI::UDim(0.065 + 0.207 * i, 0)));
+						rightFuRou.at(i).at(2)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.798, 0), CEGUI::UDim(0.138 + 0.207 * i, 0)));
+						rightFuRou.at(i).at(3)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.798, 0), CEGUI::UDim(-0.005 + 0.207 * i, 0)));
+						break;
+					case 2:
+						rightFuRou.at(i).at(0)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.802, 0), CEGUI::UDim(0.13 + 0.207 * i, 0)));
+						rightFuRou.at(i).at(1)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.768, 0), CEGUI::UDim(0.13 + 0.207 * i, 0)));
+						rightFuRou.at(i).at(2)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.798, 0), CEGUI::UDim(0.058 + 0.207 * i, 0)));
+						rightFuRou.at(i).at(3)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.798, 0), CEGUI::UDim(-0.005 + 0.207 * i, 0)));
+						break;
+					}
+				}
+				else if (pai2->FuRouOrder.at(i) == AnKan && pai2->tehai->ankan.size() > AnKanNumber) {
+					std::vector<int> furou;
+					furou.push_back(pai2->tehai->ankan.at(AnKanNumber));
+					furou.push_back(pai2->tehai->ankan.at(AnKanNumber));
+					furou.push_back(37);
+					furou.push_back(37);
+					++AnKanNumber;
+					if (rightFuRouPai.size() < pai2->FuRouOrder.size() && rightFuRouPai.size() <= i) {
+						rightFuRouPai.push_back(furou);
+					}
+					else {
+						rightFuRouPai.at(i) = furou;
+					}
+					rightFuRou.at(i).at(0)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.802, 0), CEGUI::UDim(0.065 + 0.207 * i, 0)));
+					rightFuRou.at(i).at(1)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.768, 0), CEGUI::UDim(0.065 + 0.207 * i, 0)));
+					rightFuRou.at(i).at(2)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.798, 0), CEGUI::UDim(0.138 + 0.207 * i, 0)));
+					rightFuRou.at(i).at(3)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.798, 0), CEGUI::UDim(-0.005 + 0.207 * i, 0)));
+				}
+			}
+			//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^		下家
+			ChiNumber = 0;
+			PonNumber = 0;
+			MinKanNumber = 0;
+			AnKanNumber = 0;
+			//vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv		對家
+			for (int i = 0; i < pai3->FuRouOrder.size(); ++i) {										//		設定副露牌及橫倒方向
+				if (pai3->FuRouOrder.at(i) == Chi && pai3->tehai->chi.size() > ChiNumber) {
+					std::vector<int> furou;
+					furou.push_back(pai3->tehai->chi.at(ChiNumber).at(0));
+					furou.push_back(-1);
+					furou.push_back(pai3->tehai->chi.at(ChiNumber).at(1));
+					furou.push_back(pai3->tehai->chi.at(ChiNumber).at(2));
+					++ChiNumber;
+					if (frontFuRouPai.size() < pai3->FuRouOrder.size() && frontFuRouPai.size() <= i) {
+						frontFuRouPai.push_back(furou);
+					}
+					else {
+						frontFuRouPai.at(i) = furou;
+					}
+					frontFuRou.at(i).at(0)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.239 + 0.115 * i, 0), CEGUI::UDim(-0.005, 0)));
+					frontFuRou.at(i).at(1)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.239 + 0.115 * i, 0), CEGUI::UDim(0.057, 0)));
+					frontFuRou.at(i).at(2)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.199 + 0.115 * i, 0), CEGUI::UDim(0.005, 0)));
+					frontFuRou.at(i).at(3)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.164 + 0.115 * i, 0), CEGUI::UDim(0.005, 0)));
+				}
+				else if (pai3->FuRouOrder.at(i) == Pon && pai3->tehai->pon.size() > PonNumber) {
+					std::vector<int> furou;
+					furou.push_back(pai3->tehai->pon.at(PonNumber).at(0));
+					furou.push_back(-1);
+					furou.push_back(pai3->tehai->pon.at(PonNumber).at(1));
+					furou.push_back(pai3->tehai->pon.at(PonNumber).at(2));
+					++PonNumber;
+					if (frontFuRouPai.size() < pai3->FuRouOrder.size() && frontFuRouPai.size() <= i) {
+						frontFuRouPai.push_back(furou);
+					}
+					else {
+						frontFuRouPai.at(i) = furou;
+					}
+					switch (pai3->tehai->pon.at(PonNumber - 1).at(3))
+					{
+					case 0:
+						frontFuRou.at(i).at(0)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.17 + 0.115 * i, 0), CEGUI::UDim(-0.005, 0)));
+						frontFuRou.at(i).at(1)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.17 + 0.115 * i, 0), CEGUI::UDim(0.057, 0)));
+						frontFuRou.at(i).at(2)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.245 + 0.115 * i, 0), CEGUI::UDim(0.005, 0)));
+						frontFuRou.at(i).at(3)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.21 + 0.115 * i, 0), CEGUI::UDim(0.005, 0)));
+						break;
+					case 1:
+						frontFuRou.at(i).at(0)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.204 + 0.115 * i, 0), CEGUI::UDim(-0.005, 0)));
+						frontFuRou.at(i).at(1)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.204 + 0.115 * i, 0), CEGUI::UDim(0.057, 0)));
+						frontFuRou.at(i).at(2)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.244 + 0.115 * i, 0), CEGUI::UDim(0.005, 0)));
+						frontFuRou.at(i).at(3)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.164 + 0.115 * i, 0), CEGUI::UDim(0.005, 0)));
+						break;
+					case 2:
+						frontFuRou.at(i).at(0)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.239 + 0.115 * i, 0), CEGUI::UDim(-0.005, 0)));
+						frontFuRou.at(i).at(1)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.239 + 0.115 * i, 0), CEGUI::UDim(0.057, 0)));
+						frontFuRou.at(i).at(2)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.199 + 0.115 * i, 0), CEGUI::UDim(0.005, 0)));
+						frontFuRou.at(i).at(3)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.164 + 0.115 * i, 0), CEGUI::UDim(0.005, 0)));
+						break;
+					}
+				}
+				else if (pai3->FuRouOrder.at(i) == MinKan && pai3->tehai->minkan.size() > MinKanNumber) {
+					std::vector<int> furou;
+					furou.push_back(pai3->tehai->minkan.at(MinKanNumber).at(0));
+					furou.push_back(pai3->tehai->minkan.at(MinKanNumber).at(0));
+					furou.push_back(pai3->tehai->minkan.at(MinKanNumber).at(0));
+					furou.push_back(pai3->tehai->minkan.at(MinKanNumber).at(0));
+					++MinKanNumber;
+					if (frontFuRouPai.size() < pai3->FuRouOrder.size() && frontFuRouPai.size() <= i) {
+						frontFuRouPai.push_back(furou);
+					}
+					else {
+						frontFuRouPai.at(i) = furou;
+					}
+					switch (pai3->tehai->minkan.at(MinKanNumber - 1).at(1))
+					{
+					case 0:
+						frontFuRou.at(i).at(0)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.17 + 0.115 * i, 0), CEGUI::UDim(-0.005, 0)));
+						frontFuRou.at(i).at(1)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.17 + 0.115 * i, 0), CEGUI::UDim(0.057, 0)));
+						frontFuRou.at(i).at(2)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.245 + 0.115 * i, 0), CEGUI::UDim(0.005, 0)));
+						frontFuRou.at(i).at(3)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.21 + 0.115 * i, 0), CEGUI::UDim(0.005, 0)));
+						break;
+					case 1:
+						frontFuRou.at(i).at(0)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.204 + 0.115 * i, 0), CEGUI::UDim(-0.005, 0)));
+						frontFuRou.at(i).at(1)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.204 + 0.115 * i, 0), CEGUI::UDim(0.057, 0)));
+						frontFuRou.at(i).at(2)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.244 + 0.115 * i, 0), CEGUI::UDim(0.005, 0)));
+						frontFuRou.at(i).at(3)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.164 + 0.115 * i, 0), CEGUI::UDim(0.005, 0)));
+						break;
+					case 2:
+						frontFuRou.at(i).at(0)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.239 + 0.115 * i, 0), CEGUI::UDim(-0.005, 0)));
+						frontFuRou.at(i).at(1)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.239 + 0.115 * i, 0), CEGUI::UDim(0.057, 0)));
+						frontFuRou.at(i).at(2)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.199 + 0.115 * i, 0), CEGUI::UDim(0.005, 0)));
+						frontFuRou.at(i).at(3)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.164 + 0.115 * i, 0), CEGUI::UDim(0.005, 0)));
+						break;
+					}
+				}
+				else if (pai3->FuRouOrder.at(i) == AnKan && pai3->tehai->ankan.size() > AnKanNumber) {
+					std::vector<int> furou;
+					furou.push_back(pai3->tehai->ankan.at(AnKanNumber));
+					furou.push_back(pai3->tehai->ankan.at(AnKanNumber));
+					furou.push_back(37);
+					furou.push_back(37);
+					++AnKanNumber;
+					if (frontFuRouPai.size() < pai3->FuRouOrder.size() && frontFuRouPai.size() <= i) {
+						frontFuRouPai.push_back(furou);
+					}
+					else {
+						frontFuRouPai.at(i) = furou;
+					}
+					frontFuRou.at(i).at(0)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.204 + 0.115 * i, 0), CEGUI::UDim(-0.005, 0)));
+					frontFuRou.at(i).at(1)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.204 + 0.115 * i, 0), CEGUI::UDim(0.057, 0)));
+					frontFuRou.at(i).at(2)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.244 + 0.115 * i, 0), CEGUI::UDim(0.005, 0)));
+					frontFuRou.at(i).at(3)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.164 + 0.115 * i, 0), CEGUI::UDim(0.005, 0)));
+				}
+			}
+			//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^		對家
+			ChiNumber = 0;
+			PonNumber = 0;
+			MinKanNumber = 0;
+			AnKanNumber = 0;
+			//vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv		上家
+			for (int i = 0; i < pai4->FuRouOrder.size(); ++i) {										//		設定副露牌及橫倒方向
+				if (pai4->FuRouOrder.at(i) == Chi && pai4->tehai->chi.size() > ChiNumber) {
+					std::vector<int> furou;
+					furou.push_back(pai4->tehai->chi.at(ChiNumber).at(0));
+					furou.push_back(-1);
+					furou.push_back(pai4->tehai->chi.at(ChiNumber).at(1));
+					furou.push_back(pai4->tehai->chi.at(ChiNumber).at(2));
+					++ChiNumber;
+					if (leftFuRouPai.size() < pai4->FuRouOrder.size() && leftFuRouPai.size() <= i) {
+						leftFuRouPai.push_back(furou);
+					}
+					else {
+						leftFuRouPai.at(i) = furou;
+					}
+					leftFuRou.at(i).at(0)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.164, 0), CEGUI::UDim(0.792 + 0.207 * -i, 0)));
+					leftFuRou.at(i).at(1)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.198, 0), CEGUI::UDim(0.792 + 0.207 * -i, 0)));
+					leftFuRou.at(i).at(2)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.17, 0), CEGUI::UDim(0.865 + 0.207 * -i, 0)));
+					leftFuRou.at(i).at(3)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.17, 0), CEGUI::UDim(0.928 + 0.207 * -i, 0)));
+				}
+				else if (pai4->FuRouOrder.at(i) == Pon && pai4->tehai->pon.size() > PonNumber) {
+					std::vector<int> furou;
+					furou.push_back(pai4->tehai->pon.at(PonNumber).at(0));
+					furou.push_back(-1);
+					furou.push_back(pai4->tehai->pon.at(PonNumber).at(1));
+					furou.push_back(pai4->tehai->pon.at(PonNumber).at(2));
+					++PonNumber;
+					if (leftFuRouPai.size() < pai4->FuRouOrder.size() && leftFuRouPai.size() <= i) {
+						leftFuRouPai.push_back(furou);
+					}
+					else {
+						leftFuRouPai.at(i) = furou;
+					}
+					switch (pai4->tehai->pon.at(PonNumber - 1).at(3))
+					{
+					case 0:
+						leftFuRou.at(i).at(0)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.164, 0), CEGUI::UDim(0.918 + 0.207 * -i, 0)));
+						leftFuRou.at(i).at(1)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.198, 0), CEGUI::UDim(0.918 + 0.207 * -i, 0)));
+						leftFuRou.at(i).at(2)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.17, 0), CEGUI::UDim(0.785 + 0.207 * -i, 0)));
+						leftFuRou.at(i).at(3)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.17, 0), CEGUI::UDim(0.847 + 0.207 * -i, 0)));
+						break;
+					case 1:
+						leftFuRou.at(i).at(0)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.164, 0), CEGUI::UDim(0.855 + 0.207 * -i, 0)));
+						leftFuRou.at(i).at(1)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.198, 0), CEGUI::UDim(0.855 + 0.207 * -i, 0)));
+						leftFuRou.at(i).at(2)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.17, 0), CEGUI::UDim(0.785 + 0.207 * -i, 0)));
+						leftFuRou.at(i).at(3)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.17, 0), CEGUI::UDim(0.928 + 0.207 * -i, 0)));
+						break;
+					case 2:
+						leftFuRou.at(i).at(0)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.164, 0), CEGUI::UDim(0.792 + 0.207 * -i, 0)));
+						leftFuRou.at(i).at(1)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.198, 0), CEGUI::UDim(0.792 + 0.207 * -i, 0)));
+						leftFuRou.at(i).at(2)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.17, 0), CEGUI::UDim(0.865 + 0.207 * -i, 0)));
+						leftFuRou.at(i).at(3)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.17, 0), CEGUI::UDim(0.928 + 0.207 * -i, 0)));
+						break;
+					}
+				}
+				else if (pai4->FuRouOrder.at(i) == MinKan && pai4->tehai->minkan.size() > MinKanNumber) {
+					std::vector<int> furou;
+					furou.push_back(pai4->tehai->minkan.at(MinKanNumber).at(0));
+					furou.push_back(pai4->tehai->minkan.at(MinKanNumber).at(0));
+					furou.push_back(pai4->tehai->minkan.at(MinKanNumber).at(0));
+					furou.push_back(pai4->tehai->minkan.at(MinKanNumber).at(0));
+					++MinKanNumber;
+					if (leftFuRouPai.size() < pai4->FuRouOrder.size() && leftFuRouPai.size() <= i) {
+						leftFuRouPai.push_back(furou);
+					}
+					else {
+						leftFuRouPai.at(i) = furou;
+					}
+					switch (pai4->tehai->minkan.at(MinKanNumber - 1).at(1))
+					{
+					case 0:
+						leftFuRou.at(i).at(0)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.164, 0), CEGUI::UDim(0.918 + 0.207 * -i, 0)));
+						leftFuRou.at(i).at(1)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.198, 0), CEGUI::UDim(0.918 + 0.207 * -i, 0)));
+						leftFuRou.at(i).at(2)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.17, 0), CEGUI::UDim(0.785 + 0.207 * -i, 0)));
+						leftFuRou.at(i).at(3)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.17, 0), CEGUI::UDim(0.847 + 0.207 * -i, 0)));
+						break;
+					case 1:
+						leftFuRou.at(i).at(0)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.164, 0), CEGUI::UDim(0.855 + 0.207 * -i, 0)));
+						leftFuRou.at(i).at(1)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.198, 0), CEGUI::UDim(0.855 + 0.207 * -i, 0)));
+						leftFuRou.at(i).at(2)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.17, 0), CEGUI::UDim(0.785 + 0.207 * -i, 0)));
+						leftFuRou.at(i).at(3)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.17, 0), CEGUI::UDim(0.928 + 0.207 * -i, 0)));
+						break;
+					case 2:
+						leftFuRou.at(i).at(0)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.164, 0), CEGUI::UDim(0.792 + 0.207 * -i, 0)));
+						leftFuRou.at(i).at(1)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.198, 0), CEGUI::UDim(0.792 + 0.207 * -i, 0)));
+						leftFuRou.at(i).at(2)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.17, 0), CEGUI::UDim(0.865 + 0.207 * -i, 0)));
+						leftFuRou.at(i).at(3)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.17, 0), CEGUI::UDim(0.928 + 0.207 * -i, 0)));
+						break;
+					}
+				}
+				else if (pai4->FuRouOrder.at(i) == AnKan && pai4->tehai->ankan.size() > AnKanNumber) {
+					std::vector<int> furou;
+					furou.push_back(pai4->tehai->ankan.at(AnKanNumber));
+					furou.push_back(pai4->tehai->ankan.at(AnKanNumber));
+					furou.push_back(37);
+					furou.push_back(37);
+					++AnKanNumber;
+					if (leftFuRouPai.size() < pai4->FuRouOrder.size() && leftFuRouPai.size() <= i) {
+						leftFuRouPai.push_back(furou);
+					}
+					else {
+						leftFuRouPai.at(i) = furou;
+					}
+					leftFuRou.at(i).at(0)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.164, 0), CEGUI::UDim(0.855 + 0.207 * -i, 0)));
+					leftFuRou.at(i).at(1)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.198, 0), CEGUI::UDim(0.855 + 0.207 * -i, 0)));
+					leftFuRou.at(i).at(2)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.17, 0), CEGUI::UDim(0.785 + 0.207 * -i, 0)));
+					leftFuRou.at(i).at(3)->setPosition(CEGUI::UVector2(CEGUI::UDim(0.17, 0), CEGUI::UDim(0.928 + 0.207 * -i, 0)));
+				}
+			}
+		//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^		上家
+		//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^		副露情報更新
+		//vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv		副露情報顯示
 		for (int i = 0; i < myFuRouPai.size(); ++i) {
 			for (int j = 0; j < 4; ++j) {
 				switch (myFuRouPai.at(i).at(j))
 				{
 				case -1:
-					myFuRou.at(i).at(j)->setProperty("Image", "MJ_mateiral/Nothing");
+					myFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Nothing");
+					break;
 				case 0:
 					myFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Pin5R");
 					break;
@@ -1471,13 +2272,386 @@ void MahJongRoom::GetInfo(const Player * pai1, const Player * pai2, const Player
 					break;
 				case 36:
 					myFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Chun");
+					break;
 				case 37:
 					myFuRou.at(i).at(j)->setProperty("Image", "MJ_material/PaiBack");
 					break;
 				}
 			}
 		}
-		//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^		副露情報
+		for (int i = 0; i < rightFuRouPai.size(); ++i) {
+			for (int j = 0; j < 4; ++j) {
+				switch (rightFuRouPai.at(i).at(j))
+				{
+				case -1:
+					rightFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Nothing");
+					break;
+				case 0:
+					rightFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Pin5R");
+					break;
+				case 1:
+					rightFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Pin1");
+					break;
+				case 2:
+					rightFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Pin2");
+					break;
+				case 3:
+					rightFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Pin3");
+					break;
+				case 4:
+					rightFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Pin4");
+					break;
+				case 5:
+					rightFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Pin5");
+					break;
+				case 6:
+					rightFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Pin6");
+					break;
+				case 7:
+					rightFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Pin7");
+					break;
+				case 8:
+					rightFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Pin8");
+					break;
+				case 9:
+					rightFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Pin9");
+					break;
+				case 10:
+					rightFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Man5R");
+					break;
+				case 11:
+					rightFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Man1");
+					break;
+				case 12:
+					rightFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Man2");
+					break;
+				case 13:
+					rightFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Man3");
+					break;
+				case 14:
+					rightFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Man4");
+					break;
+				case 15:
+					rightFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Man5");
+					break;
+				case 16:
+					rightFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Man6");
+					break;
+				case 17:
+					rightFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Man7");
+					break;
+				case 18:
+					rightFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Man8");
+					break;
+				case 19:
+					rightFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Man9");
+					break;
+				case 20:
+					rightFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Sou5R");
+					break;
+				case 21:
+					rightFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Sou1");
+					break;
+				case 22:
+					rightFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Sou2");
+					break;
+				case 23:
+					rightFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Sou3");
+					break;
+				case 24:
+					rightFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Sou4");
+					break;
+				case 25:
+					rightFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Sou5");
+					break;
+				case 26:
+					rightFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Sou6");
+					break;
+				case 27:
+					rightFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Sou7");
+					break;
+				case 28:
+					rightFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Sou8");
+					break;
+				case 29:
+					rightFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Sou9");
+					break;
+				case 30:
+					rightFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Ton");
+					break;
+				case 31:
+					rightFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Nan");
+					break;
+				case 32:
+					rightFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Sha");
+					break;
+				case 33:
+					rightFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Pei");
+					break;
+				case 34:
+					rightFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Haku");
+					break;
+				case 35:
+					rightFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Fa");
+					break;
+				case 36:
+					rightFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Chun");
+					break;
+				case 37:
+					rightFuRou.at(i).at(j)->setProperty("Image", "MJ_material/PaiBack");
+					break;
+				}
+			}
+		}
+		for (int i = 0; i < frontFuRouPai.size(); ++i) {
+			for (int j = 0; j < 4; ++j) {
+				switch (frontFuRouPai.at(i).at(j))
+				{
+				case -1:
+					frontFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Nothing");
+					break;
+				case 0:
+					frontFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Pin5R");
+					break;
+				case 1:
+					frontFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Pin1");
+					break;
+				case 2:
+					frontFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Pin2");
+					break;
+				case 3:
+					frontFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Pin3");
+					break;
+				case 4:
+					frontFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Pin4");
+					break;
+				case 5:
+					frontFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Pin5");
+					break;
+				case 6:
+					frontFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Pin6");
+					break;
+				case 7:
+					frontFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Pin7");
+					break;
+				case 8:
+					frontFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Pin8");
+					break;
+				case 9:
+					frontFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Pin9");
+					break;
+				case 10:
+					frontFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Man5R");
+					break;
+				case 11:
+					frontFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Man1");
+					break;
+				case 12:
+					frontFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Man2");
+					break;
+				case 13:
+					frontFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Man3");
+					break;
+				case 14:
+					frontFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Man4");
+					break;
+				case 15:
+					frontFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Man5");
+					break;
+				case 16:
+					frontFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Man6");
+					break;
+				case 17:
+					frontFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Man7");
+					break;
+				case 18:
+					frontFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Man8");
+					break;
+				case 19:
+					frontFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Man9");
+					break;
+				case 20:
+					frontFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Sou5R");
+					break;
+				case 21:
+					frontFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Sou1");
+					break;
+				case 22:
+					frontFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Sou2");
+					break;
+				case 23:
+					frontFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Sou3");
+					break;
+				case 24:
+					frontFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Sou4");
+					break;
+				case 25:
+					frontFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Sou5");
+					break;
+				case 26:
+					frontFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Sou6");
+					break;
+				case 27:
+					frontFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Sou7");
+					break;
+				case 28:
+					frontFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Sou8");
+					break;
+				case 29:
+					frontFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Sou9");
+					break;
+				case 30:
+					frontFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Ton");
+					break;
+				case 31:
+					frontFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Nan");
+					break;
+				case 32:
+					frontFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Sha");
+					break;
+				case 33:
+					frontFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Pei");
+					break;
+				case 34:
+					frontFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Haku");
+					break;
+				case 35:
+					frontFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Fa");
+					break;
+				case 36:
+					frontFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Chun");
+					break;
+				case 37:
+					frontFuRou.at(i).at(j)->setProperty("Image", "MJ_material/PaiBack");
+					break;
+				}
+			}
+		}
+		for (int i = 0; i < leftFuRouPai.size(); ++i) {
+			for (int j = 0; j < 4; ++j) {
+				switch (leftFuRouPai.at(i).at(j))
+				{
+				case -1:
+					leftFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Nothing");
+					break;
+				case 0:
+					leftFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Pin5R");
+					break;
+				case 1:
+					leftFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Pin1");
+					break;
+				case 2:
+					leftFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Pin2");
+					break;
+				case 3:
+					leftFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Pin3");
+					break;
+				case 4:
+					leftFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Pin4");
+					break;
+				case 5:
+					leftFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Pin5");
+					break;
+				case 6:
+					leftFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Pin6");
+					break;
+				case 7:
+					leftFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Pin7");
+					break;
+				case 8:
+					leftFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Pin8");
+					break;
+				case 9:
+					leftFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Pin9");
+					break;
+				case 10:
+					leftFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Man5R");
+					break;
+				case 11:
+					leftFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Man1");
+					break;
+				case 12:
+					leftFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Man2");
+					break;
+				case 13:
+					leftFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Man3");
+					break;
+				case 14:
+					leftFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Man4");
+					break;
+				case 15:
+					leftFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Man5");
+					break;
+				case 16:
+					leftFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Man6");
+					break;
+				case 17:
+					leftFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Man7");
+					break;
+				case 18:
+					leftFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Man8");
+					break;
+				case 19:
+					leftFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Man9");
+					break;
+				case 20:
+					leftFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Sou5R");
+					break;
+				case 21:
+					leftFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Sou1");
+					break;
+				case 22:
+					leftFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Sou2");
+					break;
+				case 23:
+					leftFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Sou3");
+					break;
+				case 24:
+					leftFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Sou4");
+					break;
+				case 25:
+					leftFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Sou5");
+					break;
+				case 26:
+					leftFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Sou6");
+					break;
+				case 27:
+					leftFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Sou7");
+					break;
+				case 28:
+					leftFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Sou8");
+					break;
+				case 29:
+					leftFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Sou9");
+					break;
+				case 30:
+					leftFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Ton");
+					break;
+				case 31:
+					leftFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Nan");
+					break;
+				case 32:
+					leftFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Sha");
+					break;
+				case 33:
+					leftFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Pei");
+					break;
+				case 34:
+					leftFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Haku");
+					break;
+				case 35:
+					leftFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Fa");
+					break;
+				case 36:
+					leftFuRou.at(i).at(j)->setProperty("Image", "MJ_material/Chun");
+					break;
+				case 37:
+					leftFuRou.at(i).at(j)->setProperty("Image", "MJ_material/PaiBack");
+					break;
+				}
+			}
+		}
+		//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^		副露情報顯示
 }
 
 void MahJongRoom::SetAgent(Agent * p)
@@ -1502,6 +2676,16 @@ void MahJongRoom::ButtonFunction(int n)
 	case 2:
 		break;
 	case 3:
+		button2->setVisible(false);
+		button3->setVisible(false);
+		if (n == 2) {
+			player->WantToChi = -1;
+			switchChi = false;
+		}
+		else if (n == 3) {
+			player->WantToChi = 1;
+			switchChi = true;
+		}
 		break;
 	case 4:
 		button2->setVisible(false);
@@ -1543,6 +2727,24 @@ void MahJongRoom::ButtonFunction(int n)
 		}
 		break;
 	case 8:
+		button1->setVisible(false);
+		button2->setVisible(false);
+		button3->setVisible(false);
+		if (n == 1) {
+			player->WantToChi = -1;
+			player->WantToPon = -1;
+			switchChi = false;
+		}
+		if (n == 2) {
+			player->WantToChi = 1;
+			player->WantToPon = -1;
+			switchChi = true;
+		}
+		if (n == 3) {
+			player->WantToChi = -1;
+			player->WantToPon = 1;
+			switchChi = false;
+		}
 		break;
 	case 9:
 		break;
@@ -1563,13 +2765,33 @@ void MahJongRoom::ButtonFunction(int n)
 			player->WantToRon = -1;
 		}
 		else if (n == 2) {
+			player->WantToRon = -1;
 			player->WantToPon = 1;
 		}
 		else if (n == 3) {
+			player->WantToPon = -1;
 			player->WantToRon = 1;
 		}
 		break;
 	case 15:
+		button1->setVisible(false);
+		button2->setVisible(false);
+		button3->setVisible(false);
+		if (n == 1) {
+			player->WantToChi = -1;
+			player->WantToRon = -1;
+			switchChi = false;
+		}
+		else if (n == 2) {
+			player->WantToRon = -1;
+			player->WantToChi = 1;
+			switchChi = true;
+		}
+		else if (n == 3) {
+			player->WantToChi = -1;
+			player->WantToRon = 1;
+			switchChi = false;
+		}
 		break;
 	case 16:
 		button2->setVisible(false);
@@ -1594,6 +2816,32 @@ void MahJongRoom::ButtonFunction(int n)
 		else if (n == 5) {
 			player->WantToPon = -1;
 			player->WantToKan = -1;
+			player->WantToRon = 1;
+		}
+		break;
+	case 17:
+		button1->setVisible(false);
+		button2->setVisible(false);
+		button3->setVisible(false);
+		button5->setVisible(false);
+		if (n == 1) {
+			player->WantToChi = -1;
+			player->WantToPon = -1;
+			player->WantToRon = -1;
+		}
+		else if (n == 2) {
+			player->WantToChi = 1;
+			player->WantToPon = -1;
+			player->WantToRon = -1;
+		}
+		else if (n == 3) {
+			player->WantToChi = -1;
+			player->WantToPon = 1;
+			player->WantToRon = -1;
+		}
+		else if (n == 5) {
+			player->WantToChi = -1;
+			player->WantToPon = -1;
 			player->WantToRon = 1;
 		}
 		break;

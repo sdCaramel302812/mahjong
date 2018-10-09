@@ -17,6 +17,10 @@ Room::Room()
 	pl4->SetAgariCallback(&WhoIsAgari[3]);
 
 	pl1->agent->IsAI = false;
+	pl1->id = 1;
+	pl2->id = 2;
+	pl3->id = 3;
+	pl4->id = 4;
 }
 
 
@@ -37,6 +41,16 @@ void Room::Init()
 
 void Room::Play()
 {
+	current_clock = clock();
+	dt = current_clock - last_clock;
+	elapse_time += dt;
+	last_clock = current_clock;
+//	if(elapse_time > 2000) {
+//		cout << "current state : " << WaitingState << endl;
+//		cout << "current player : " << CurrentPlayer << endl;
+//		elapse_time = 0;
+//	}
+
 	//while (!gameover) {
 		if (kyoukuover) {
 			NextKyouku();
@@ -55,7 +69,7 @@ void Room::Play()
 			}
 		}
 
-		if (round == 2) {
+		if (round == 2) {				//解除首巡狀態
 			pl1->FirstRoundKesu();
 			pl2->FirstRoundKesu();
 			pl3->FirstRoundKesu();
@@ -95,430 +109,150 @@ void Room::Play()
 				bool wait = NakuCheck(Sutehai);
 				if (wait) {
 					WaitingState = 1;
-					Debug::Log("wait");
+					//Debug::Log("wait");
 					return;
 				}
 				else {
 					Sutehai = -1;
 					NextPlayer();
-					int NewPai = yama->MoPai();
-					if (NewPai == -1) {
-						kyoukuover = true;
-						UpdateScene = true;
-						return;
-					}
-					else {
-						switch (CurrentPlayer)
-						{
-						case 1:
-							pl1->Tsumo(NewPai);
-							if (AgariCheck(pl1->tehai)) {
-								pl1->agent->TsumoDekiru = true;
-							}
-							++round;
-							break;
-						case 2:
-							pl2->Tsumo(NewPai);
-							break;
-						case 3:
-							pl3->Tsumo(NewPai);
-							break;
-						case 4:
-							pl4->Tsumo(NewPai);
-							break;
-						}
-					}
+					WaitingState = 2;		//	等待下一家摸牌
 				}
 			}
 			//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^			等待切牌
 		}
 		else if (WaitingState == 1) {
 			//vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv			等待鳴牌
+
+			/*
+			result1 : 下家
+			result2 : 對家
+			result3 : 上家
+			*/
 			int result1;
 			int result2;
 			int result3;
 			UpdateScene = true;						//不確定
 
-			///////////////////////////////////////////			自家捨牌
+			/*
+			捨牌相關註解以玩家視角為主
+			鳴牌相關註解以捨牌方視角為主
+			*/
+			//vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv			自家捨牌
 			switch (CurrentPlayer)
 			{
 			case 1:
 				result1 = pl2->Naku(Sutehai);
 				result2 = pl3->Naku(Sutehai);
 				result3 = pl4->Naku(Sutehai);
+				//	有人尚未決定
 				if (result1 == -1 || result2 == -1 || result3 == -1) {
+					if (result1 == -1) {
+						cout << "2 no respond" << endl;
+					}
+					if (result2 == -1) {
+						cout << "3 no respond" << endl;
+					}
+					if (result3 == -1) {
+						cout << "4 no respond" << endl;
+					}
 					return;
-				}
+				}//	三家都不鳴牌
 				if (result1 == 0 && result2 == 0 && result3 == 0) {
 					Sutehai = -1;
-					pl4->NakuState = -1;
-					pl2->NakuState = -1;
-					pl3->NakuState = -1;
+					ResetNakuState();
 					NextPlayer();
-					WaitingState = 0;
-					int NewPai = yama->MoPai();
-					if (NewPai == -1) {
-						kyoukuover = true;
-						UpdateScene = true;
-						return;
-					}
-					switch (CurrentPlayer)
-					{
-					case 1:
-						pl1->Tsumo(NewPai);
-						break;
-					case 2:
-						pl2->Tsumo(NewPai);
-						break;
-					case 3:
-						pl3->Tsumo(NewPai);
-						break;
-					case 4:
-						pl4->Tsumo(NewPai);
-						break;
-					}
+					WaitingState = 2;
 				}
 				else {
-					pl1->Nakasareru();
+					ResetNakuState();
+					pl1->Nakasareru();		//被鳴牌 ( 改變牌河 / 消除一發等狀態 )
 					WaitingState = 0;
-					if (result1 == 1 || result1 == 2) {
+					if (result1 == 1 || result1 == 2) {			//	下家碰 / 槓牌
 						CurrentPlayer = 2;
-						pl2->NakuState = -1;
 						if (result1 == 1) {
-							pl2->tehai->Pon(Sutehai, 0);
+							pl2->tehai->Pon(Sutehai, 2);
 							pl2->agent->WaitForKiru = true;
 						}
 						else {
-							pl2->tehai->Daiminkan(Sutehai, 0);
-							pl2->Tsumo(yama->MoRinshan());
-							pl2->agent->WaitForKiru = true;
+							pl2->tehai->Daiminkan(Sutehai, 2);
+							MoRinShan = true;
+							WaitingState = 2;
 						}
 					}
-					else if (result2 == 1 || result2 == 2) {
+					else if (result2 == 1 || result2 == 2) {	//	對家碰 / 槓牌
 						CurrentPlayer = 3;
-						pl3->NakuState = -1;
 						if (result2 == 1) {
 							pl3->tehai->Pon(Sutehai, 1);
 							pl3->agent->WaitForKiru = true;
 						}
 						else {
 							pl3->tehai->Daiminkan(Sutehai, 1);
-							pl3->Tsumo(yama->MoRinshan());
-							pl3->agent->WaitForKiru = true;
+							MoRinShan = true;
+							WaitingState = 2;
 						}
 					}
-					else if (result3 == 1 || result3 == 2) {
+					else if (result3 == 1 || result3 == 2) {	//	上家碰 / 槓牌
 						CurrentPlayer = 4;
-						pl4->NakuState = -1;
 						if (result3 == 1) {
-							pl4->tehai->Pon(Sutehai, 2);
-							pl4->agent->WaitForKiru = true;
-						}
-						else {
-							pl4->tehai->Daiminkan(Sutehai, 2);
-							pl4->Tsumo(yama->MoRinshan());
-							pl4->agent->WaitForKiru = true;
-						}
-					}
-					else if (result1 > 2) {
-						int sutenum = Sutehai;
-						if (sutenum % 10 == 0) {
-							sutenum += 5;
-						}
-						CurrentPlayer = 2;
-						pl2->NakuState = -1;
-						pl2->agent->WaitForKiru = true;
-						if (result1 == 3) {
-							pl2->tehai->Chi(Sutehai, sutenum++, sutenum += 2);
-						}
-						else if (result1 == 4) {
-							pl2->tehai->Chi(Sutehai, sutenum--, sutenum++);
-						}
-						else if (result1 == 5) {
-							pl2->tehai->Chi(Sutehai, sutenum -= 2, sutenum--);
-						}
-					}
-					Sutehai = -1;
-				}
-				break;
-			///////////////////////////////////////////			下家捨牌
-			case 2:
-				result3 = pl1->Naku(Sutehai);
-				result1 = pl3->Naku(Sutehai);
-				result2 = pl4->Naku(Sutehai);
-				//Debug::Log(TString("state1 : ") + TString().number(result3));
-				//Debug::Log(TString("state2 : ") + TString().number(result1));
-				//Debug::Log(TString("state3 : ") + TString().number(result2));
-				if (result1 == -1 || result2 == -1 || result3 == -1) {
-					return;
-				}
-				if (result1 == 0 && result2 == 0 && result3 == 0) {
-					Sutehai = -1;
-					pl1->NakuState = -1;
-					pl4->NakuState = -1;
-					pl3->NakuState = -1;
-					NextPlayer();
-					WaitingState = 0;
-					int NewPai = yama->MoPai();
-					if (NewPai == -1) {
-						kyoukuover = true;
-						UpdateScene = true;
-						return;
-					}
-					switch (CurrentPlayer)
-					{
-					case 1:
-						pl1->Tsumo(NewPai);
-						break;
-					case 2:
-						pl2->Tsumo(NewPai);
-						break;
-					case 3:
-						pl3->Tsumo(NewPai);
-						break;
-					case 4:
-						pl4->Tsumo(NewPai);
-						break;
-					}
-				}
-				else {
-					pl2->Nakasareru();
-					WaitingState = 0;
-					if (result1 == 1 || result1 == 2) {
-						CurrentPlayer = 3;
-						pl3->NakuState = -1;
-						if (result1 == 1) {
-							pl3->tehai->Pon(Sutehai, 0);
-							pl3->agent->WaitForKiru = true;
-						}
-						else {
-							pl3->tehai->Daiminkan(Sutehai, 0);
-							pl3->Tsumo(yama->MoRinshan());
-							pl3->agent->WaitForKiru = true;
-						}
-					}
-					else if (result2 == 1 || result2 == 2) {
-						CurrentPlayer = 4;
-						pl4->NakuState = -1;
-						if (result2 == 1) {
-							pl4->tehai->Pon(Sutehai, 1);
-							pl4->agent->WaitForKiru = true;
-						}
-						else {
-							pl4->tehai->Daiminkan(Sutehai, 1);
-							pl4->Tsumo(yama->MoRinshan());
-							pl4->agent->WaitForKiru = true;
-						}
-					}
-					else if (result3 == 1 || result3 == 2) {
-						pl1->NakuState = -1;
-						CurrentPlayer = 1;
-						if (result3 == 1) {
-							pl1->tehai->Pon(Sutehai, 2);
-							pl1->agent->WaitForKiru = true;
-						}
-						else {
-							pl1->tehai->Daiminkan(Sutehai, 2);
-							pl1->Tsumo(yama->MoRinshan());
-							pl1->agent->WaitForKiru = true;
-						}
-					}
-					else if (result1 > 2) {
-						int sutenum = Sutehai;
-						if (sutenum % 10 == 0) {
-							sutenum += 5;
-						}
-						pl3->agent->WaitForKiru = true;
-						CurrentPlayer = 3;
-						pl3->NakuState = -1;
-						if (result1 == 3) {
-							pl3->tehai->Chi(Sutehai, sutenum++, sutenum += 2);
-						}
-						else if (result1 == 4) {
-							pl3->tehai->Chi(Sutehai, sutenum--, sutenum++);
-						}
-						else if (result1 == 5) {
-							pl3->tehai->Chi(Sutehai, sutenum -= 2, sutenum--);
-						}
-					}
-					Sutehai = -1;
-				}
-				break;
-			///////////////////////////////////////////			對家捨牌
-			case 3:
-				result2 = pl1->Naku(Sutehai);
-				result3 = pl2->Naku(Sutehai);
-				result1 = pl4->Naku(Sutehai);
-				//Debug::Log(TString("state1 : ") + TString().number(result2));
-				//Debug::Log(TString("state2 : ") + TString().number(result1));
-				//Debug::Log(TString("state3 : ") + TString().number(result3));
-				if (result1 == -1 || result2 == -1 || result3 == -1) {
-					return;
-				}
-				if (result1 == 0 && result2 == 0 && result3 == 0) {
-					Sutehai = -1;
-					pl1->NakuState = -1;
-					pl2->NakuState = -1;
-					pl4->NakuState = -1;
-					NextPlayer();
-					WaitingState = 0;
-					int NewPai = yama->MoPai();
-					if (NewPai == -1) {
-						kyoukuover = true;
-						UpdateScene = true;
-						return;
-					}
-					switch (CurrentPlayer)
-					{
-					case 1:
-						pl1->Tsumo(NewPai);
-						break;
-					case 2:
-						pl2->Tsumo(NewPai);
-						break;
-					case 3:
-						pl3->Tsumo(NewPai);
-						break;
-					case 4:
-						pl4->Tsumo(NewPai);
-						break;
-					}
-				}
-				else {
-					pl1->NakuState = -1;
-					pl2->NakuState = -1;
-					pl4->NakuState = -1;
-					pl3->Nakasareru();
-					WaitingState = 0;
-					if (result1 == 1 || result1 == 2) {
-						CurrentPlayer = 4;
-						if (result1 == 1) {
 							pl4->tehai->Pon(Sutehai, 0);
 							pl4->agent->WaitForKiru = true;
 						}
 						else {
 							pl4->tehai->Daiminkan(Sutehai, 0);
-							pl4->Tsumo(yama->MoRinshan());
-							pl4->agent->WaitForKiru = true;
+							MoRinShan = true;
+							WaitingState = 2;
 						}
 					}
-					else if (result2 == 1 || result2 == 2) {
-						
-						CurrentPlayer = 1;
-						if (result2 == 1) {
-							pl1->tehai->Pon(Sutehai, 1);
-							pl1->agent->WaitForKiru = true;
-						}
-						else {
-							pl1->tehai->Daiminkan(Sutehai, 1);
-							pl1->Tsumo(yama->MoRinshan());
-							pl1->agent->WaitForKiru = true;
-						}
-					}
-					else if (result3 == 1 || result3 == 2) {
-						CurrentPlayer = 2;
-						if (result3 == 1) {
-							pl2->tehai->Pon(Sutehai, 2);
-							pl2->agent->WaitForKiru = true;
-						}
-						else {
-							pl2->tehai->Daiminkan(Sutehai, 2);
-							pl2->Tsumo(yama->MoRinshan());
-							pl2->agent->WaitForKiru = true;
-						}
-					}
-					else if (result1 > 2) {
-						int sutenum = Sutehai;
+					else if (result1 > 2) {						//	下家吃牌
+						int sutenum = Sutehai;	//	調整赤牌編號
 						if (sutenum % 10 == 0) {
 							sutenum += 5;
 						}
-						pl4->agent->WaitForKiru = true;
-						CurrentPlayer = 4;
+						CurrentPlayer = 2;
+						pl2->agent->WaitForKiru = true;
 						if (result1 == 3) {
-							pl4->tehai->Chi(Sutehai, sutenum++, sutenum += 2);
+							pl2->tehai->Chi(Sutehai, sutenum + 1, sutenum + 2);
 						}
 						else if (result1 == 4) {
-							pl4->tehai->Chi(Sutehai, sutenum--, sutenum++);
+							pl2->tehai->Chi(Sutehai, sutenum - 1, sutenum + 1);
 						}
 						else if (result1 == 5) {
-							pl4->tehai->Chi(Sutehai, sutenum -= 2, sutenum--);
+							pl2->tehai->Chi(Sutehai, sutenum - 2, sutenum - 1);
 						}
 					}
-					Sutehai = -1;
 				}
+				Sutehai = -1;								//	位置不能改
 				break;
-			///////////////////////////////////////////			上家捨牌
-			case 4:
-				result1 = pl1->Naku(Sutehai);
-				result2 = pl2->Naku(Sutehai);
-				result3 = pl3->Naku(Sutehai);
-				//Debug::Log(TString("state1 : ") + TString().number(result1));
-				//Debug::Log(TString("state2 : ") + TString().number(result2));
-				//Debug::Log(TString("state3 : ") + TString().number(result3));
+			//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^			自家捨牌
+			//vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv			下家捨牌
+			case 2:
+				result3 = pl1->Naku(Sutehai);
+				result1 = pl3->Naku(Sutehai);
+				result2 = pl4->Naku(Sutehai);
+				//	有人尚未決定
 				if (result1 == -1 || result2 == -1 || result3 == -1) {
+					if (result1 == -1) {
+						cout << "3 no respond" << endl;
+					}
+					if (result2 == -1) {
+						cout << "4 no respond" << endl;
+					}
+					if (result3 == -1) {
+						cout << "1 no respond" << endl;
+					}
 					return;
-				}
+				}//	三家都不鳴牌
 				if (result1 == 0 && result2 == 0 && result3 == 0) {
 					Sutehai = -1;
-					pl1->NakuState = -1;
-					pl2->NakuState = -1;
-					pl3->NakuState = -1;
+					ResetNakuState();
 					NextPlayer();
-					WaitingState = 0;
-					int NewPai = yama->MoPai();
-					if (NewPai == -1) {
-						kyoukuover = true;
-						UpdateScene = true;
-						return;
-					}
-					switch (CurrentPlayer)
-					{
-					case 1:
-						pl1->Tsumo(NewPai);
-						break;
-					case 2:
-						pl2->Tsumo(NewPai);
-						break;
-					case 3:
-						pl3->Tsumo(NewPai);
-						break;
-					case 4:
-						pl4->Tsumo(NewPai);
-						break;
-					}
+					WaitingState = 2;
 				}
 				else {
-					pl1->NakuState = -1;
-					pl2->NakuState = -1;
-					pl3->NakuState = -1;
-					pl4->Nakasareru();
+					ResetNakuState();
+					pl2->Nakasareru();		//被鳴牌 ( 改變牌河 / 消除一發等狀態 )
 					WaitingState = 0;
-					if (result1 == 1 || result1 == 2) {
-						
-						CurrentPlayer = 1;
-						if (result1 == 1) {
-							pl1->tehai->Pon(Sutehai, 0);
-							pl1->agent->WaitForKiru = true;
-						}
-						else {
-							pl1->tehai->Daiminkan(Sutehai, 0);
-							pl1->Tsumo(yama->MoRinshan());
-							pl1->agent->WaitForKiru = true;
-						}
-					}
-					else if (result2 == 1 || result2 == 2) {
-						CurrentPlayer = 2;
-						if (result1 == 1) {
-							pl2->tehai->Pon(Sutehai, 1);
-							pl2->agent->WaitForKiru = true;
-						}
-						else {
-							pl2->tehai->Daiminkan(Sutehai, 1);
-							pl2->Tsumo(yama->MoRinshan());
-							pl2->agent->WaitForKiru = true;
-						}
-					}
-					else if (result3 == 1 || result3 == 2) {
+					if (result1 == 1 || result1 == 2) {			//	下家碰 / 槓牌
 						CurrentPlayer = 3;
 						if (result1 == 1) {
 							pl3->tehai->Pon(Sutehai, 2);
@@ -526,29 +260,222 @@ void Room::Play()
 						}
 						else {
 							pl3->tehai->Daiminkan(Sutehai, 2);
-							pl3->Tsumo(yama->MoRinshan());
-							pl3->agent->WaitForKiru = true;
+							MoRinShan = true;
+							WaitingState = 2;
 						}
 					}
-					else if (result1 > 2) {
-						int sutenum = Sutehai;
+					else if (result2 == 1 || result2 == 2) {	//	對家碰 / 槓牌
+						CurrentPlayer = 4;
+						if (result2 == 1) {
+							pl4->tehai->Pon(Sutehai, 1);
+							pl4->agent->WaitForKiru = true;
+						}
+						else {
+							pl4->tehai->Daiminkan(Sutehai, 1);
+							MoRinShan = true;
+							WaitingState = 2;
+						}
+					}
+					else if (result3 == 1 || result3 == 2) {	//	上家碰 / 槓牌
+						CurrentPlayer = 1;
+						if (result3 == 1) {
+							pl1->tehai->Pon(Sutehai, 0);
+							pl1->agent->WaitForKiru = true;
+						}
+						else {
+							pl1->tehai->Daiminkan(Sutehai, 0);
+							MoRinShan = true;
+							WaitingState = 2;
+						}
+					}
+					else if (result1 > 2) {						//	下家吃牌
+						int sutenum = Sutehai;		//調整赤牌
+						if (sutenum % 10 == 0) {
+							sutenum += 5;
+						}
+						pl3->agent->WaitForKiru = true;
+						CurrentPlayer = 3;
+						if (result1 == 3) {
+							pl3->tehai->Chi(Sutehai, sutenum + 1, sutenum + 2);
+						}
+						else if (result1 == 4) {
+							pl3->tehai->Chi(Sutehai, sutenum - 1, sutenum + 1);
+						}
+						else if (result1 == 5) {
+							pl3->tehai->Chi(Sutehai, sutenum - 2, sutenum - 1);
+						}
+					}
+				}
+				Sutehai = -1;								//	位置不能改
+				break;
+			///////////////////////////////////////////			對家捨牌
+			case 3:
+				result2 = pl1->Naku(Sutehai);
+				result3 = pl2->Naku(Sutehai);
+				result1 = pl4->Naku(Sutehai);
+				//	有人尚未決定
+				if (result1 == -1 || result2 == -1 || result3 == -1) {
+					if (result1 == -1) {
+						cout << "4 no respond" << endl;
+					}
+					if (result2 == -1) {
+						cout << "1 no respond" << endl;
+					}
+					if (result3 == -1) {
+						cout << "2 no respond" << endl;
+					}
+					return;
+				}//	三家都不鳴牌
+				if (result1 == 0 && result2 == 0 && result3 == 0) {
+					Sutehai = -1;
+					ResetNakuState();
+					NextPlayer();
+					WaitingState = 2;
+				}
+				else {
+					ResetNakuState();
+					pl3->Nakasareru();		//被鳴牌 ( 改變牌河 / 消除一發等狀態 )
+					WaitingState = 0;
+					if (result1 == 1 || result1 == 2) {			//	下家碰 / 槓牌
+						CurrentPlayer = 4;
+						if (result1 == 1) {
+							pl4->tehai->Pon(Sutehai, 2);
+							pl4->agent->WaitForKiru = true;
+						}
+						else {
+							pl4->tehai->Daiminkan(Sutehai, 2);
+							MoRinShan = true;
+							WaitingState = 2;
+						}
+					}
+					else if (result2 == 1 || result2 == 2) {	//	對家碰 / 槓牌
+						CurrentPlayer = 1;
+						if (result2 == 1) {
+							pl1->tehai->Pon(Sutehai, 1);
+							pl1->agent->WaitForKiru = true;
+						}
+						else {
+							pl1->tehai->Daiminkan(Sutehai, 1);
+							MoRinShan = true;
+							WaitingState = 2;
+						}
+					}
+					else if (result3 == 1 || result3 == 2) {	//	上家碰 / 槓牌
+						CurrentPlayer = 2;
+						if (result3 == 1) {
+							pl2->tehai->Pon(Sutehai, 0);
+							pl2->agent->WaitForKiru = true;
+						}
+						else {
+							pl2->tehai->Daiminkan(Sutehai, 0);
+							MoRinShan = true;
+							WaitingState = 2;
+						}
+					}
+					else if (result1 > 2) {						//	下家吃牌
+						int sutenum = Sutehai;		//調整赤牌
+						if (sutenum % 10 == 0) {
+							sutenum += 5;
+						}
+						pl4->agent->WaitForKiru = true;
+						CurrentPlayer = 4;
+						if (result1 == 3) {
+							pl4->tehai->Chi(Sutehai, sutenum + 1, sutenum + 2);
+						}
+						else if (result1 == 4) {
+							pl4->tehai->Chi(Sutehai, sutenum - 1, sutenum + 1);
+						}
+						else if (result1 == 5) {
+							pl4->tehai->Chi(Sutehai, sutenum - 2, sutenum - 1);
+						}
+					}
+				}
+				Sutehai = -1;								//	位置不能改
+				break;
+			//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^			對家捨牌
+			//vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv			上家捨牌
+			case 4:
+				result1 = pl1->Naku(Sutehai);
+				result2 = pl2->Naku(Sutehai);
+				result3 = pl3->Naku(Sutehai);
+				//	有人尚未決定
+				if (result1 == -1 || result2 == -1 || result3 == -1) {
+					if (result1 == -1) {
+						cout << "1 no respond" << endl;
+					}
+					if (result2 == -1) {
+						cout << "2 no respond" << endl;
+					}
+					if (result3 == -1) {
+						cout << "3 no respond" << endl;
+					}
+					return;
+				}//	三家都不鳴牌
+				if (result1 == 0 && result2 == 0 && result3 == 0) {
+					Sutehai = -1;
+					ResetNakuState();
+					NextPlayer();
+					WaitingState = 2;
+				}
+				else {
+					ResetNakuState();
+					pl4->Nakasareru();		//被鳴牌 ( 改變牌河 / 消除一發等狀態 )
+					WaitingState = 0;
+					if (result1 == 1 || result1 == 2) {			//	下家碰 / 槓牌				
+						CurrentPlayer = 1;
+						if (result1 == 1) {
+							pl1->tehai->Pon(Sutehai, 2);
+							pl1->agent->WaitForKiru = true;
+						}
+						else {
+							pl1->tehai->Daiminkan(Sutehai, 2);
+							MoRinShan = true;
+							WaitingState = 2;
+						}
+					}
+					else if (result2 == 1 || result2 == 2) {	//	對家碰 / 槓牌
+						CurrentPlayer = 2;
+						if (result1 == 1) {
+							pl2->tehai->Pon(Sutehai, 1);
+							pl2->agent->WaitForKiru = true;
+						}
+						else {
+							pl2->tehai->Daiminkan(Sutehai, 1);
+							MoRinShan = true;
+							WaitingState = 2;
+						}
+					}
+					else if (result3 == 1 || result3 == 2) {	//	上家碰 / 槓牌
+						CurrentPlayer = 3;
+						if (result1 == 1) {
+							pl3->tehai->Pon(Sutehai, 0);
+							pl3->agent->WaitForKiru = true;
+						}
+						else {
+							pl3->tehai->Daiminkan(Sutehai, 0);
+							MoRinShan = true;
+							WaitingState = 2;
+						}
+					}
+					else if (result1 > 2) {						//	下家吃牌
+						int sutenum = Sutehai;		//	調整赤牌
 						if (sutenum % 10 == 0) {
 							sutenum += 5;
 						}
 						pl1->agent->WaitForKiru = true;
 						CurrentPlayer = 1;
 						if (result1 == 3) {
-							pl1->tehai->Chi(Sutehai, sutenum++, sutenum += 2);
+							pl1->tehai->Chi(Sutehai, sutenum + 1, sutenum + 2);
 						}
 						else if (result1 == 4) {
-							pl1->tehai->Chi(Sutehai, sutenum--, sutenum++);
+							pl1->tehai->Chi(Sutehai, sutenum - 1, sutenum + 1);
 						}
 						else if (result1 == 5) {
-							pl1->tehai->Chi(Sutehai, sutenum -= 2, sutenum--);
+							pl1->tehai->Chi(Sutehai, sutenum - 2, sutenum - 1);
 						}
 					}
-					Sutehai = -1;
 				}
+				Sutehai = -1;								//	位置不能改
 				break;
 			}
 
@@ -556,6 +483,72 @@ void Room::Play()
 			//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^			等待鳴牌
 		}
 		else if (WaitingState == 2) {
+			//vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv			等待摸牌
+			if (WaitForMoPai) {
+				WaitForMoPai = false;
+				elapse_time = 0;
+				return;
+			}
+			else {
+				if (elapse_time > MoPaiWaitingTime) {
+					WaitForMoPai = true;
+				}
+				else {
+					return;
+				}
+			}
+
+
+
+			int NewPai;
+			if (!MoRinShan) {
+				NewPai = yama->MoPai();
+			}
+			else {
+				NewPai = yama->MoRinshan();
+				MoRinShan = false;
+			}
+			if (NewPai == -1) {			//	摸到 -1 代表流局
+				kyoukuover = true;
+				UpdateScene = true;
+				return;
+			}
+			else {
+				switch (CurrentPlayer)
+				{
+				case 1:
+					pl1->Tsumo(NewPai);
+					if (AgariCheck(pl1->tehai)) {
+						pl1->agent->TsumoDekiru = true;
+					}
+					++round;							//	巡數增加
+					break;
+				case 2:
+					pl2->Tsumo(NewPai);
+					if (AgariCheck(pl2->tehai)) {
+						pl2->agent->TsumoDekiru = true;
+					}
+					break;
+				case 3:
+					pl3->Tsumo(NewPai);
+					if (AgariCheck(pl3->tehai)) {
+						pl3->agent->TsumoDekiru = true;
+					}
+					break;
+				case 4:
+					pl4->Tsumo(NewPai);
+					if (AgariCheck(pl4->tehai)) {
+						pl4->agent->TsumoDekiru = true;
+					}
+					break;
+				}
+			}
+
+			UpdateScene = true;
+			WaitingState = 0;		//回到等待切牌狀態
+			//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^			等待摸牌
+		}
+		else if (WaitingState == 3) {
 			//vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv			和牌 / 流局結算
 
 
@@ -566,8 +559,9 @@ void Room::Play()
 
 void Room::NextKyouku()
 {
-	Init();
+	Init();													//	初始化牌山 / 玩家
 	std::vector<std::vector<int>> pp = yama->Peipai();
+	//std::vector<std::vector<int>> pp = yama->SpecialPeiPai();
 	pl1->tehai->Peipai(pp.at(0));
 	pl2->tehai->Peipai(pp.at(1));
 	pl3->tehai->Peipai(pp.at(2));
@@ -585,32 +579,48 @@ void Room::NextKyouku()
 
 		}
 	}
+	pl1->Chanfon = Chanfon;
+	pl2->Chanfon = Chanfon;
+	pl3->Chanfon = Chanfon;
+	pl4->Chanfon = Chanfon;
 	if (Oya <= 4) {
 		++Oya;
 	}
 	if (Oya == 5) {
 		Oya = 1;
 	}
-
-	CurrentPlayer = Oya;
-	WaitingState = 0;
-
-	UpdateScene = true;
-
-	switch (CurrentPlayer) {
+	switch (Oya)
+	{
 	case 1:
-		pl1->Tsumo(yama->MoPai());
+		pl1->Menfon = TON;
+		pl2->Menfon = NAN;
+		pl3->Menfon = SHA;
+		pl4->Menfon = PEI;
 		break;
 	case 2:
-		pl2->Tsumo(yama->MoPai());
+		pl2->Menfon = TON;
+		pl3->Menfon = NAN;
+		pl4->Menfon = SHA;
+		pl1->Menfon = PEI;
 		break;
 	case 3:
-		pl3->Tsumo(yama->MoPai());
+		pl3->Menfon = TON;
+		pl4->Menfon = NAN;
+		pl1->Menfon = SHA;
+		pl2->Menfon = PEI;
 		break;
 	case 4:
-		pl4->Tsumo(yama->MoPai());
+		pl4->Menfon = TON;
+		pl1->Menfon = NAN;
+		pl2->Menfon = SHA;
+		pl3->Menfon = PEI;
 		break;
 	}
+
+	CurrentPlayer = Oya;
+	WaitingState = 2;
+
+	UpdateScene = true;
 }
 
 bool Room::NakuCheck(int pai)
@@ -621,46 +631,82 @@ bool Room::NakuCheck(int pai)
 	switch (CurrentPlayer)
 	{
 	case 1:
-		result1 = pl2->NakuDekiru(pai);
-		result2 = pl3->NakuDekiru(pai);
-		result3 = pl4->NakuDekiru(pai);
+		result1 =  pl2->NakuDekiru(pai, true);
+		result2 =  pl3->NakuDekiru(pai, false);
+		result3 =  pl4->NakuDekiru(pai, false);
 		if (!result1 && !result2 && !result3) {
 			return false;
 		}
 		else {
+			if (result1) {
+				cout << "is 2" << endl;
+			}
+			if (result2) {
+				cout << "is 3" << endl;
+			}
+			if (result3) {
+				cout << "is 4" << endl;
+			}
 			return true;
 		}
 		break;
 	case 2:
-		result1 = pl1->NakuDekiru(pai);
-		result2 = false;// pl3->NakuDekiru(pai);
-		result3 = false;//pl4->NakuDekiru(pai);
+		result1 = pl1->NakuDekiru(pai, false);
+		result2 = pl3->NakuDekiru(pai, true);
+		result3 = pl4->NakuDekiru(pai, false);
 		if (!result1 && !result2 && !result3) {
 			return false;
 		}
 		else {
+			if (result1) {
+				cout << "is 1" << endl;
+			}
+			if (result2) {
+				cout << "is 3" << endl;
+			}
+			if (result3) {
+				cout << "is 4" << endl;
+			}
 			return true;
 		}
 		break;
 	case 3:
-		result1 = pl1->NakuDekiru(pai);
-		result2 = false;//pl2->NakuDekiru(pai);
-		result3 = false;//pl4->NakuDekiru(pai);
+		result1 = pl1->NakuDekiru(pai, false);
+		result2 = pl2->NakuDekiru(pai, false);
+		result3 = pl4->NakuDekiru(pai, true);
 		if (!result1 && !result2 && !result3) {
 			return false;
 		}
 		else {
+			if (result1) {
+				cout << "is 1" << endl;
+			}
+			if (result2) {
+				cout << "is 2" << endl;
+			}
+			if (result3) {
+				cout << "is 4" << endl;
+			}
 			return true;
 		}
 		break;
 	case 4:
-		result1 = pl1->NakuDekiru(pai);
-		result2 = false;//pl2->NakuDekiru(pai);
-		result3 = false;//pl3->NakuDekiru(pai);
+		result1 = pl1->NakuDekiru(pai, true);
+		result2 = pl2->NakuDekiru(pai, false);
+		result3 = pl3->NakuDekiru(pai, false);
 		if (!result1 && !result2 && !result3) {
 			return false;
 		}
 		else {
+			if (result1) {
+				cout << "is 1" << endl;
+			}
+			if (result2) {
+				cout << "is 2" << endl;
+			}
+			if (result3) {
+				cout << "is 3" << endl;
+			}
 			return true;
 		}
 		break;
@@ -675,4 +721,12 @@ void Room::NextPlayer()
 	else {
 		++CurrentPlayer;
 	}
+}
+
+void Room::ResetNakuState()
+{
+	pl1->NakuState = -1;
+	pl2->NakuState = -1;
+	pl3->NakuState = -1;
+	pl4->NakuState = -1;
 }

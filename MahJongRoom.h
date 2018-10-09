@@ -22,9 +22,11 @@ public:
 	void Act();
 	void Reset();
 
+	//vvvvvvvvvvvvv		似乎也是沒用到的
 	void ShowPaiSan();
 	void ShowOthersPai();
 	void ShowTehai();
+	//^^^^^^^^^^^^^		似乎也是沒用到的
 
 	void GetInfo(const Player *pai1, const Player *pai2, const Player *pai3, const Player *pai4);
 
@@ -33,7 +35,11 @@ public:
 
 	void ButtonFunction(int n);
 
-	std::vector<int> reorder;				//將赤五放入正常排牌位置
+	/*
+	將赤五放入正常排牌位置
+	reorder 和 tsumohai 為顯示手牌用途
+	*/
+	std::vector<int> reorder;				
 	int tsumohai = -1;
 
 	CEGUI::Window *background;
@@ -56,16 +62,21 @@ public:
 	std::vector<CEGUI::Window *>frontSutehai;
 	//^^^^^^^^^^^^^^^						捨牌
 	//vvvvvvvvvvvvvvv						按鈕
-	int ButtonCase = 0;			//	1		2		3		4		5		6		7		8		9		10		11		12		13		14		15		16
-	CEGUI::Window *button1;		//															pass	pass	pass	pass			pass	pass	pass
-	CEGUI::Window *button2;		//	pass	pass	pass	pass	pass	pass	pass	吃		吃		吃		立直	pass	立直	碰		吃		pass
-	CEGUI::Window *button3;		//	自摸	立直	吃		和		碰		槓		碰		碰		碰		碰		自摸	自摸	自摸	和		和		碰
+	int ButtonCase = 0;			//	1		2		3		4		5		6		7		8		9		10		11		12		13		14		15		16		17
+	CEGUI::Window *button1;		//															pass	pass	pass	pass			pass	pass	pass			pass
+	CEGUI::Window *button2;		//	pass	pass	pass	pass	pass	pass	pass	吃		吃		吃		立直	pass	立直	碰		吃		pass	吃
+	CEGUI::Window *button3;		//	自摸	立直	吃		和		碰		槓		碰		碰		碰		碰		自摸	自摸	自摸	和		和		碰		碰
 	CEGUI::Window *button4;		//													槓				槓		槓				槓		槓						槓
-	CEGUI::Window *button5;		//																			和												和
-	
+	CEGUI::Window *button5;		//																			和												和		和
+								//	o		x		o		o		o		x		o		o		x		x		x		x		x		o		o		o
+
 	CEGUI::Window *testbutton;
 	//^^^^^^^^^^^^^^^						按鈕
 
+	bool switchChi = false;
+
+
+	//	立直巡數
 	int myRichi = 0;
 	int rightRichi = 0;
 	int leftRichi = 0;

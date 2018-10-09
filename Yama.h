@@ -13,6 +13,8 @@ public:
 	void Init(bool aka);
 	std::vector<std::vector<int>> Peipai();
 
+	std::vector<std::vector<int>> SpecialPeiPai();
+
 	int MoPai();
 	int MoRinshan();
 	void Kan();

@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <iostream>
+#include <utility>
 using std::cout;
 using std::endl;
 
@@ -40,7 +41,11 @@ public:
 
 	int PonDekiruPai = -1;
 	std::vector<int> KanDekiruList;
-	std::vector<int> ChiDekiruList;
+	/*
+				(	(	可以吃的牌	)	,	吃的方式	)
+	*/
+	std::vector<std::pair<std::pair<int, int>, int>> ChiDekiruList;
+	int ChiCase = -1;							// index of ChiDekiruList
 
 	int *Suteru;
 	int *NakuState;

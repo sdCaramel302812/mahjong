@@ -34,8 +34,44 @@ void Agent::Act()
 {
 	if (IsAI) {
 		if (WaitForKiru) {
-			*Suteru = tehai->at(0);
+			int rnd = rand() % 2;
+			if (rnd == 1) {
+				*Suteru = tehai->back();
+			}
+			else {
+				*Suteru = tehai->front();
+			}
 		}
+		if (RonDekiru || TsumoDekiru) {
+			*Agari = true;
+		}
+		else if (ChiDekiru) {
+			ChiDekiru = false;
+			KanDekiru = false;
+			PonDekiru = false;
+			if (!ChiDekiruList.empty()) {
+				int rnd = rand() % ChiDekiruList.size();
+				*NakuState = ChiDekiruList.at(rnd).second;
+				ChiDekiruList.clear();
+			}
+		}
+		else if (KanDekiru) {
+			KanDekiru = false;
+			PonDekiru = false;
+			*NakuState = 2;
+		}
+		else if (PonDekiru) {
+			PonDekiru = false;
+			*NakuState = 1;
+		}
+		else {
+			*NakuState = 0;
+		}
+	}
+
+	bool hasAct = false;
+
+	if (!IsAI && !ChiDekiru && !PonDekiru && !KanDekiru && !RonDekiru && !TsumoDekiru) {
 		*NakuState = 0;
 	}
 
@@ -48,7 +84,7 @@ void Agent::Act()
 		if (WantToPon == -1) {
 			PonDekiru = false;
 			PonDekiruPai = -1;
-			if (*NakuState == -1) {
+			if (*NakuState == -1 && !hasAct) {
 				*NakuState = 0;
 			}
 		}
@@ -58,7 +94,26 @@ void Agent::Act()
 		WantToPon = 0;
 	}
 	if (ChiDekiru) {
-
+		if (WantToChi == 1) {
+			hasAct = true;
+			if (ChiCase != -1) {
+				ChiDekiru = false;
+				*NakuState = ChiDekiruList.at(ChiCase).second;
+				ChiCase = -1;
+				ChiDekiruList.clear();
+				WantToChi = 0;
+			}
+		}
+		if (WantToChi == -1) {
+			ChiDekiru = false;
+			ChiCase = -1;
+			if (*NakuState == -1 && !hasAct) {
+				*NakuState = 0;
+			}
+			ChiDekiruList.clear();
+			WantToChi = 0;
+		}
+		
 	}
 	else {
 		WantToChi = 0;
@@ -70,7 +125,7 @@ void Agent::Act()
 		}
 		if (WantToKan == -1) {
 			KanDekiru = false;
-			if (*NakuState == -1) {
+			if (*NakuState == -1 && !hasAct) {
 				*NakuState = 0;
 			}
 		}
@@ -86,6 +141,9 @@ void Agent::Act()
 		}
 		if (WantToRon == -1) {
 			RonDekiru = false;
+			if (*NakuState == -1 && !hasAct) {
+				*NakuState = 0;
+			}
 		}
 		WantToRon = 0;
 	}
@@ -105,4 +163,5 @@ void Agent::Act()
 	else {
 		WantToTsumo = 0;
 	}
+
 }
