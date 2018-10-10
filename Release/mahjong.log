@@ -1,7 +1,435 @@
-﻿  Agent.cpp
+﻿  MahJongRoom.cpp
+  Macro definition of max detected - undefining
+  Macro definition of min detected - undefining
+d:\mahjong\mahjong\mahjong\scene.h(2): warning C4005: '_WIN32_WINNT': 巨集重複定義
+  c:\program files (x86)\windows kits\10\include\10.0.17134.0\shared\sdkddkver.h(215): note: 請參閱 '_WIN32_WINNT' 之前的定義
+d:\mahjong\mahjong\mahjong\mj_def.h(47): warning C4005: 'NAN': 巨集重複定義
+  c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\corecrt_math.h(94): note: 請參閱 'NAN' 之前的定義
+d:\mahjong\mahjong\mahjong\nstdlib.h(16): warning C4091: 'extern ': 當沒有宣告變數時，忽略 'Entity' 的左方
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(39): warning C4838: 從 'double' 到 'int' 的轉換必須是縮小轉換
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(39): warning C4244: '正在初始化': 將 'double' 轉換為 'int'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(40): warning C4838: 從 'double' 到 'int' 的轉換必須是縮小轉換
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(40): warning C4244: '正在初始化': 將 'double' 轉換為 'int'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(41): warning C4838: 從 'double' 到 'int' 的轉換必須是縮小轉換
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(41): warning C4244: '正在初始化': 將 'double' 轉換為 'int'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(42): warning C4244: '正在初始化': 將 'double' 轉換為 'int'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(67): warning C4838: 從 'double' 到 'int' 的轉換必須是縮小轉換
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(67): warning C4244: '正在初始化': 將 'double' 轉換為 'int'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(68): warning C4838: 從 'double' 到 'int' 的轉換必須是縮小轉換
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(68): warning C4244: '正在初始化': 將 'double' 轉換為 'int'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(69): warning C4838: 從 'double' 到 'int' 的轉換必須是縮小轉換
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(69): warning C4244: '正在初始化': 將 'double' 轉換為 'int'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(70): warning C4244: '正在初始化': 將 'double' 轉換為 'int'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(97): warning C4838: 從 'double' 到 'int' 的轉換必須是縮小轉換
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(97): warning C4244: '正在初始化': 將 'double' 轉換為 'int'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(98): warning C4838: 從 'double' 到 'int' 的轉換必須是縮小轉換
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(98): warning C4244: '正在初始化': 將 'double' 轉換為 'int'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(99): warning C4838: 從 'double' 到 'int' 的轉換必須是縮小轉換
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(99): warning C4244: '正在初始化': 將 'double' 轉換為 'int'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(100): warning C4244: '正在初始化': 將 'double' 轉換為 'int'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(125): warning C4838: 從 'double' 到 'int' 的轉換必須是縮小轉換
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(125): warning C4244: '正在初始化': 將 'double' 轉換為 'int'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(126): warning C4838: 從 'double' 到 'int' 的轉換必須是縮小轉換
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(126): warning C4244: '正在初始化': 將 'double' 轉換為 'int'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(127): warning C4838: 從 'double' 到 'int' 的轉換必須是縮小轉換
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(127): warning C4244: '正在初始化': 將 'double' 轉換為 'int'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(128): warning C4244: '正在初始化': 將 'double' 轉換為 'int'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(207): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(209): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(211): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(217): warning C4018: '>': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(221): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(224): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(229): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(235): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(240): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(253): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(254): warning C4018: '<=': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(261): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(264): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(270): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(273): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(279): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(282): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(288): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(291): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(299): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(302): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(308): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(311): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(317): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(320): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(326): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(329): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(342): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(344): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(346): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(352): warning C4018: '>': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(356): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(359): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(364): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(370): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(375): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(382): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(383): warning C4018: '<=': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(388): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(391): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(397): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(400): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(406): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(409): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(415): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(418): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(426): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(429): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(435): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(438): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(444): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(447): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(453): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(456): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(473): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(475): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(481): warning C4018: '>': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(485): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(488): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(493): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(499): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(504): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(510): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(525): warning C4018: '>=': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(547): warning C4018: '>': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(556): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(557): warning C4018: '<=': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(562): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(565): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(574): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(577): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(586): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(589): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(598): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(601): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(612): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(615): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(624): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(627): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(636): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(639): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(648): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(651): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(754): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(837): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(874): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(883): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(895): warning C4018: '>': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1097): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1315): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1319): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1323): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1327): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1332): warning C4018: '>': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1450): warning C4018: '>': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1568): warning C4018: '>': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1686): warning C4018: '>': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1811): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1812): warning C4018: '>': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1819): warning C4018: '<=': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1825): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1825): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1826): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1826): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1827): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1827): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1828): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1828): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1830): warning C4018: '>': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1837): warning C4018: '<=': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1846): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1846): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1847): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1847): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1848): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1848): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1849): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1849): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1852): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1852): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1853): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1853): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1854): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1854): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1855): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1855): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1858): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1858): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1859): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1859): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1860): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1860): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1861): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1861): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1865): warning C4018: '>': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1872): warning C4018: '<=': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1881): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1881): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1882): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1882): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1883): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1883): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1884): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1884): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1887): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1887): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1888): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1888): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1889): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1889): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1890): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1890): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1893): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1893): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1894): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1894): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1895): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1895): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1896): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1896): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1900): warning C4018: '>': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1907): warning C4018: '<=': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1913): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1913): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1914): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1914): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1915): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1915): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1916): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1916): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1925): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1926): warning C4018: '>': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1933): warning C4018: '<=': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1939): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1939): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1940): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1940): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1941): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1941): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1942): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1942): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1944): warning C4018: '>': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1951): warning C4018: '<=': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1960): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1960): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1961): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1961): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1962): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1962): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1963): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1963): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1966): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1966): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1967): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1967): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1968): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1968): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1969): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1969): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1972): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1972): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1973): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1973): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1974): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1974): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1975): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1975): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1979): warning C4018: '>': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1986): warning C4018: '<=': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1995): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1995): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1996): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1996): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1997): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1997): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1998): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(1998): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2001): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2001): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2002): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2002): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2003): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2003): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2004): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2004): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2007): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2007): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2008): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2008): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2009): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2009): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2010): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2010): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2014): warning C4018: '>': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2021): warning C4018: '<=': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2027): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2027): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2028): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2028): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2029): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2029): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2030): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2030): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2039): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2040): warning C4018: '>': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2047): warning C4018: '<=': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2053): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2053): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2054): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2054): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2055): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2055): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2056): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2056): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2058): warning C4018: '>': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2065): warning C4018: '<=': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2074): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2074): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2075): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2075): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2076): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2076): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2077): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2077): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2080): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2080): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2081): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2081): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2082): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2082): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2083): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2083): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2086): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2086): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2087): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2087): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2088): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2088): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2089): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2089): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2093): warning C4018: '>': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2100): warning C4018: '<=': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2109): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2109): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2110): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2110): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2111): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2111): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2112): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2112): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2115): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2115): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2116): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2116): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2117): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2117): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2118): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2118): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2121): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2121): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2122): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2122): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2123): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2123): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2124): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2124): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2128): warning C4018: '>': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2135): warning C4018: '<=': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2141): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2141): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2142): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2142): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2143): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2143): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2144): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2144): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2153): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2154): warning C4018: '>': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2161): warning C4018: '<=': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2167): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2167): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2168): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2168): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2169): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2169): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2170): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2170): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2172): warning C4018: '>': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2179): warning C4018: '<=': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2188): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2188): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2189): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2189): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2190): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2190): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2191): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2191): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2194): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2194): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2195): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2195): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2196): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2196): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2197): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2197): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2200): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2200): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2201): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2201): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2202): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2202): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2203): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2203): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2207): warning C4018: '>': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2214): warning C4018: '<=': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2223): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2223): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2224): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2224): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2225): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2225): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2226): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2226): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2229): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2229): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2230): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2230): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2231): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2231): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2232): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2232): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2235): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2235): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2236): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2236): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2237): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2237): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2238): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2238): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2242): warning C4018: '>': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2249): warning C4018: '<=': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2255): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2255): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2256): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2256): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2257): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2257): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2258): warning C4305: '引數': 從 'double' 轉換為 'float'，是由較大的類型轉換為較小的類型，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2258): warning C4244: '引數': 將 'double' 轉換為 'float'，由於類型不同，可能導致資料遺失
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2264): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2388): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2512): warning C4018: '<': signed/unsigned 不相符
+d:\mahjong\mahjong\mahjong\mahjongroom.cpp(2636): warning C4018: '<': signed/unsigned 不相符
   正在產生程式碼
-  2 of 1243 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
+  1 of 1395 functions (<0.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    4 functions had inline decision re-evaluated but remain unchanged
+    3 functions had inline decision re-evaluated but remain unchanged
   已完成程式碼產生
   mahjong.vcxproj -> D:\mahjong\mahjong\Release\mahjong.exe

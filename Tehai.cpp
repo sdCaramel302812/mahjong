@@ -284,15 +284,39 @@ bool Tehai::Daiminkan(int pai, int from)
 bool Tehai::Kakan(int pai)
 {
 	for (std::vector<std::vector<int>>::iterator i = pon.begin(); i != pon.end(); ++i) {
-		if (i->at(0) == pai) {
+		if ((i->at(0) != 0 && i->at(0) != 10 && i->at(0) != 20) && i->at(0) == pai) {
 			std::vector<int> kanpai;
 			kanpai.push_back(pai);
 			kanpai.push_back(i->at(1));
 			minkan.push_back(kanpai);
 			pon.erase(i);
-			for (std::vector<int>::iterator i = tehai.begin(); i != tehai.end(); ++i) {
-				if (*i == pai) {
-					tehai.erase(i);
+			for (std::vector<int>::iterator j = tehai.begin(); j != tehai.end(); ++j) {
+				if ((*j != 0 && *j != 10 && *j != 20) && *j == pai) {
+					tehai.erase(j);
+					break;
+				}
+				else if ((*j == 0 || *j != 10 || *j == 20) && *j == pai - 5) {
+					tehai.erase(j);
+					break;
+				}
+			}
+			agarihai = tehai;
+			break;
+			return true;
+		}	
+		if ((i->at(0) == 0 && i->at(0) == 10 && i->at(0) == 20) && i->at(0) == pai - 5) {
+			std::vector<int> kanpai;
+			kanpai.push_back(pai);
+			kanpai.push_back(i->at(1));
+			minkan.push_back(kanpai);
+			pon.erase(i);
+			for (std::vector<int>::iterator j = tehai.begin(); j != tehai.end(); ++j) {
+				if ((*j != 0 && *j != 10 && *j != 20) && *j == pai) {
+					tehai.erase(j);
+					break;
+				}
+				else if ((*j == 0 || *j == 10 || *j == 20) && *j == pai) {
+					tehai.erase(j);
 					break;
 				}
 			}
@@ -300,9 +324,8 @@ bool Tehai::Kakan(int pai)
 			break;
 			return true;
 		}
-
-		return false;
 	}
+	return false;
 }
 
 bool Tehai::Ankan(int pai)
@@ -312,7 +335,7 @@ bool Tehai::Ankan(int pai)
 	bool third = false;
 	bool forth = false;
 	for (std::vector<int>::iterator i = agarihai.begin(); i != agarihai.end(); ++i) {
-		if (*i == pai) {
+		if ((*i != 0 && *i != 10 && *i != 20 && *i == pai) || ((*i == 0 || *i == 10 || *i == 20) && *i == pai - 5)) {
 			if (!first) {
 				first = true;
 				continue;
@@ -337,7 +360,7 @@ bool Tehai::Ankan(int pai)
 
 	for (int j = 0; j < 4; ++j) {
 		for (std::vector<int>::iterator i = tehai.begin(); i != tehai.end(); ++i) {
-			if (*i == pai) {
+			if ((*i != 0 && *i != 10 && *i != 20 && *i == pai) || ((*i == 0 || *i == 10 || *i == 20) && *i == pai - 5)) {
 				tehai.erase(i);
 				break;
 			}

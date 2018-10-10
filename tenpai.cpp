@@ -696,7 +696,8 @@ Yaku YakuCheck(Tehai *pai, int Chanfon, int Menfon, bool last, bool first, bool 
 				
 			}
 		}
-		
+	
+
 		//符數計算
 		int fu = 20;
 		fu += minko28 * 2;
@@ -998,6 +999,7 @@ Yaku YakuCheck(Tehai *pai, int Chanfon, int Menfon, bool last, bool first, bool 
 				}
 			}
 		}
+
 		//一氣通貫
 		{
 			int pin[3] = { 0 };
@@ -1013,14 +1015,35 @@ Yaku YakuCheck(Tehai *pai, int Chanfon, int Menfon, bool last, bool first, bool 
 				if (min % 10 == 0) {
 					min += 5;
 				}
-				if (min > 20 && (min - 20) % 3 == 1) {
-					++sou[(min - 20) / 3];
-				}
-				else if (min > 10 && (min - 10) % 3 == 1) {
-					++man[(min - 10) / 3];
-				}
-				else if (min % 3 == 1) {
-					++pin[min / 3];
+				switch (min)
+				{
+				case 1:
+					++pin[0];
+					break;
+				case 4:
+					++pin[1];
+					break;
+				case 7:
+					++pin[2];
+					break;
+				case 11:
+					++man[0];
+					break;
+				case 14:
+					++man[1];
+					break;
+				case 17:
+					++man[2];
+					break;
+				case 21:
+					++sou[0];
+					break;
+				case 24:
+					++sou[1];
+					break;
+				case 27:
+					++sou[2];
+					break;
 				}
 			}
 			for (int i = 0; i < mentsu.size(); ++i) {
@@ -1101,6 +1124,7 @@ Yaku YakuCheck(Tehai *pai, int Chanfon, int Menfon, bool last, bool first, bool 
 			yaku.Han += 2;
 			yakunashi = false;
 		}
+
 		{
 			//清一色
 			int n = 0;
@@ -1640,20 +1664,712 @@ std::vector<int> TenpaiCheck(Tehai *pai)
 	Tehai checkpai = *pai;
 
 	//將赤牌轉為一般牌方便檢查
-	for (int i = 0; i < checkpai.agarihai.size(); ++i) {
-		if (checkpai.agarihai.at(i) == 0) {
-			checkpai.agarihai.at(i) = 5;
+	for (int i = 0; i < checkpai.tehai.size(); ++i) {
+		if (checkpai.tehai.at(i) == 0) {
+			checkpai.tehai.at(i) = 5;
 		}
-		if (checkpai.agarihai.at(i) == 10) {
-			checkpai.agarihai.at(i) = 15;
+		if (checkpai.tehai.at(i) == 10) {
+			checkpai.tehai.at(i) = 15;
 		}
-		if (checkpai.agarihai.at(i) == 20) {
-			checkpai.agarihai.at(i) = 25;
+		if (checkpai.tehai.at(i) == 20) {
+			checkpai.tehai.at(i) = 25;
 		}
 	}
-	std::sort(checkpai.agarihai.begin(), checkpai.agarihai.end());
+	std::sort(checkpai.tehai.begin(), checkpai.tehai.end());
 
-	return std::vector<int>();
+	//vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv		國士聽牌確認
+	bool kokushi[13] = { false };
+	if (checkpai.tehai.size() == 13) {
+		int num19 = 0;
+		for (int i = 0; i < 13; ++i) {
+			switch (checkpai.tehai.at(i))
+			{
+			case 1:
+				kokushi[0] = true;
+				break;
+			case 9:
+				kokushi[1] = true;
+				break;
+			case 11:
+				kokushi[2] = true;
+				break;
+			case 19:
+				kokushi[3] = true;
+				break;
+			case 21:
+				kokushi[4] = true;
+				break;
+			case 29:
+				kokushi[5] = true;
+				break;
+			case 30:
+				kokushi[6] = true;
+				break;
+			case 31:
+				kokushi[7] = true;
+				break;
+			case 32:
+				kokushi[8] = true;
+				break;
+			case 33:
+				kokushi[9] = true;
+				break;
+			case 34:
+				kokushi[10] = true;
+				break;
+			case 35:
+				kokushi[11] = true;
+				break;
+			case 36:
+				kokushi[12] = true;
+				break;
+			}
+		}
+
+		for (int i = 0; i < 13; ++i) {
+			if (kokushi[i]) {
+				++num19;
+			}
+		}
+		if (num19 == 13) {
+			std::vector<int> tenpai;
+			tenpai.resize(13);
+			tenpai.at(0) = 1;
+			tenpai.at(1) = 9;
+			tenpai.at(2) = 11;
+			tenpai.at(3) = 19;
+			tenpai.at(4) = 21;
+			tenpai.at(5) = 29;
+			tenpai.at(6) = 30;
+			tenpai.at(7) = 31;
+			tenpai.at(8) = 32;
+			tenpai.at(9) = 33;
+			tenpai.at(10) = 34;
+			tenpai.at(11) = 35;
+			tenpai.at(12) = 36;
+			return tenpai;
+		}
+		if (num19 == 12) {
+			for (int i = 0; i < 13; ++i) {
+				if (!kokushi[i]) {
+					std::vector<int> tenpai;
+					switch (i)
+					{
+					case 0:
+						tenpai.push_back(1);
+						break;
+					case 1:
+						tenpai.push_back(9);
+						break;
+					case 2:
+						tenpai.push_back(11);
+						break;
+					case 3:
+						tenpai.push_back(19);
+						break;
+					case 4:
+						tenpai.push_back(21);
+						break;
+					case 5:
+						tenpai.push_back(29);
+						break;
+					case 6:
+						tenpai.push_back(30);
+						break;
+					case 7:
+						tenpai.push_back(31);
+						break;
+					case 8:
+						tenpai.push_back(32);
+						break;
+					case 9:
+						tenpai.push_back(33);
+						break;
+					case 10:
+						tenpai.push_back(34);
+						break;
+					case 11:
+						tenpai.push_back(35);
+						break;
+					case 12:
+						tenpai.push_back(36);
+						break;
+					}
+					return tenpai;
+				}
+			}
+		}
+	}
+	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^		國士聽牌確認
+	//vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv		一般聽牌確認
+	int pin[9] = { 0 };
+	int man[9] = { 0 };
+	int sou[9] = { 0 };
+	int other[7] = { 0 };
+	for (int i = 0; i < checkpai.tehai.size(); ++i) {
+		if (checkpai.tehai.at(i) >= 30) {
+			++other[checkpai.tehai.at(i) - 30];
+		}
+		else if (checkpai.tehai.at(i) > 20) {
+			++sou[checkpai.tehai.at(i) - 21];
+		}
+		else if (checkpai.tehai.at(i) > 10) {
+			++man[checkpai.tehai.at(i) - 11];
+		}
+		else {
+			++pin[checkpai.tehai.at(i) - 1];
+		}
+	}
+	//vvvvvvvvvvvvvvvvvvvvvvvvvv	確認孤張數量
+	int single = 0;
+	for (int i = 0; i < 7; ++i) {
+		if (other[i] == 1) {
+			++single;
+		}
+	}
+	for (int i = 0; i < 9; +i) {
+		if (i == 0) {
+			if (pin[0] == 1 && pin[1] == 0 && pin[2] == 0) {
+				++single;
+			}
+			if (man[0] == 1 && man[1] == 0 && man[2] == 0) {
+				++single;
+			}
+			if (sou[0] == 1 && sou[1] == 0 && sou[2] == 0) {
+				++single;
+			}
+		}
+		else if (i == 8) {
+			if (pin[8] == 1 && pin[7] == 0 && pin[6] == 0) {
+				++single;
+			}
+			if (man[8] == 1 && man[7] == 0 && man[2] == 6) {
+				++single;
+			}
+			if (sou[8] == 1 && sou[7] == 0 && sou[2] == 6) {
+				++single;
+			}
+		}
+		else if (i == 2) {
+			if (pin[1] == 1 && pin[0] == 0 && pin[2] == 0 && pin[3] == 0) {
+				++single;
+			}
+			if (man[1] == 1 && man[0] == 0 && man[2] == 0 && man[3] == 0) {
+				++single;
+			}
+			if (sou[1] == 1 && sou[0] == 0 && sou[2] == 0 && sou[3] == 0) {
+				++single;
+			}
+		}
+		else if (i == 7) {
+			if (pin[7] == 1 && pin[8] == 0 && pin[6] == 0 && pin[5] == 0) {
+				++single;
+			}
+			if (man[7] == 1 && man[8] == 0 && man[6] == 0 && man[5] == 0) {
+				++single;
+			}
+			if (sou[7] == 1 && sou[8] == 0 && sou[6] == 0 && sou[5] == 0) {
+				++single;
+			}
+		}
+		else {
+			if (pin[i] == 1 && pin[i - 1] == 0 && pin[i - 2] == 0 && pin[i + 1] == 0 && pin[i + 2] == 0) {
+				++single;
+			}
+			if (man[i] == 1 && man[i - 1] == 0 && man[i - 2] == 0 && man[i + 1] == 0 && man[i + 2] == 0) {
+				++single;
+			}
+			if (sou[i] == 1 && sou[i - 1] == 0 && sou[i - 2] == 0 && sou[i + 1] == 0 && sou[i + 2] == 0) {
+				++single;
+			}
+		}
+	}
+	if (single > 1) {
+		return std::vector<int>();
+	}
+	//^^^^^^^^^^^^^^^^^^^^^^^^^^	確認孤張數量
+	//vvvvvvvvvvvvvvvvvvvvvvvvvv	排除連續順子
+	//		1	1	1	1	1	1	1	1	1
+	if (pin[0] == 1 && pin[1] == 1 && pin[2] == 1 && pin[3] == 1 && pin[4] == 1 && pin[5] == 1 && pin[6] == 1 && pin[7] == 1 && pin[8] == 1) {
+		for (int i = 0; i < 9; ++i) {
+			pin[i] = 0;
+		}
+	}
+	if (man[0] == 1 && man[1] == 1 && man[2] == 1 && man[3] == 1 && man[4] == 1 && man[5] == 1 && man[6] == 1 && man[7] == 1 && man[8] == 1) {
+		for (int i = 0; i < 9; ++i) {
+			man[i] = 0;
+		}
+	}
+	if (sou[0] == 1 && sou[1] == 1 && sou[2] == 1 && sou[3] == 1 && sou[4] == 1 && sou[5] == 1 && sou[6] == 1 && sou[7] == 1 && sou[8] == 1) {
+		for (int i = 0; i < 9; ++i) {
+			sou[i] = 0;
+		}
+	}
+	//		0	1	1	2	1	2	1	1	0
+	if (pin[0] == 1 && pin[1] == 1 && pin[2] == 2 && pin[3] == 1 && pin[4] == 2 && pin[5] == 1 && pin[6] == 1 && pin[7] == 0) {
+		for (int i = 0; i < 7; ++i) {
+			pin[i] = 0;
+		}
+	}
+	if (man[0] == 1 && man[1] == 1 && man[2] == 2 && man[3] == 1 && man[4] == 2 && man[5] == 1 && man[6] == 1 && man[7] == 0) {
+		for (int i = 0; i < 7; ++i) {
+			man[i] = 0;
+		}
+	}
+	if (sou[0] == 1 && sou[1] == 1 && sou[2] == 2 && sou[3] == 1 && sou[4] == 2 && sou[5] == 1 && sou[6] == 1 && sou[7] == 0) {
+		for (int i = 0; i < 7; ++i) {
+			sou[i] = 0;
+		}
+	}
+	if (pin[1] == 1 && pin[2] == 1 && pin[3] == 2 && pin[4] == 1 && pin[5] == 2 && pin[6] == 1 && pin[7] == 1 && pin[0] == 0 && pin[8] == 0) {
+		for (int i = 1; i < 8; ++i) {
+			pin[i] = 0;
+		}
+	}
+	if (man[1] == 1 && man[2] == 1 && man[3] == 2 && man[4] == 1 && man[5] == 2 && man[6] == 1 && man[7] == 1 && man[0] == 0 && man[8] == 0) {
+		for (int i = 1; i < 8; ++i) {
+			man[i] = 0;
+		}
+	}
+	if (sou[1] == 1 && sou[2] == 1 && sou[3] == 2 && sou[4] == 1 && sou[5] == 2 && sou[6] == 1 && sou[7] == 1 && sou[0] == 0 && sou[8] == 0) {
+		for (int i = 1; i < 8; ++i) {
+			sou[i] = 0;
+		}
+	}
+	if (pin[2] == 1 && pin[3] == 1 && pin[4] == 2 && pin[5] == 1 && pin[6] == 2 && pin[7] == 1 && pin[8] == 1 && pin[0] == 0) {
+		for (int i = 2; i < 0; ++i) {
+			pin[i] = 0;
+		}
+	}
+	if (man[2] == 1 && man[3] == 1 && man[4] == 2 && man[5] == 1 && man[6] == 2 && man[7] == 1 && man[8] == 1 && man[0] == 0) {
+		for (int i = 2; i < 9; ++i) {
+			man[i] = 0;
+		}
+	}
+	if (sou[2] == 1 && sou[3] == 1 && sou[4] == 2 && sou[5] == 1 && sou[6] == 2 && sou[7] == 1 && sou[8] == 1 && sou[0] == 0) {
+		for (int i = 2; i < 9; ++i) {
+			sou[i] = 0;
+		}
+	}
+	//		0	1	1	1	1	1	2	1	1	0
+	if (pin[0] == 1 && pin[1] == 1 && pin[2] == 1 && pin[3] == 1 && pin[4] == 1 && pin[5] == 2 && pin[6] == 1 && pin[7] == 1 && pin[8] == 0) {
+		for (int i = 0; i < 8; ++i) {
+			pin[i] = 0;
+		}
+	}
+	if (man[0] == 1 && man[1] == 1 && man[2] == 1 && man[3] == 1 && man[4] == 1 && man[5] == 2 && man[6] == 1 && man[7] == 1 && man[8] == 0) {
+		for (int i = 0; i < 8; ++i) {
+			man[i] = 0;
+		}
+	}
+	if (sou[0] == 1 && sou[1] == 1 && sou[2] == 1 && sou[3] == 1 && sou[4] == 1 && sou[5] == 2 && sou[6] == 1 && sou[7] == 1 && sou[8] == 0) {
+		for (int i = 0; i < 8; ++i) {
+			sou[i] = 0;
+		}
+	}
+	if (pin[1] == 1 && pin[2] == 1 && pin[3] == 1 && pin[4] == 1 && pin[5] == 1 && pin[6] == 2 && pin[7] == 1 && pin[8] == 1 && pin[0] == 0) {
+		for (int i = 1; i < 9; ++i) {
+			pin[i] = 0;
+		}
+	}
+	if (man[1] == 1 && man[2] == 1 && man[3] == 1 && man[4] == 1 && man[5] == 1 && man[6] == 2 && man[7] == 1 && man[8] == 1 && man[0] == 0) {
+		for (int i = 1; i < 9; ++i) {
+			man[i] = 0;
+		}
+	}
+	if (sou[1] == 1 && sou[2] == 1 && sou[3] == 1 && sou[4] == 1 && sou[5] == 1 && sou[6] == 2 && sou[7] == 1 && sou[8] == 1 && sou[0] == 0) {
+		for (int i = 1; i < 9; ++i) {
+			sou[i] = 0;
+		}
+	}
+	//		0	1	1	2	1	1	1	1	1	0
+	if (pin[0] == 1 && pin[1] == 1 && pin[2] == 2 && pin[3] == 1 && pin[4] == 1 && pin[5] == 1 && pin[6] == 1 && pin[7] == 1 && pin[8] == 0) {
+		for (int i = 0; i < 8; ++i) {
+			pin[i] = 0;
+		}
+	}
+	if (man[0] == 1 && man[1] == 1 && man[2] == 2 && man[3] == 1 && man[4] == 1 && man[5] == 1 && man[6] == 1 && man[7] == 1 && man[8] == 0) {
+		for (int i = 0; i < 8; ++i) {
+			man[i] = 0;
+		}
+	}
+	if (sou[0] == 1 && sou[1] == 1 && sou[2] == 2 && sou[3] == 1 && sou[4] == 1 && sou[5] == 1 && sou[6] == 1 && sou[7] == 1 && sou[8] == 0) {
+		for (int i = 0; i < 8; ++i) {
+			sou[i] = 0;
+		}
+	}
+	if (pin[1] == 1 && pin[2] == 1 && pin[3] == 2 && pin[4] == 1 && pin[5] == 1 && pin[6] == 1 && pin[7] == 1 && pin[8] == 1 && pin[0] == 0) {
+		for (int i = 1; i < 9; ++i) {
+			pin[i] = 0;
+		}
+	}
+	if (man[1] == 1 && man[2] == 1 && man[3] == 2 && man[4] == 1 && man[5] == 1 && man[6] == 1 && man[7] == 1 && man[8] == 1 && man[0] == 0) {
+		for (int i = 1; i < 9; ++i) {
+			man[i] = 0;
+		}
+	}
+	if (sou[1] == 1 && sou[2] == 1 && sou[3] == 2 && sou[4] == 1 && sou[5] == 1 && sou[6] == 1 && sou[7] == 1 && sou[8] == 1 && sou[0] == 0) {
+		for (int i = 1; i < 9; ++i) {
+			sou[i] = 0;
+		}
+	}
+	//		0	1	1	1	1	1	1	0
+	for (int i = 1; i < 3; ++i) {
+		if (pin[i] == 1 && pin[i + 1] == 1 && pin[i + 2] == 1 && pin[i + 3] == 1 && pin[i + 4] == 1 && pin[i + 5] == 1 && pin[i + 6] == 0 && pin[i -1] == 0) {
+			for (int j = i; j < 6 + i; ++j) {
+				pin[j] = 0;
+			}
+		}
+		if (man[i] == 1 && man[i + 1] == 1 && man[i + 2] == 1 && man[i + 3] == 1 && man[i + 4] == 1 && man[i + 5] == 1 && man[i + 6] == 0 && man[i - 1] == 0) {
+			for (int j = i; j < 6 + i; ++j) {
+				man[j] = 0;
+			}
+		}
+		if (sou[i] == 1 && sou[i + 1] == 1 && sou[i + 2] == 1 && sou[i + 3] == 1 && sou[i + 4] == 1 && sou[i + 5] == 1 && sou[i + 6] == 0 && sou[i - 1] == 0) {
+			for (int j = i; j < 6 + i; ++j) {
+				sou[j] = 0;
+			}
+		}
+	}
+	if (pin[0] == 1 && pin[1] == 1 && pin[2] == 1 && pin[3] == 1 && pin[4] == 1 && pin[5] == 1 && pin[6] == 0) {
+		for (int j = 0; j < 6; ++j) {
+			pin[j] = 0;
+		}
+	}
+	if (man[0] == 1 && man[1] == 1 && man[2] == 1 && man[3] == 1 && man[4] == 1 && man[5] == 1 && man[6] == 0) {
+		for (int j = 0; j < 6; ++j) {
+			man[j] = 0;
+		}
+	}
+	if (sou[0] == 1 && sou[1] == 1 && sou[2] == 1 && sou[3] == 1 && sou[4] == 1 && sou[5] == 1 && sou[6] == 0) {
+		for (int j = 0; j < 6; ++j) {
+			sou[j] = 0;
+		}
+	}
+	if (pin[3] == 1 && pin[4] == 1 && pin[5] == 1 && pin[6] == 1 && pin[7] == 1 && pin[8] == 1 && pin[2] == 0) {
+		for (int j = 3; j < 9; ++j) {
+			pin[j] = 0;
+		}
+	}
+	if (man[3] == 1 && man[4] == 1 && man[5] == 1 && man[6] == 1 && man[7] == 1 && man[8] == 1 && man[2] == 0) {
+		for (int j = 3; j < 9; ++j) {
+			man[j] = 0;
+		}
+	}
+	if (sou[3] == 1 && sou[4] == 1 && sou[5] == 1 && sou[6] == 1 && sou[7] == 1 && sou[8] == 1 && sou[2] == 0) {
+		for (int j = 3; j < 9; ++j) {
+			sou[j] = 0;
+		}
+	}
+	//		0	1	1	2	1	1	0
+	for (int i = 1; i < 4; ++i) {
+		if (pin[i] == 1 && pin[i + 1] == 1 && pin[i + 2] == 2 && pin[i + 3] == 1 && pin[i + 4] == 1 && pin[i - 1] == 0 && pin[i + 5] == 0) {
+			for (int j = i; j < i + 5; ++j) {
+				pin[j] = 0;
+			}
+		}
+		if (man[i] == 1 && man[i + 1] == 1 && man[i + 2] == 2 && man[i + 3] == 1 && man[i + 4] == 1 && man[i - 1] == 0 && man[i + 5] == 0) {
+			for (int j = i; j < i + 5; ++j) {
+				man[j] = 0;
+			}
+		}
+		if (sou[i] == 1 && sou[i + 1] == 1 && sou[i + 2] == 2 && sou[i + 3] == 1 && sou[i + 4] == 1 && sou[i - 1] == 0 && sou[i + 5] == 0) {
+			for (int j = i; j < i + 5; ++j) {
+				sou[j] = 0;
+			}
+		}
+	}
+	if (pin[0] == 1 && pin[1] == 1 && pin[2] == 2 && pin[3] == 1 && pin[4] == 1 && pin[5] == 0) {
+		for (int j = 0; j < 5; ++j) {
+			pin[j] = 0;
+		}
+	}
+	if (man[0] == 1 && man[1] == 1 && man[2] == 2 && man[3] == 1 && man[4] == 1 && man[5] == 0) {
+		for (int j = 0; j < 5; ++j) {
+			man[j] = 0;
+		}
+	}
+	if (sou[0] == 1 && sou[1] == 1 && sou[2] == 2 && sou[3] == 1 && sou[4] == 1 && sou[5] == 0) {
+		for (int j = 0; j < 5; ++j) {
+			sou[j] = 0;
+		}
+	}
+	if (pin[4] == 1 && pin[5] == 1 && pin[6] == 2 && pin[7] == 1 && pin[8] == 1 && pin[3] == 0) {
+		for (int j = 4; j < 9; ++j) {
+			pin[j] = 0;
+		}
+	}
+	if (man[4] == 1 && man[5] == 1 && man[6] == 2 && man[7] == 1 && man[8] == 1 && man[3] == 0) {
+		for (int j = 4; j < 9; ++j) {
+			man[j] = 0;
+		}
+	}
+	if (sou[4] == 1 && sou[5] == 1 && sou[6] == 2 && sou[7] == 1 && sou[8] == 1 && sou[3] == 0) {
+		for (int j = 4; j < 9; ++j) {
+			sou[j] = 0;
+		}
+	}
+	//		0	1	2	2	1	0
+	for (int i = 1; i < 5; ++i) {
+		if (pin[i] == 1 && pin[i + 1] == 2 && pin[i + 2] == 2 && pin[i + 3] == 1 && pin[i + 4] == 0 && pin[i - 1] == 0) {
+			for (int j = i; j < i + 4; ++j) {
+				pin[j] = 0;
+			}
+		}
+		if (man[i] == 1 && man[i + 1] == 2 && man[i + 2] == 2 && man[i + 3] == 1 && man[i + 4] == 0 && man[i - 1] == 0) {
+			for (int j = i; j < i + 4; ++j) {
+				man[j] = 0;
+			}
+		}
+		if (sou[i] == 1 && sou[i + 1] == 2 && sou[i + 2] == 2 && sou[i + 3] == 1 && sou[i + 4] == 0 && sou[i - 1] == 0) {
+			for (int j = i; j < i + 4; ++j) {
+				sou[j] = 0;
+			}
+		}
+	}
+	if (pin[0] == 1 && pin[1] == 2 && pin[2] == 2 && pin[3] == 1 && pin[4] == 0) {
+		for (int j = 0; j < 4; ++j) {
+			pin[j] = 0;
+		}
+	}
+	if (man[0] == 1 && man[1] == 2 && man[2] == 2 && man[3] == 1 && man[4] == 0) {
+		for (int j = 0; j < 4; ++j) {
+			man[j] = 0;
+		}
+	}
+	if (sou[0] == 1 && sou[1] == 2 && sou[2] == 2 && sou[3] == 1 && sou[4] == 0) {
+		for (int j = 0; j < 4; ++j) {
+			sou[j] = 0;
+		}
+	}
+	if (pin[5] == 1 && pin[6] == 2 && pin[7] == 2 && pin[8] == 1 && pin[4] == 0) {
+		for (int j = 5; j < 9; ++j) {
+			pin[j] = 0;
+		}
+	}
+	if (man[5] == 1 && man[6] == 2 && man[7] == 2 && man[8] == 1 && man[4] == 0) {
+		for (int j = 5; j < 9; ++j) {
+			man[j] = 0;
+		}
+	}
+	if (sou[5] == 1 && sou[6] == 2 && sou[7] == 2 && sou[8] == 1 && sou[4] == 0) {
+		for (int j = 5; j < 9; ++j) {
+			sou[j] = 0;
+		}
+	}
+	//		0	2	2	2	0
+	for (int i = 1; i < 6; ++i) {
+		if (pin[i] == 2 && pin[i + 1] == 2 && pin[i + 2] == 2 && pin[i - 1] == 0 && pin[i + 3] == 0) {
+			for (int j = i; j < i + 3; ++j) {
+				pin[j] = 0;
+			}
+		}
+		if (man[i] == 2 && man[i + 1] == 2 && man[i + 2] == 2 && man[i - 1] == 0 && man[i + 3] == 0) {
+			for (int j = i; j < i + 3; ++j) {
+				man[j] = 0;
+			}
+		}
+		if (sou[i] == 2 && sou[i + 1] == 2 && sou[i + 2] == 2 && sou[i - 1] == 0 && sou[i + 3] == 0) {
+			for (int j = i; j < i + 3; ++j) {
+				sou[j] = 0;
+			}
+		}
+	}
+	if (pin[0] == 2 && pin[1] == 2 && pin[2] == 2 && pin[3] == 0) {
+		for (int j = 0; j < 3; ++j) {
+			pin[j] = 0;
+		}
+	}
+	if (man[0] == 2 && man[1] == 2 && man[2] == 2 && man[3] == 0) {
+		for (int j = 0; j < 3; ++j) {
+			man[j] = 0;
+		}
+	}
+	if (sou[0] == 2 && sou[1] == 2 && sou[2] == 2 && sou[3] == 0) {
+		for (int j = 0; j < 3; ++j) {
+			sou[j] = 0;
+		}
+	}
+	if (pin[6] == 2 && pin[7] == 2 && pin[8] == 2 && pin[5] == 0) {
+		for (int j = 6; j < 9; ++j) {
+			pin[j] = 0;
+		}
+	}
+	if (man[6] == 2 && man[7] == 2 && man[8] == 2 && man[5] == 0) {
+		for (int j = 6; j < 9; ++j) {
+			man[j] = 0;
+		}
+	}
+	if (sou[6] == 2 && sou[7] == 2 && sou[8] == 2 && sou[5] == 0) {
+		for (int j = 5; j < 9; ++j) {
+			sou[j] = 0;
+		}
+	}
+	//		0	1	1	1	0
+	for (int i = 1; i < 6; ++i) {
+		if (pin[i] == 1 && pin[i + 1] == 1 && pin[i + 2] == 1 && pin[i - 1] == 0 && pin[i + 3] == 0) {
+			for (int j = i; j < i + 3; ++j) {
+				pin[j] = 0;
+			}
+		}
+		if (man[i] == 1 && man[i + 1] == 1 && man[i + 2] == 1 && man[i - 1] == 0 && man[i + 3] == 0) {
+			for (int j = i; j < i + 3; ++j) {
+				man[j] = 0;
+			}
+		}
+		if (sou[i] == 1 && sou[i + 1] == 1 && sou[i + 2] == 1 && sou[i - 1] == 0 && sou[i + 3] == 0) {
+			for (int j = i; j < i + 3; ++j) {
+				sou[j] = 0;
+			}
+		}
+	}
+	if (pin[0] == 1 && pin[1] == 1 && pin[2] == 1 && pin[3] == 0) {
+		for (int j = 0; j < 3; ++j) {
+			pin[j] = 0;
+		}
+	}
+	if (man[0] == 1 && man[1] == 1 && man[2] == 1 && man[3] == 0) {
+		for (int j = 0; j < 3; ++j) {
+			man[j] = 0;
+		}
+	}
+	if (sou[0] == 1 && sou[1] == 1 && sou[2] == 1 && sou[3] == 0) {
+		for (int j = 0; j < 3; ++j) {
+			sou[j] = 0;
+		}
+	}
+	if (pin[6] == 1 && pin[7] == 1 && pin[8] == 1 && pin[5] == 0) {
+		for (int j = 6; j < 9; ++j) {
+			pin[j] = 0;
+		}
+	}
+	if (man[6] == 1 && man[7] == 1 && man[8] == 1 && man[5] == 0) {
+		for (int j = 6; j < 9; ++j) {
+			man[j] = 0;
+		}
+	}
+	if (sou[6] == 1 && sou[7] == 1 && sou[8] == 1 && sou[5] == 0) {
+		for (int j = 5; j < 9; ++j) {
+			sou[j] = 0;
+		}
+	}
+	//^^^^^^^^^^^^^^^^^^^^^^^^^^	排除連續順子
+
+	std::vector<int> tenpai;
+	for (int i = 1; i < 8; ++i) {
+		if (pin[i] > 0 || pin[i - 1] > 0 || pin[i + 1] > 0) {
+			checkpai.ronhai = i + 1;
+			if (AgariCheck(&checkpai)) {
+				tenpai.push_back(i + 1);
+			}
+		}
+		if (man[i] > 0 || man[i - 1] > 0 || man[i + 1] > 0) {
+			checkpai.ronhai = i + 11;
+			if (AgariCheck(&checkpai)) {
+				tenpai.push_back(i + 11);
+			}
+		}
+		if (sou[i] > 0 || sou[i - 1] > 0 || sou[i + 1] > 0) {
+			checkpai.ronhai = i + 21;
+			if (AgariCheck(&checkpai)) {
+				tenpai.push_back(i + 21);
+			}
+		}
+	}
+	if (pin[0] > 0 || pin[1] > 0) {
+		checkpai.ronhai = 1;
+		if (AgariCheck(&checkpai)) {
+			tenpai.push_back(1);
+		}
+	}
+	if (man[0] > 0 || man[1] > 0) {
+		checkpai.ronhai = 11;
+		if (AgariCheck(&checkpai)) {
+			tenpai.push_back(11);
+		}
+	}
+	if (sou[0] > 0 || sou[1] > 0) {
+		checkpai.ronhai = 21;
+		if (AgariCheck(&checkpai)) {
+			tenpai.push_back(21);
+		}
+	}
+	if (pin[8] > 0 || pin[7] > 0) {
+		checkpai.ronhai = 9;
+		if (AgariCheck(&checkpai)) {
+			tenpai.push_back(9);
+		}
+	}
+	if (man[8] > 0 || man[7] > 0) {
+		checkpai.ronhai = 19;
+		if (AgariCheck(&checkpai)) {
+			tenpai.push_back(19);
+		}
+	}
+	if (sou[8] > 0 || sou[7] > 0) {
+		checkpai.ronhai = 29;
+		if (AgariCheck(&checkpai)) {
+			tenpai.push_back(29);
+		}
+	}
+	for (int i = 0; i < 7; ++i) {
+		if (other[i] > 0) {
+			checkpai.ronhai = i + 30;
+			if (AgariCheck(&checkpai)) {
+				tenpai.push_back(i + 30);
+			}
+		}
+	}
+	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^		一般聽牌確認
+	//vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv		七對聽牌確認
+	if (checkpai.tehai.size() == 13) {
+		int DanKi = -1;
+		while (checkpai.tehai.size() > 1)
+		{
+			if (checkpai.tehai.back() == checkpai.tehai.at(checkpai.tehai.size() - 2)) {
+				checkpai.tehai.pop_back();
+				checkpai.tehai.pop_back();
+			}
+			else {
+				if (DanKi == -1) {
+					DanKi = checkpai.tehai.back();
+					checkpai.tehai.pop_back();
+				}
+				else {
+					break;
+				}
+			}
+		}
+		if (DanKi != -1) {
+			tenpai.push_back(DanKi);
+		}
+	}
+	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^		七對聽牌確認
+
+	return tenpai;
+}
+
+std::vector<std::pair<int, std::vector<int>>> RichiCheck(Tehai * pai)
+{
+	if (pai->agarihai.size() % 3 != 2) {
+		return std::vector<std::pair<int, std::vector<int>>>();
+	}
+
+	Tehai checkpai = *pai;
+	int size = checkpai.agarihai.size();
+	std::vector<std::pair<int, std::vector<int>>> tenpailist;
+
+	for (int i = 0; i < size; ++i) {
+		checkpai = *pai;
+		int p = checkpai.agarihai.at(i);
+		checkpai.Kiru(p);
+		std::vector<int> tenpai =  TenpaiCheck(&checkpai);
+		if (!tenpai.empty()) {
+			tenpailist.push_back(std::pair<int, std::vector<int>>(p, tenpai));
+		}
+	}
+
+	return tenpailist;
 }
 
 bool ChitoiCheck(Tehai *pai)

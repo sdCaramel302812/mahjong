@@ -203,8 +203,46 @@ bool MahJongRoom::init()
 		tmp->setProperty("HoverImage", "MJ_material/PaiVer");
 		tmp->setProperty("PushedImage", "MJ_material/PaiVer");
 		//vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv			hover in function
-/*		tmp->subscribeEvent(CEGUI::PushButton::EventMouseEntersArea, CEGUI::Event::Subscriber([=]() {
+		tmp->subscribeEvent(CEGUI::PushButton::EventMouseEntersArea, CEGUI::Event::Subscriber([=]() {
 			tmp->setYPosition(tmp->getYPosition() + CEGUI::UDim(-0.01, 0));
+			if (switchKan&&tmp->isVisible()) {
+				for (int k = 0; k < player->KanDekiruList.size(); ++k) {
+					int p;
+					if (reorder.size() < i) {
+						break;
+					}
+					else if (reorder.size() == i && tsumohai != -1) {
+						p = (tsumohai == 0 || tsumohai == 10 || tsumohai == 20) ? tsumohai + 5 : tsumohai;
+					}
+					else if (reorder.size() > i) {
+						p = reorder.at(i);
+					}
+					if (p == player->KanDekiruList.at(k).first) {
+						for (int j = 0; j < reorder.size(); ++j) {
+							if (reorder.at(j) == 10 || reorder.at(j) == 20 || reorder.at(j) == 0) {
+								if (i != j && reorder.at(j) == p - 5) {
+									myPai.at(j)->setYPosition(myPai.at(j)->getYPosition() + CEGUI::UDim(-0.01, 0));
+								}
+							}
+							else {
+								if (i != j && reorder.at(j) == p) {
+									myPai.at(j)->setYPosition(myPai.at(j)->getYPosition() + CEGUI::UDim(-0.01, 0));
+								}
+							}
+						}
+						if (tsumohai == 10 || tsumohai == 20 || tsumohai == 0) {
+							if (i != reorder.size() && tsumohai == p - 5) {
+								myPai.at(reorder.size())->setYPosition(myPai.at(reorder.size())->getYPosition() + CEGUI::UDim(-0.01, 0));
+							}
+						}
+						else if (tsumohai != -1) {
+							if (i != reorder.size() && tsumohai == p) {
+								myPai.at(reorder.size())->setYPosition(myPai.at(reorder.size())->getYPosition() + CEGUI::UDim(-0.01, 0));
+							}
+						}
+					}
+				}
+			}
 			if (switchChi && tmp->isVisible()) {									//	選擇吃牌
 																					//
 																					//ChiDekiruList.at(k).second : 吃牌方式
@@ -297,11 +335,49 @@ bool MahJongRoom::init()
 				}
 			}
 		}));
-*/
+
 		//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^			hover in function
 		//vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv			hover out function
-/*		tmp->subscribeEvent(CEGUI::PushButton::EventMouseLeavesArea, CEGUI::Event::Subscriber([=]() {
+		tmp->subscribeEvent(CEGUI::PushButton::EventMouseLeavesArea, CEGUI::Event::Subscriber([=]() {
 			tmp->setYPosition(tmp->getYPosition() + CEGUI::UDim(0.01, 0));
+			if (switchKan&&tmp->isVisible()) {
+				for (int k = 0; k < player->KanDekiruList.size(); ++k) {
+					int p;
+					if (reorder.size() < i) {
+						break;
+					}
+					else if (reorder.size() == i && tsumohai != -1) {
+						p = (tsumohai == 0 || tsumohai == 10 || tsumohai == 20) ? tsumohai + 5 : tsumohai;
+					}
+					else if (reorder.size() > i) {
+						p = reorder.at(i);
+					}
+					if (p == player->KanDekiruList.at(k).first) {
+						for (int j = 0; j < reorder.size(); ++j) {
+							if (reorder.at(j) == 10 || reorder.at(j) == 20 || reorder.at(j) == 0) {
+								if (i != j && reorder.at(j) == p - 5) {
+									myPai.at(j)->setYPosition(myPai.at(j)->getYPosition() + CEGUI::UDim(0.01, 0));
+								}
+							}
+							else {
+								if (i != j && reorder.at(j) == p) {
+									myPai.at(j)->setYPosition(myPai.at(j)->getYPosition() + CEGUI::UDim(0.01, 0));
+								}
+							}
+						}
+						if (tsumohai == 10 || tsumohai == 20 || tsumohai == 0) {
+							if (i != reorder.size() && tsumohai == p - 5) {
+								myPai.at(reorder.size())->setYPosition(myPai.at(reorder.size())->getYPosition() + CEGUI::UDim(0.01, 0));
+							}
+						}
+						else if (tsumohai != -1) {
+							if (i != reorder.size() && tsumohai == p) {
+								myPai.at(reorder.size())->setYPosition(myPai.at(reorder.size())->getYPosition() + CEGUI::UDim(0.01, 0));
+							}
+						}
+					}
+				}
+			}
 			if (switchChi && tmp->isVisible()) {
 				for (int k = 0; k < player->ChiDekiruList.size(); ++k) {
 					if (reorder.size() <= i) {
@@ -386,19 +462,94 @@ bool MahJongRoom::init()
 				}
 			}
 		}));
-*/
+
 		//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^			hover out function
 		//vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv			click function
 		tmp->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber([=]() {
 			try {
 				if (player->WaitForKiru) {							//	捨牌時
-					player->WantToTsumo = -1;
-					player->WantToKan = -1;
-					if (reorder.size() > i) {
-						*player->Suteru = reorder.at(i);
+					if (switchKan) {
+						//		復原浮起的牌
+						for (int k = 0; k < player->KanDekiruList.size(); ++k) {
+							int p;
+							if (reorder.size() < i) {
+								break;
+							}
+							else if (reorder.size() == i && tsumohai != -1) {
+								p = (tsumohai == 0 || tsumohai == 10 || tsumohai == 20) ? tsumohai + 5 : tsumohai;
+							}
+							else if (reorder.size() > i) {
+								p = reorder.at(i);
+							}
+							if (p == player->KanDekiruList.at(k).first) {
+								for (int j = 0; j < reorder.size(); ++j) {
+									if (reorder.at(j) == 10 || reorder.at(j) == 20 || reorder.at(j) == 0) {
+										if (i != j && reorder.at(j) == p - 5) {
+											myPai.at(j)->setYPosition(myPai.at(j)->getYPosition() + CEGUI::UDim(0.01, 0));
+										}
+									}
+									else {
+										if (i != j && reorder.at(j) == p) {
+											myPai.at(j)->setYPosition(myPai.at(j)->getYPosition() + CEGUI::UDim(0.01, 0));
+										}
+									}
+								}
+								if (tsumohai == 10 || tsumohai == 20 || tsumohai == 0) {
+									if (i != reorder.size() && tsumohai == p - 5) {
+										myPai.at(reorder.size())->setYPosition(myPai.at(reorder.size())->getYPosition() + CEGUI::UDim(0.01, 0));
+									}
+								}
+								else if (tsumohai != -1) {
+									if (i != reorder.size() && tsumohai == p) {
+										myPai.at(reorder.size())->setYPosition(myPai.at(reorder.size())->getYPosition() + CEGUI::UDim(0.01, 0));
+									}
+								}
+							}
+						}
+						//			選擇槓的 case
+						for (int j = 0; j < player->KanDekiruList.size(); ++j) {
+							if (tsumohai == 0 || tsumohai==10 || tsumohai == 20) {
+								if (player->KanDekiruList.at(j).first == tsumohai + 5) {
+									player->KanCase = j;
+									switchKan = false;
+									break;
+								}
+							}
+							else {
+								if (player->KanDekiruList.at(j).first == tsumohai) {
+									player->KanCase = j;
+									switchKan = false;
+									break;
+								}
+							}
+							if (i >= reorder.size()) {
+								continue;
+							}
+							if (reorder.at(i) == 0 || reorder.at(i) == 10 || reorder.at(i) == 20) {
+								if (player->KanDekiruList.at(j).first == reorder.at(i) + 5) {
+									player->KanCase = j;
+									switchKan = false;
+									break;
+								}
+							}
+							else {
+								if (player->KanDekiruList.at(j).first == reorder.at(i)) {
+									player->KanCase = j;
+									switchKan = false;
+									break;
+								}
+							}
+						}
 					}
-					else if (tsumohai != -1) {
-						*player->Suteru = tsumohai;
+					else {
+						player->WantToTsumo = -1;
+						player->WantToKan = -1;
+						if (reorder.size() > i) {
+							*player->Suteru = reorder.at(i);
+						}
+						else if (tsumohai != -1) {
+							*player->Suteru = tsumohai;
+						}
 					}
 				}
 				else if (switchChi && tmp->isVisible()) {				//	選擇吃牌時
@@ -561,15 +712,22 @@ bool MahJongRoom::init()
 	button3 = m_gui->createWidget("AlfiskoSkin/Button", glm::vec4(0.68, 0.7, 0.08, 0.035), glm::vec4(), "", background);
 	button4 = m_gui->createWidget("AlfiskoSkin/Button", glm::vec4(0.68, 0.75, 0.08, 0.035), glm::vec4(), "", background);
 	button5 = m_gui->createWidget("AlfiskoSkin/Button", glm::vec4(0.68, 0.8, 0.08, 0.035), glm::vec4(), "", background);
+	button6 = m_gui->createWidget("AlfiskoSkin/Button", glm::vec4(0.68, 0.85, 0.08, 0.035), glm::vec4(), "", background);
+	button7 = m_gui->createWidget("AlfiskoSkin/Button", glm::vec4(0.68, 0.9, 0.08, 0.035), glm::vec4(), "", background);
 	testbutton = m_gui->createWidget("AlfiskoSkin/Button", glm::vec4(0.9, 0.85, 0.08, 0.035), glm::vec4(), "", background);
-	wstring text1 = TString().str2wstr("自摸");
-	wstring text2 = TString().str2wstr("槓");
-	wstring text3 = TString().str2wstr("和");
+	wstring text1 = TString().str2wstr("吃");
+	wstring text2 = TString().str2wstr("碰");
+	wstring text3 = TString().str2wstr("槓");
+	wstring text4 = TString().str2wstr("立直");
+	wstring text5 = TString().str2wstr("自摸");
+	wstring text6 = TString().str2wstr("和");
 	button1->setText("Pass");
-	button2->setText("Pass");
-	button3->setText(wcharToUTF8(text1));
-	button4->setText(wcharToUTF8(text2));
-	button5->setText(wcharToUTF8(text3));
+	button2->setText(wcharToUTF8(text1));
+	button3->setText(wcharToUTF8(text2));
+	button4->setText(wcharToUTF8(text3));
+	button5->setText(wcharToUTF8(text4));
+	button6->setText(wcharToUTF8(text5));
+	button7->setText(wcharToUTF8(text6));
 	testbutton->setText("print");
 	button1->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber([=]() {
 		ButtonFunction(1);
@@ -585,6 +743,12 @@ bool MahJongRoom::init()
 	}));
 	button5->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber([=]() {
 		ButtonFunction(5);
+	}));
+	button6->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber([=]() {
+		ButtonFunction(6);
+	}));
+	button7->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber([=]() {
+		ButtonFunction(7);
 	}));
 	testbutton->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber([=]() {
 		for (int i = 0; i < reorder.size(); ++i) {
@@ -615,105 +779,47 @@ void MahJongRoom::Act()
 {
 	//******************							決定按鈕狀態								******************//
 
-	if (!player->ChiDekiru && !player->PonDekiru && !player->KanDekiru && !player->RonDekiru && player->TsumoDekiru) {
-		ButtonCase = 1;
+	if (player->ChiDekiru) {
 		button2->setVisible(true);
-		button3->setVisible(true);
-		wstring text = TString().str2wstr("自摸");
-		button2->setText("Pass");
-		button3->setText(wcharToUTF8(text));
 	}
-	else if (player->ChiDekiru && !player->PonDekiru && !player->KanDekiru && !player->RonDekiru && !player->TsumoDekiru) {
-		ButtonCase = 3;
-		button2->setVisible(true);
-		button3->setVisible(true);
-		wstring text = TString().str2wstr("吃");
-		button2->setText("Pass");
-		button3->setText(wcharToUTF8(text));
+	else {
+		button2->setVisible(false);
 	}
-	else if (!player->ChiDekiru && !player->PonDekiru && !player->KanDekiru && player->RonDekiru && !player->TsumoDekiru) {
-		ButtonCase = 4;
-		button2->setVisible(true);
+	if (player->PonDekiru) {
 		button3->setVisible(true);
-		wstring text = TString().str2wstr("和");
-		button2->setText("Pass");
-		button3->setText(wcharToUTF8(text));
 	}
-	else if (!player->ChiDekiru && player->PonDekiru && !player->KanDekiru && !player->RonDekiru && !player->TsumoDekiru) {
-		ButtonCase = 5;
-		button2->setVisible(true);
-		button3->setVisible(true);
-		wstring text = TString().str2wstr("碰");
-		button2->setText("Pass");
-		button3->setText(wcharToUTF8(text));
+	else {
+		button3->setVisible(false);
 	}
-	else if (!player->ChiDekiru && player->PonDekiru && player->KanDekiru && !player->RonDekiru && !player->TsumoDekiru) {
-		ButtonCase = 7;
-		button2->setVisible(true);
-		button3->setVisible(true);
+	if (player->KanDekiru || player->AnKanDekiru) {
 		button4->setVisible(true);
-		wstring text = TString().str2wstr("碰");
-		button2->setText("Pass");
-		button3->setText(wcharToUTF8(text));
 	}
-	else if (player->ChiDekiru && player->PonDekiru && !player->KanDekiru && !player->RonDekiru && !player->TsumoDekiru) {
-		ButtonCase = 8;
-		button1->setVisible(true);
-		button2->setVisible(true);
-		button3->setVisible(true);
-		wstring text1 = TString().str2wstr("吃");
-		wstring text2 = TString().str2wstr("碰");
-		button1->setText("Pass");
-		button2->setText(wcharToUTF8(text1));
-		button3->setText(wcharToUTF8(text2));
+	else {
+		button4->setVisible(false);
 	}
-	else if (!player->ChiDekiru && player->PonDekiru && !player->KanDekiru && player->RonDekiru && !player->TsumoDekiru) {
-		ButtonCase = 14;
-		button1->setVisible(true);
-		button2->setVisible(true);
-		button3->setVisible(true);
-		wstring text1 = TString().str2wstr("碰");
-		wstring text2 = TString().str2wstr("和");
-		button2->setText(wcharToUTF8(text1));
-		button3->setText(wcharToUTF8(text2));
-	}
-	else if (player->ChiDekiru && !player->PonDekiru && !player->KanDekiru && player->RonDekiru && !player->TsumoDekiru) {
-		ButtonCase = 15;
-		button1->setVisible(true);
-		button2->setVisible(true);
-		button3->setVisible(true);
-		wstring text1 = TString().str2wstr("吃");
-		wstring text2 = TString().str2wstr("和");
-		button2->setText(wcharToUTF8(text1));
-		button3->setText(wcharToUTF8(text2));
-	}
-	else if (!player->ChiDekiru && player->PonDekiru && player->KanDekiru && player->RonDekiru && !player->TsumoDekiru) {
-		ButtonCase = 16;
-		button2->setVisible(true);
-		button3->setVisible(true);
-		button4->setVisible(true);
+	if (player->RichiDekiru) {
 		button5->setVisible(true);
-		wstring text = TString().str2wstr("碰");
-		button2->setText("Pass");
-		button3->setText(wcharToUTF8(text));
 	}
-	else if (player->ChiDekiru && player->PonDekiru && !player->KanDekiru && player->RonDekiru && !player->TsumoDekiru) {
-		ButtonCase = 17;
+	else {
+		button5->setVisible(false);
+	}
+	if (player->TsumoDekiru) {
+		button6->setVisible(true);
+	}
+	else {
+		button6->setVisible(false);
+	}
+	if (player->RonDekiru) {
+		button7->setVisible(true);
+	}
+	else {
+		button7->setVisible(false);
+	}
+	if (player->ChiDekiru || player->PonDekiru || player->KanDekiru || player->AnKanDekiru || player->RichiDekiru || player->TsumoDekiru || player->RonDekiru) {
 		button1->setVisible(true);
-		button2->setVisible(true);
-		button3->setVisible(true);
-		button5->setVisible(true);
-		wstring text1 = TString().str2wstr("吃");
-		wstring text2 = TString().str2wstr("碰");
-		button2->setText(wcharToUTF8(text2));
-		button3->setText(wcharToUTF8(text2));
 	}
 	else {
 		button1->setVisible(false);
-		button2->setVisible(false);
-		button3->setVisible(false);
-		button4->setVisible(false);
-		button5->setVisible(false);
 	}
 }
 
@@ -2661,189 +2767,46 @@ void MahJongRoom::SetAgent(Agent * p)
 
 void MahJongRoom::ButtonFunction(int n)
 {
-	switch (ButtonCase)
+	button1->setVisible(false);
+	button2->setVisible(false);
+	button3->setVisible(false);
+	button4->setVisible(false);
+	button5->setVisible(false);
+	button6->setVisible(false);
+	button7->setVisible(false);
+	switch (n)
 	{
 	case 1:
-		button2->setVisible(false);
-		button3->setVisible(false);
-		if (n == 2) {
-			player->WantToTsumo = -1;
-		}
-		else if (n == 3) {
-			player->WantToTsumo = 1;
-		}
+		player->WantToChi = -1;
+		player->WantToKan = -1;
+		player->WantToPon = -1;
+		player->WantToRon = -1;
+		player->WantToTsumo = -1;
+		player->WantToRichi = -1;
+		switchChi = false;
+		switchKan = false;
 		break;
 	case 2:
+		player->WantToChi = 1;
+		switchChi = true;
 		break;
 	case 3:
-		button2->setVisible(false);
-		button3->setVisible(false);
-		if (n == 2) {
-			player->WantToChi = -1;
-			switchChi = false;
-		}
-		else if (n == 3) {
-			player->WantToChi = 1;
-			switchChi = true;
-		}
+		player->WantToPon = 1;
 		break;
 	case 4:
-		button2->setVisible(false);
-		button3->setVisible(false);
-		if (n == 2) {
-			player->WantToRon = -1;
-		}
-		else if (n == 3) {
-			player->WantToRon = 1;
+		player->WantToKan = 1;
+		if (player->AnKanDekiru) {
+			switchKan = true;
 		}
 		break;
 	case 5:
-		button2->setVisible(false);
-		button3->setVisible(false);
-		if (n == 2) {
-			player->WantToPon = -1;
-		}
-		else if (n == 3) {
-			player->WantToPon = 1;
-		}
+		player->WantToRichi = 1;
 		break;
 	case 6:
+		player->WantToTsumo = 1;
 		break;
 	case 7:
-		button2->setVisible(false);
-		button3->setVisible(false);
-		button4->setVisible(false);
-		if (n == 2) {
-			player->WantToPon = -1;
-			player->WantToKan = -1;
-		}
-		else if (n == 3) {
-			player->WantToPon = 1;
-			player->WantToKan = -1;
-		}
-		else if (n == 4) {
-			player->WantToPon = -1;
-			player->WantToKan = 1;
-		}
-		break;
-	case 8:
-		button1->setVisible(false);
-		button2->setVisible(false);
-		button3->setVisible(false);
-		if (n == 1) {
-			player->WantToChi = -1;
-			player->WantToPon = -1;
-			switchChi = false;
-		}
-		if (n == 2) {
-			player->WantToChi = 1;
-			player->WantToPon = -1;
-			switchChi = true;
-		}
-		if (n == 3) {
-			player->WantToChi = -1;
-			player->WantToPon = 1;
-			switchChi = false;
-		}
-		break;
-	case 9:
-		break;
-	case 10:
-		break;
-	case 11:
-		break;
-	case 12:
-		break;
-	case 13:
-		break;
-	case 14:
-		button1->setVisible(false);
-		button2->setVisible(false);
-		button3->setVisible(false);
-		if (n == 1) {
-			player->WantToPon = -1;
-			player->WantToRon = -1;
-		}
-		else if (n == 2) {
-			player->WantToRon = -1;
-			player->WantToPon = 1;
-		}
-		else if (n == 3) {
-			player->WantToPon = -1;
-			player->WantToRon = 1;
-		}
-		break;
-	case 15:
-		button1->setVisible(false);
-		button2->setVisible(false);
-		button3->setVisible(false);
-		if (n == 1) {
-			player->WantToChi = -1;
-			player->WantToRon = -1;
-			switchChi = false;
-		}
-		else if (n == 2) {
-			player->WantToRon = -1;
-			player->WantToChi = 1;
-			switchChi = true;
-		}
-		else if (n == 3) {
-			player->WantToChi = -1;
-			player->WantToRon = 1;
-			switchChi = false;
-		}
-		break;
-	case 16:
-		button2->setVisible(false);
-		button3->setVisible(false);
-		button4->setVisible(false);
-		button5->setVisible(false);
-		if (n == 2) {
-			player->WantToPon = -1;
-			player->WantToKan = -1;
-			player->WantToRon = -1;
-		}
-		else if (n == 3) {
-			player->WantToPon = 1;
-			player->WantToKan = -1;
-			player->WantToRon = -1;
-		}
-		else if (n == 4) {
-			player->WantToPon = -1;
-			player->WantToKan = 1;
-			player->WantToRon = -1;
-		}
-		else if (n == 5) {
-			player->WantToPon = -1;
-			player->WantToKan = -1;
-			player->WantToRon = 1;
-		}
-		break;
-	case 17:
-		button1->setVisible(false);
-		button2->setVisible(false);
-		button3->setVisible(false);
-		button5->setVisible(false);
-		if (n == 1) {
-			player->WantToChi = -1;
-			player->WantToPon = -1;
-			player->WantToRon = -1;
-		}
-		else if (n == 2) {
-			player->WantToChi = 1;
-			player->WantToPon = -1;
-			player->WantToRon = -1;
-		}
-		else if (n == 3) {
-			player->WantToChi = -1;
-			player->WantToPon = 1;
-			player->WantToRon = -1;
-		}
-		else if (n == 5) {
-			player->WantToChi = -1;
-			player->WantToPon = -1;
-			player->WantToRon = 1;
-		}
+		player->WantToRon = 1;
 		break;
 	}
 }

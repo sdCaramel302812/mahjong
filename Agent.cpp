@@ -32,18 +32,51 @@ void Agent::Init()
 
 void Agent::Act()
 {
+	current_clock = clock();
+	dt = current_clock - last_clock;
+	last_clock = current_clock;
+	elapsed_time += dt;
+
+	//vvvvvvvvvvvvvvvvvvvvvvvvv			測試用 AI
 	if (IsAI) {
-		if (WaitForKiru) {
-			int rnd = rand() % 2;
-			if (rnd == 1) {
-				*Suteru = tehai->back();
-			}
-			else {
-				*Suteru = tehai->front();
-			}
-		}
 		if (RonDekiru || TsumoDekiru) {
 			*Agari = true;
+		}
+		if (WaitForKiru) {	
+
+			if (WaitForDaPai) {
+				WaitForDaPai = false;
+				elapsed_time = 0;
+				return;
+			}
+			else {
+				if (elapsed_time > DaPaiWaitingTime) {
+					WaitForDaPai = true;
+				}
+				else {
+					return;
+				}
+			}
+
+			if (AnKanDekiru) {
+				cout << "why" << endl;
+				if (KanDekiruList.size() != 0) {
+					cout << "it doesn't make sence" << endl;
+					AnKanDekiru = false;
+					*NakuState = 2;
+					KanCase = 0;
+				}
+			}
+			else {
+				int rnd = rand() % 2;
+				if (rnd == 1) {
+					*Suteru = tehai->back();
+				}
+				else {
+					*Suteru = tehai->front();
+				}
+				return;
+			}
 		}
 		else if (ChiDekiru) {
 			ChiDekiru = false;
@@ -68,100 +101,84 @@ void Agent::Act()
 			*NakuState = 0;
 		}
 	}
+	//^^^^^^^^^^^^^^^^^^^^^^^^^			測試用 AI
 
-	bool hasAct = false;
+	if (!IsAI) {
+		if (!ChiDekiru && !PonDekiru && !KanDekiru && !RonDekiru) {
+			*NakuState = 0;
+		}
+		else {
+			*NakuState = -1;
+		}
 
-	if (!IsAI && !ChiDekiru && !PonDekiru && !KanDekiru && !RonDekiru && !TsumoDekiru) {
-		*NakuState = 0;
-	}
 
-	if (PonDekiru) {
-		if (WantToPon == 1) {
-			PonDekiru = false;
-			PonDekiruPai = -1;
+		if ((AnKanDekiru && WantToKan == -1) || (ChiDekiru && WantToChi == -1) || (PonDekiru && WantToPon == -1) || (KanDekiru && WantToKan == -1) || (RonDekiru && WantToRon == -1) || (TsumoDekiru && WantToTsumo == -1)) {
+			*NakuState = 0;
+			ResetActState();
+			return;
+		}
+
+		if (ChiDekiru && WantToChi == 1 && ChiCase != -1 && ChiDekiruList.size() > ChiCase) {
+			*NakuState = ChiDekiruList.at(ChiCase).second;
+			ResetActState();
+		}
+		if (PonDekiru && WantToPon == 1) {
 			*NakuState = 1;
+			ResetActState();
 		}
-		if (WantToPon == -1) {
-			PonDekiru = false;
-			PonDekiruPai = -1;
-			if (*NakuState == -1 && !hasAct) {
-				*NakuState = 0;
-			}
+		if (AnKanDekiru && WantToKan == 1 && KanCase != -1 && KanDekiruList.size() > KanCase) {
+			*NakuState = 2;
+			ResetActState();
 		}
-		WantToPon = 0;
-	}
-	else {
-		WantToPon = 0;
-	}
-	if (ChiDekiru) {
-		if (WantToChi == 1) {
-			hasAct = true;
-			if (ChiCase != -1) {
-				ChiDekiru = false;
-				*NakuState = ChiDekiruList.at(ChiCase).second;
-				ChiCase = -1;
-				ChiDekiruList.clear();
-				WantToChi = 0;
-			}
+		if (KanDekiru && WantToKan == 1) {
+			*NakuState = 2;
+			ResetActState();
 		}
-		if (WantToChi == -1) {
-			ChiDekiru = false;
-			ChiCase = -1;
-			if (*NakuState == -1 && !hasAct) {
-				*NakuState = 0;
-			}
-			ChiDekiruList.clear();
+		if (RonDekiru && WantToRon == 1) {
+			*Agari = true;
+			ResetActState();
+		}
+		if (TsumoDekiru && WantToTsumo == 1) {
+			*Agari = true;
+			ResetActState();
+		}
+
+		if (!ChiDekiru) {
 			WantToChi = 0;
 		}
-		
-	}
-	else {
-		WantToChi = 0;
-	}
-	if (KanDekiru) {
-		if (WantToKan == 1) {
-			KanDekiru = false;
-			*NakuState = 2;
+		if (!PonDekiru) {
+			WantToPon = 0;
 		}
-		if (WantToKan == -1) {
-			KanDekiru = false;
-			if (*NakuState == -1 && !hasAct) {
-				*NakuState = 0;
-			}
+		if (!KanDekiru && !AnKanDekiru) {
+			WantToKan = 0;
 		}
-		WantToKan = 0;
-	}
-	else {
-		WantToKan = 0;
-	}
-	if (RonDekiru) {
-		if (WantToRon == 1) {
-			RonDekiru = false;
-			*Agari = true;
+		if (!RonDekiru) {
+			WantToRon = 0;
 		}
-		if (WantToRon == -1) {
-			RonDekiru = false;
-			if (*NakuState == -1 && !hasAct) {
-				*NakuState = 0;
-			}
+		if (!TsumoDekiru) {
+			WantToTsumo = 0;
 		}
-		WantToRon = 0;
 	}
-	else {
-		WantToRon = 0;
-	}
-	if (TsumoDekiru) {
-		if (WantToTsumo == 1) {
-			TsumoDekiru = false;
-			*Agari = true;
-		}
-		if (WantToTsumo == -1) {
-			TsumoDekiru = false;
-		}
-		WantToTsumo = 0;
-	}
-	else {
-		WantToTsumo = 0;
-	}
+	
+}
 
+void Agent::ResetActState()
+{
+	ChiDekiru = false;
+	PonDekiru = false;
+	KanDekiru = false;
+	RonDekiru = false;
+	AnKanDekiru = false;
+	TsumoDekiru = false;
+
+	ChiDekiruList.clear();
+	//KanDekiruList.clear();
+
+	WantToChi = 0;
+	WantToKan = 0;
+	WantToPon = 0;
+	WantToRon = 0;
+	WantToTsumo = 0;
+
+	ChiCase = -1;
 }

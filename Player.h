@@ -17,11 +17,14 @@ public:
 	void Init();
 
 	bool NakuDekiru(int pai, bool ShanJa);		//確認能否鳴牌
+	void AnKanTsumoCheck();
 
 	//return 牌的編號	
 	int Kiru();						//切牌				//***
 	int Suteru = -1;
 	void Tsumo(int pai);			//自摸				//***
+
+	bool Ankan();
 
 	std::vector<Naki> FuRouOrder;
 
@@ -57,6 +60,8 @@ public:
 	bool ibatsu = false;			//一發狀態
 	bool firstR = true;				//首巡
 	bool Furiten = false;			//振聽
+	std::vector<std::pair<int, std::vector<int>>> WhatToTenPai;
+	std::vector<int> Tenpai;
 
 	bool *Agari;					//來自ROOM
 	void SetAgariCallback(bool *a);

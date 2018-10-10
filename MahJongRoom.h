@@ -62,6 +62,14 @@ public:
 	std::vector<CEGUI::Window *>frontSutehai;
 	//^^^^^^^^^^^^^^^						捨牌
 	//vvvvvvvvvvvvvvv						按鈕
+	//			太麻煩了放棄，改成一對一的按鈕
+	//			pass
+	//			吃
+	//			碰
+	//			槓
+	//			立直
+	//			自摸
+	//			和
 	int ButtonCase = 0;			//	1		2		3		4		5		6		7		8		9		10		11		12		13		14		15		16		17
 	CEGUI::Window *button1;		//															pass	pass	pass	pass			pass	pass	pass			pass
 	CEGUI::Window *button2;		//	pass	pass	pass	pass	pass	pass	pass	吃		吃		吃		立直	pass	立直	碰		吃		pass	吃
@@ -69,12 +77,14 @@ public:
 	CEGUI::Window *button4;		//													槓				槓		槓				槓		槓						槓
 	CEGUI::Window *button5;		//																			和												和		和
 								//	o		x		o		o		o		x		o		o		x		x		x		x		x		o		o		o
+	CEGUI::Window *button6;
+	CEGUI::Window *button7;
 
 	CEGUI::Window *testbutton;
 	//^^^^^^^^^^^^^^^						按鈕
 
 	bool switchChi = false;
-
+	bool switchKan = false;
 
 	//	立直巡數
 	int myRichi = 0;

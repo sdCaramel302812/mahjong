@@ -44,12 +44,15 @@ void Room::Play()
 	current_clock = clock();
 	dt = current_clock - last_clock;
 	elapse_time += dt;
+//	elapse_time_for_pfs += dt;
+//	++fps;
 	last_clock = current_clock;
-//	if(elapse_time > 2000) {
-//		cout << "current state : " << WaitingState << endl;
-//		cout << "current player : " << CurrentPlayer << endl;
-//		elapse_time = 0;
+//	if (elapse_time_for_pfs > 1000) {
+//		cout << "fps : " << fps << endl;
+//		elapse_time_for_pfs = 0;
+//		fps = 0;
 //	}
+
 
 	//while (!gameover) {
 		if (kyoukuover) {
@@ -89,22 +92,33 @@ void Room::Play()
 		*/
 		if (WaitingState == 0) {
 			//vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv			等待切牌
+			bool hasKan = false;
 			switch (CurrentPlayer)
 			{
 			case 1:
 				Sutehai = pl1->Kiru();
+				hasKan = pl1->Ankan();
 				break;
 			case 2:
 				Sutehai = pl2->Kiru();
+				hasKan = pl2->Ankan();
 				break;
 			case 3:
 				Sutehai = pl3->Kiru();
+				hasKan = pl3->Ankan();
 				break;
 			case 4:
 				Sutehai = pl4->Kiru();
+				hasKan = pl4->Ankan();
 				break;
 			}
-			if (Sutehai != -1) {
+			if (hasKan) {
+				MoRinShan = true;
+				WaitingState = 2;
+				cout << "lets me mo pai" << endl;
+				return;
+			}
+			else if (Sutehai != -1) {
 				UpdateScene = true;
 				bool wait = NakuCheck(Sutehai);
 				if (wait) {
@@ -146,15 +160,15 @@ void Room::Play()
 				result3 = pl4->Naku(Sutehai);
 				//	有人尚未決定
 				if (result1 == -1 || result2 == -1 || result3 == -1) {
-					if (result1 == -1) {
-						cout << "2 no respond" << endl;
-					}
-					if (result2 == -1) {
-						cout << "3 no respond" << endl;
-					}
-					if (result3 == -1) {
-						cout << "4 no respond" << endl;
-					}
+//					if (result1 == -1) {
+//						cout << "2 no respond" << endl;
+//					}
+//					if (result2 == -1) {
+//						cout << "3 no respond" << endl;
+//					}
+//					if (result3 == -1) {
+//						cout << "4 no respond" << endl;
+//					}
 					return;
 				}//	三家都不鳴牌
 				if (result1 == 0 && result2 == 0 && result3 == 0) {
@@ -231,15 +245,15 @@ void Room::Play()
 				result2 = pl4->Naku(Sutehai);
 				//	有人尚未決定
 				if (result1 == -1 || result2 == -1 || result3 == -1) {
-					if (result1 == -1) {
-						cout << "3 no respond" << endl;
-					}
-					if (result2 == -1) {
-						cout << "4 no respond" << endl;
-					}
-					if (result3 == -1) {
-						cout << "1 no respond" << endl;
-					}
+//					if (result1 == -1) {
+//						cout << "3 no respond" << endl;
+//					}
+//					if (result2 == -1) {
+//						cout << "4 no respond" << endl;
+//					}
+//					if (result3 == -1) {
+//						cout << "1 no respond" << endl;
+//					}
 					return;
 				}//	三家都不鳴牌
 				if (result1 == 0 && result2 == 0 && result3 == 0) {
@@ -315,15 +329,15 @@ void Room::Play()
 				result1 = pl4->Naku(Sutehai);
 				//	有人尚未決定
 				if (result1 == -1 || result2 == -1 || result3 == -1) {
-					if (result1 == -1) {
-						cout << "4 no respond" << endl;
-					}
-					if (result2 == -1) {
-						cout << "1 no respond" << endl;
-					}
-					if (result3 == -1) {
-						cout << "2 no respond" << endl;
-					}
+//					if (result1 == -1) {
+//						cout << "4 no respond" << endl;
+//					}
+//					if (result2 == -1) {
+//						cout << "1 no respond" << endl;
+//					}
+//					if (result3 == -1) {
+//						cout << "2 no respond" << endl;
+//					}
 					return;
 				}//	三家都不鳴牌
 				if (result1 == 0 && result2 == 0 && result3 == 0) {
@@ -400,15 +414,15 @@ void Room::Play()
 				result3 = pl3->Naku(Sutehai);
 				//	有人尚未決定
 				if (result1 == -1 || result2 == -1 || result3 == -1) {
-					if (result1 == -1) {
-						cout << "1 no respond" << endl;
-					}
-					if (result2 == -1) {
-						cout << "2 no respond" << endl;
-					}
-					if (result3 == -1) {
-						cout << "3 no respond" << endl;
-					}
+//					if (result1 == -1) {
+//						cout << "1 no respond" << endl;
+//					}
+//					if (result2 == -1) {
+//						cout << "2 no respond" << endl;
+//					}
+//					if (result3 == -1) {
+//						cout << "3 no respond" << endl;
+//					}
 					return;
 				}//	三家都不鳴牌
 				if (result1 == 0 && result2 == 0 && result3 == 0) {
@@ -518,28 +532,20 @@ void Room::Play()
 				{
 				case 1:
 					pl1->Tsumo(NewPai);
-					if (AgariCheck(pl1->tehai)) {
-						pl1->agent->TsumoDekiru = true;
-					}
+					pl1->AnKanTsumoCheck();
 					++round;							//	巡數增加
 					break;
 				case 2:
 					pl2->Tsumo(NewPai);
-					if (AgariCheck(pl2->tehai)) {
-						pl2->agent->TsumoDekiru = true;
-					}
+					pl2->AnKanTsumoCheck();
 					break;
 				case 3:
 					pl3->Tsumo(NewPai);
-					if (AgariCheck(pl3->tehai)) {
-						pl3->agent->TsumoDekiru = true;
-					}
+					pl3->AnKanTsumoCheck();
 					break;
 				case 4:
 					pl4->Tsumo(NewPai);
-					if (AgariCheck(pl4->tehai)) {
-						pl4->agent->TsumoDekiru = true;
-					}
+					pl4->AnKanTsumoCheck();
 					break;
 				}
 			}
@@ -639,13 +645,13 @@ bool Room::NakuCheck(int pai)
 		}
 		else {
 			if (result1) {
-				cout << "is 2" << endl;
+//				cout << "is 2" << endl;
 			}
 			if (result2) {
-				cout << "is 3" << endl;
+//				cout << "is 3" << endl;
 			}
 			if (result3) {
-				cout << "is 4" << endl;
+//				cout << "is 4" << endl;
 			}
 			return true;
 		}
@@ -659,13 +665,13 @@ bool Room::NakuCheck(int pai)
 		}
 		else {
 			if (result1) {
-				cout << "is 1" << endl;
+//				cout << "is 1" << endl;
 			}
 			if (result2) {
-				cout << "is 3" << endl;
+//				cout << "is 3" << endl;
 			}
 			if (result3) {
-				cout << "is 4" << endl;
+//				cout << "is 4" << endl;
 			}
 			return true;
 		}
@@ -679,13 +685,13 @@ bool Room::NakuCheck(int pai)
 		}
 		else {
 			if (result1) {
-				cout << "is 1" << endl;
+//				cout << "is 1" << endl;
 			}
 			if (result2) {
-				cout << "is 2" << endl;
+//				cout << "is 2" << endl;
 			}
 			if (result3) {
-				cout << "is 4" << endl;
+//				cout << "is 4" << endl;
 			}
 			return true;
 		}
@@ -699,13 +705,13 @@ bool Room::NakuCheck(int pai)
 		}
 		else {
 			if (result1) {
-				cout << "is 1" << endl;
+//				cout << "is 1" << endl;
 			}
 			if (result2) {
-				cout << "is 2" << endl;
+//				cout << "is 2" << endl;
 			}
 			if (result3) {
-				cout << "is 3" << endl;
+//				cout << "is 3" << endl;
 			}
 			return true;
 		}

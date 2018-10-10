@@ -66,6 +66,8 @@ public:
 	int elapse_time = 0;
 	int last_clock = 0;
 	int current_clock = 0;
+	int elapse_time_for_pfs = 0;
+	int fps = 0;
 
 	//	ºNµP©µ¿ð
 	bool WaitForMoPai = true;		

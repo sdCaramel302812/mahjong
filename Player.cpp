@@ -42,12 +42,13 @@ void Player::Init()
 
 bool Player::NakuDekiru(int pai, bool ShanJa)
 {
+	int PaiNoR = pai;
+	if (PaiNoR == 0 || PaiNoR == 10 || PaiNoR == 20) {
+		PaiNoR += 5;
+	}
 	///////////////////////////////				確認可否吃
 	if (pai < 30 && ShanJa && tehai->tehai.size() > 2) {
-		int PaiNoR = pai;
-		if (PaiNoR == 0 || PaiNoR == 10 || PaiNoR == 20) {
-			PaiNoR += 5;
-		}
+		
 		/*
 		分別為 :
 				pai - 2 , pai - 1 , pai + 1 , pai + 2
@@ -88,44 +89,22 @@ bool Player::NakuDekiru(int pai, bool ShanJa)
 		}
 	}
 	///////////////////////////////				確認可否碰
-	for (int i = 0; i < tehai->tehai.size() - 1; ++i) {
-		if (pai == 0 || pai == 10 || pai == 20) {
-			if ((tehai->tehai.at(i) == pai + 5 || tehai->tehai.at(i) == pai) && (tehai->tehai.at(i + 1) == pai + 5 || tehai->tehai.at(i + 1) == pai)) {
-				agent->PonDekiruPai = pai;
-				agent->PonDekiru = true;
-			}
+	int samepainum = 0;
+	for (int i = 0; i < tehai->tehai.size(); ++i) {
+		int p = tehai->tehai.at(i);
+		if (p == 0 || p == 10 || p == 20) {
+			p += 5;
 		}
-		else if (pai == 5 || pai == 15 || pai == 25) {
-			if ((tehai->tehai.at(i) == pai - 5 || tehai->tehai.at(i) == pai) && (tehai->tehai.at(i + 1) == pai - 5 || tehai->tehai.at(i + 1) == pai)) {
-				agent->PonDekiruPai = pai;
-				agent->PonDekiru = true;
-			}
-		}
-		else if (tehai->tehai.at(i) == tehai->tehai.at(i + 1) && tehai->tehai.at(i) == pai) {
-			agent->PonDekiruPai = pai;
-			agent->PonDekiru = true;
+		if (p == PaiNoR) {
+			++samepainum;
 		}
 	}
-	///////////////////////////////				確認可否槓
-	if (tehai->tehai.size() > 2) {
-		for (int i = 0; i < (tehai->tehai.size() - 2); ++i) {
-			if (pai == 0 || pai == 10 || pai == 20) {
-				if ((tehai->tehai.at(i) == pai + 5 || tehai->tehai.at(i) == pai) && (tehai->tehai.at(i + 1) == pai + 5 || tehai->tehai.at(i + 1) == pai) && (tehai->tehai.at(i + 2) == pai + 5 || tehai->tehai.at(i + 2) == pai)) {
-					agent->KanDekiruList.push_back(pai);
-					agent->KanDekiru = true;
-				}
-			}
-			else if (pai == 5 || pai == 15 || pai == 25) {
-				if ((tehai->tehai.at(i) == pai - 5 || tehai->tehai.at(i) == pai) && (tehai->tehai.at(i + 1) == pai - 5 || tehai->tehai.at(i + 1) == pai) && (tehai->tehai.at(i + 2) == pai - 5 || tehai->tehai.at(i + 2) == pai)) {
-					agent->KanDekiruList.push_back(pai);
-					agent->KanDekiru = true;
-				}
-			}
-			else if (tehai->tehai.at(i) == tehai->tehai.at(i + 1) && tehai->tehai.at(i) == tehai->tehai.at(i + 2) && tehai->tehai.at(i) == pai) {
-				agent->KanDekiruList.push_back(pai);
-				agent->KanDekiru = true;
-			}
-		}
+	if (samepainum >= 2) {
+		agent->PonDekiru = true;
+	}
+	///////////////////////////////				確認可否明槓
+	if (samepainum == 3) {
+		agent->KanDekiru = true;
 	}
 	///////////////////////////////				確認可否榮和
 	agent->RonDekiru = false;
@@ -137,7 +116,7 @@ bool Player::NakuDekiru(int pai, bool ShanJa)
 		//tehai->ShowTehai();
 		//cout << "fuck error" << endl;
 		//try {
-		//	Yaku yaku = YakuCheck(tehai, Chanfon, Menfon);
+			Yaku yaku = YakuCheck(tehai, Chanfon, Menfon);
 		//	yaku.ShowYaku();
 		//}
 		//catch (...) {
@@ -162,8 +141,108 @@ bool Player::NakuDekiru(int pai, bool ShanJa)
 	}
 }
 
+void Player::AnKanTsumoCheck()
+{
+	if (AgariCheck(tehai)) {
+		agent->TsumoDekiru = true;
+	}
+	else {
+//		WhatToTenPai = RichiCheck(tehai);
+//		if (!WhatToTenPai.empty() && tehai->agarihai.size() == 14) {
+//			agent->RichiDekiru = true;
+//		}
+	}
+
+	int pin[9] = { 0 };
+	int man[9] = { 0 };
+	int sou[9] = { 0 };
+	int other[7] = { 0 };
+	for (int i = 0; i < tehai->agarihai.size(); ++i) {
+		if (tehai->agarihai.at(i) >= 30) {
+			++other[tehai->agarihai.at(i) - 30];
+		}
+		else if (tehai->agarihai.at(i) >= 20) {
+			if (tehai->agarihai.at(i) == 20) {
+				++sou[4];
+			}
+			else {
+				++sou[tehai->agarihai.at(i) - 21];
+			}
+		}
+		else if (tehai->agarihai.at(i) >= 10) {
+			if (tehai->agarihai.at(i) == 10) {
+				++man[4];
+			}
+			else {
+				++man[tehai->agarihai.at(i) - 11];
+			}
+		}
+		else {
+			if (tehai->agarihai.at(i) == 0) {
+				++pin[4];
+			}
+			else {
+				++pin[tehai->agarihai.at(i) - 1];
+			}
+		}
+	}
+	agent->KanDekiruList.clear();
+	for (int i = 0; i < 9; ++i) {
+		if (pin[i] == 4) {
+			agent->AnKanDekiru = true;
+			agent->KanDekiruList.push_back(std::pair<int, int>(i + 1, 0));
+			cout << "kan : " << i + 1 << endl;
+		}
+		if (man[i] == 4) {
+			agent->AnKanDekiru = true;
+			agent->KanDekiruList.push_back(std::pair<int, int>(i + 11, 0));
+			cout << "kan : " << i + 11 << endl;
+		}
+		if (sou[i] == 4) {
+			agent->AnKanDekiru = true;
+			agent->KanDekiruList.push_back(std::pair<int, int>(i + 21, 0));
+			cout << "kan : " << i + 21 << endl;
+		}
+	}
+	for (int i = 0; i < 7; ++i) {
+		if (other[i] == 4) {
+			agent->AnKanDekiru = true;
+			agent->KanDekiruList.push_back(std::pair<int, int>(i + 30, 0));
+			cout << "kan : " << i + 30 << endl;
+		}
+	}
+
+
+	for (int i = 0; i < tehai->pon.size(); ++i) {
+		int p = tehai->pon.at(i).at(0);
+		if (p == 0 || p == 10 || p == 20) {
+			p += 5;
+		}
+		for (int j = 0; j < tehai->agarihai.size(); ++j) {
+			if (tehai->agarihai.at(j) == 0 || tehai->agarihai.at(j) == 10 || tehai->agarihai.at(j) == 20) {
+				if (tehai->agarihai.at(j) == p - 5) {
+					agent->AnKanDekiru = true;
+					agent->KanDekiruList.push_back(std::pair<int, int>(p, 1));
+					cout << "kan : " << p << endl;
+				}
+			}
+			else {
+				if (tehai->agarihai.at(j) == p) {
+					agent->AnKanDekiru = true;
+					agent->KanDekiruList.push_back(std::pair<int, int>(p, 1));
+					cout << "kan : " << p << endl;
+				}
+			}
+		}
+	}
+}
+
 int Player::Kiru()
 {
+	if (NakuState == 2) {
+//		cout << "fuck you\t" << id << endl;
+	}
+
 	if (Suteru != -1) {
 		int s = Suteru;
 		tehai->Kiru(s);
@@ -180,6 +259,53 @@ void Player::Tsumo(int pai)
 	tehai->ronhai = -1;
 	tehai->Tsumo(pai);
 	agent->WaitForKiru = true;
+}
+
+bool Player::Ankan()
+{
+	if (NakuState == 2) {
+		cout << "fuck " << agent->KanDekiruList.size() << endl;
+		NakuState = -1;
+		if (agent->KanDekiruList.size() > agent->KanCase && agent->KanDekiruList.at(agent->KanCase).second == 0) {
+			tehai->Ankan(agent->KanDekiruList.at(agent->KanCase).first);
+			FuRouOrder.push_back(AnKan);
+			cout << "ankan" << endl;
+		}
+		else if(agent->KanDekiruList.size() > agent->KanCase) {
+			cout << "kakan" << endl;
+			int pon_pos = 0;
+			for (int i = 0; i < tehai->pon.size(); ++i) {
+				if ((tehai->pon.at(i).at(0) == 0 || tehai->pon.at(i).at(0) == 10 || tehai->pon.at(i).at(0) == 20)) {
+					if (tehai->pon.at(i).at(0) == agent->KanDekiruList.at(agent->KanCase).first - 5) {
+						pon_pos = i;
+					}
+				}
+				else {
+					if (tehai->pon.at(i).at(0) == agent->KanDekiruList.at(agent->KanCase).first) {
+						pon_pos = i;
+					}
+				}
+			}
+			tehai->Kakan(agent->KanDekiruList.at(agent->KanCase).first);
+			for (int i = 0; i < FuRouOrder.size(); ++i) {
+				if (FuRouOrder.at(i) == Pon) {
+					--pon_pos;
+				}
+				if (pon_pos == -1) {
+					FuRouOrder.at(i) = MinKan;
+					break;
+				}
+			}
+		}
+		agent->KanCase = -1;
+		agent->KanDekiruList.clear();
+		agent->WaitForKiru = false;
+		agent->AnKanDekiru = false;
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 
 int Player::Naku(int pai)
@@ -213,6 +339,10 @@ int Player::Naku(int pai)
 	}
 	catch (...) {
 		cout << "crash situation : update furou order" << endl;
+	}
+
+	if (id == 1) {
+//		cout << "player state : " << NakuState << endl;
 	}
 	return NakuState;
 }

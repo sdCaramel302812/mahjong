@@ -6,7 +6,13 @@ Yaku YakuCheck(Tehai *pai, int Chanfon, int Menfon, bool last = false, bool firs
 
 bool AgariCheck(Tehai *pai);
 
+/*
+if return vector size is 0
+then no ten
+*/
 std::vector<int> TenpaiCheck(Tehai *pai);
+
+std::vector<std::pair<int, std::vector<int>>> RichiCheck(Tehai *pai);
 
 bool ChitoiCheck(Tehai *pai);
 
