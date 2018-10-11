@@ -55,6 +55,12 @@ public:
 	std::vector<CEGUI::Window *>frontPlayer;
 	std::vector<CEGUI::Window *>myPai;
 	//^^^^^^^^^^^^^^^
+	//vvvvvvvvvvvvvvv						立直棒
+	CEGUI::Window *myRichiBo;
+	CEGUI::Window *rightRichiBo;
+	CEGUI::Window *frontRichiBo;
+	CEGUI::Window *leftRichiBo;
+	//^^^^^^^^^^^^^^^
 	//vvvvvvvvvvvvvvv						捨牌
 	std::vector<CEGUI::Window *>mySutehai;
 	std::vector<CEGUI::Window *>rightSutehai;
@@ -85,6 +91,9 @@ public:
 
 	bool switchChi = false;
 	bool switchKan = false;
+	bool switchRichi = false;
+
+	std::vector<int> richiDekiruPai;
 
 	//	立直巡數
 	int myRichi = 0;

@@ -2,7 +2,13 @@
 #include "Yaku.h"
 #include "Tehai.h"
 
-Yaku YakuCheck(Tehai *pai, int Chanfon, int Menfon, bool last = false, bool first = false, bool rinshan = false, bool chankan = false, bool ibatsu = false);
+/*
+chankan : 
+0 : no chan kan
+1 : kakan
+2 : ankan
+*/
+Yaku YakuCheck(Tehai *pai, int Chanfon, int Menfon, bool last = false, bool first = false, bool rinshan = false, int chankan = 0, bool ibatsu = false);
 
 bool AgariCheck(Tehai *pai);
 

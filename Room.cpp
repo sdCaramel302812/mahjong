@@ -92,7 +92,7 @@ void Room::Play()
 		*/
 		if (WaitingState == 0) {
 			//vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv			等待切牌
-			bool hasKan = false;
+			std::pair<int, int> hasKan;
 			switch (CurrentPlayer)
 			{
 			case 1:
@@ -112,8 +112,65 @@ void Room::Play()
 				hasKan = pl4->Ankan();
 				break;
 			}
-			if (hasKan) {
+			if (hasKan.first != 0) {
 				MoRinShan = true;
+				pl1->Nakasareru(false);
+				pl2->Nakasareru(false);
+				pl3->Nakasareru(false);
+				pl4->Nakasareru(false);
+				bool hasChanKan = false;
+				switch (CurrentPlayer)
+				{
+				case 1:
+					if (pl2->HasChanKan(hasKan.second, hasKan.first)) {
+						hasChanKan = true;
+					}
+					if (pl3->HasChanKan(hasKan.second, hasKan.first)) {
+						hasChanKan = true;
+					}
+					if (pl4->HasChanKan(hasKan.second, hasKan.first)) {
+						hasChanKan = true;
+					}
+					break;
+				case 2:
+					if (pl2->HasChanKan(hasKan.second, hasKan.first)) {
+						hasChanKan = true;
+					}
+					if (pl3->HasChanKan(hasKan.second, hasKan.first)) {
+						hasChanKan = true;
+					}
+					if (pl4->HasChanKan(hasKan.second, hasKan.first)) {
+						hasChanKan = true;
+					}
+					break;
+				case 3:
+					if (pl2->HasChanKan(hasKan.second, hasKan.first)) {
+						hasChanKan = true;
+					}
+					if (pl3->HasChanKan(hasKan.second, hasKan.first)) {
+						hasChanKan = true;
+					}
+					if (pl4->HasChanKan(hasKan.second, hasKan.first)) {
+						hasChanKan = true;
+					}
+					break;
+				case 4:
+					if (pl2->HasChanKan(hasKan.second, hasKan.first)) {
+						hasChanKan = true;
+					}
+					if (pl3->HasChanKan(hasKan.second, hasKan.first)) {
+						hasChanKan = true;
+					}
+					if (pl4->HasChanKan(hasKan.second, hasKan.first)) {
+						hasChanKan = true;
+					}
+					break;
+				}
+				if (hasChanKan) {
+					WaitingState = 1;
+					return;
+				}
+
 				WaitingState = 2;
 				cout << "lets me mo pai" << endl;
 				return;
@@ -179,8 +236,14 @@ void Room::Play()
 				}
 				else {
 					ResetNakuState();
-					pl1->Nakasareru();		//被鳴牌 ( 改變牌河 / 消除一發等狀態 )
+					pl1->Nakasareru(true);		//被鳴牌 ( 改變牌河 / 消除一發等狀態 )
+					pl2->Nakasareru(false);
+					pl3->Nakasareru(false);
+					pl4->Nakasareru(false);
 					WaitingState = 0;
+					if (result1 == 6 || result2 == 6 || result3 == 6) {
+						return;
+					}
 					if (result1 == 1 || result1 == 2) {			//	下家碰 / 槓牌
 						CurrentPlayer = 2;
 						if (result1 == 1) {
@@ -264,8 +327,14 @@ void Room::Play()
 				}
 				else {
 					ResetNakuState();
-					pl2->Nakasareru();		//被鳴牌 ( 改變牌河 / 消除一發等狀態 )
+					pl2->Nakasareru(true);		//被鳴牌 ( 改變牌河 / 消除一發等狀態 )
+					pl1->Nakasareru(false);
+					pl3->Nakasareru(false);
+					pl4->Nakasareru(false);
 					WaitingState = 0;
+					if (result1 == 6 || result2 == 6 || result3 == 6) {
+						return;
+					}
 					if (result1 == 1 || result1 == 2) {			//	下家碰 / 槓牌
 						CurrentPlayer = 3;
 						if (result1 == 1) {
@@ -348,8 +417,14 @@ void Room::Play()
 				}
 				else {
 					ResetNakuState();
-					pl3->Nakasareru();		//被鳴牌 ( 改變牌河 / 消除一發等狀態 )
+					pl3->Nakasareru(true);		//被鳴牌 ( 改變牌河 / 消除一發等狀態 )
+					pl2->Nakasareru(false);
+					pl1->Nakasareru(false);
+					pl4->Nakasareru(false);
 					WaitingState = 0;
+					if (result1 == 6 || result2 == 6 || result3 == 6) {
+						return;
+					}
 					if (result1 == 1 || result1 == 2) {			//	下家碰 / 槓牌
 						CurrentPlayer = 4;
 						if (result1 == 1) {
@@ -433,8 +508,14 @@ void Room::Play()
 				}
 				else {
 					ResetNakuState();
-					pl4->Nakasareru();		//被鳴牌 ( 改變牌河 / 消除一發等狀態 )
+					pl4->Nakasareru(true);		//被鳴牌 ( 改變牌河 / 消除一發等狀態 )
+					pl2->Nakasareru(false);
+					pl3->Nakasareru(false);
+					pl1->Nakasareru(false);
 					WaitingState = 0;
+					if (result1 == 6 || result2 == 6 || result3 == 6) {
+						return;
+					}
 					if (result1 == 1 || result1 == 2) {			//	下家碰 / 槓牌				
 						CurrentPlayer = 1;
 						if (result1 == 1) {
@@ -520,6 +601,21 @@ void Room::Play()
 			}
 			else {
 				NewPai = yama->MoRinshan();
+				switch (CurrentPlayer)
+				{
+				case 1:
+					pl1->RinShan = true;
+					break;
+				case 2:
+					pl2->RinShan = true;
+					break;
+				case 3:
+					pl3->RinShan = true;
+					break;
+				case 4:
+					pl4->RinShan = true;
+					break;
+				}
 				MoRinShan = false;
 			}
 			if (NewPai == -1) {			//	摸到 -1 代表流局
@@ -528,6 +624,13 @@ void Room::Play()
 				return;
 			}
 			else {
+				if (yama->PaiSan.size() <= yama->Haiteihai) {
+					pl1->lastPai = true;
+					pl2->lastPai = true;
+					pl3->lastPai = true;
+					pl4->lastPai = true;
+				}
+
 				switch (CurrentPlayer)
 				{
 				case 1:

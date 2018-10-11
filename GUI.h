@@ -34,7 +34,7 @@ public:
 	const CEGUI::GUIContext* getContext() { return m_context; }
 private:
 	int last_press = 0;
-	CEGUI::OpenGL3Renderer* m_renderer = nullptr;
+	static CEGUI::OpenGL3Renderer* m_renderer;
 	CEGUI::GUIContext* m_context = nullptr;
 	CEGUI::Window* m_root = nullptr;
 	unsigned int m_lastTime = 0;

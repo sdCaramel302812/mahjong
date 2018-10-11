@@ -24,7 +24,15 @@ public:
 	int Suteru = -1;
 	void Tsumo(int pai);			//自摸				//***
 
-	bool Ankan();
+	/*
+	first : 
+	-1 : ankan
+	0  : nokan
+	1  : kakan
+	second : 
+	kan pai
+	*/
+	std::pair<int, int> Ankan();
 
 	std::vector<Naki> FuRouOrder;
 
@@ -51,7 +59,7 @@ public:
 	*/
 	int Naku(int pai);	//鳴牌				//***
 
-	void Nakasareru();				//被鳴牌
+	void Nakasareru(bool isme);		//被鳴牌
 	void Nagasu();					//流局
 
 	Tehai *tehai;					//手牌
@@ -59,9 +67,13 @@ public:
 	std::vector<int> SutehaiInOther;//被副露走的捨牌
 	bool ibatsu = false;			//一發狀態
 	bool firstR = true;				//首巡
+	bool lastPai = false;			//最後一張牌
+	bool RinShan = false;			//嶺上
+	int ChanKan = 0;				//搶槓
 	bool Furiten = false;			//振聽
-	std::vector<std::pair<int, std::vector<int>>> WhatToTenPai;
-	std::vector<int> Tenpai;
+	void FuritenCheck();
+
+	bool HasChanKan(int ronhai, int kan);
 
 	bool *Agari;					//來自ROOM
 	void SetAgariCallback(bool *a);

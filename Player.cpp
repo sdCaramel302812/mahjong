@@ -5,7 +5,7 @@
 Player::Player()
 {
 	tehai = new Tehai();
-	agent = new Agent(&Suteru, &NakuState, &tehai->tehai);
+	agent = new Agent(&Suteru, &NakuState, &Furiten, &tehai->tehai);
 	Init();
 }
 
@@ -36,97 +36,103 @@ void Player::Init()
 	agent->Init();
 	ibatsu = false;
 	firstR = true;
+	lastPai = false;
+	RinShan = false;
+	ChanKan = 0;
 
 	FuRouOrder.clear();
 }
 
 bool Player::NakuDekiru(int pai, bool ShanJa)
 {
-	int PaiNoR = pai;
-	if (PaiNoR == 0 || PaiNoR == 10 || PaiNoR == 20) {
-		PaiNoR += 5;
-	}
-	///////////////////////////////				確認可否吃
-	if (pai < 30 && ShanJa && tehai->tehai.size() > 2) {
-		
-		/*
-		分別為 :
-				pai - 2 , pai - 1 , pai + 1 , pai + 2
-		*/
-		bool paiAri[4] = { false };
+	if (!tehai->richi) {
+
+		int PaiNoR = pai;
+		if (PaiNoR == 0 || PaiNoR == 10 || PaiNoR == 20) {
+			PaiNoR += 5;
+		}
+		///////////////////////////////				確認可否吃
+		if (pai < 30 && ShanJa && tehai->tehai.size() > 2) {
+
+			/*
+			分別為 :
+					pai - 2 , pai - 1 , pai + 1 , pai + 2
+			*/
+			bool paiAri[4] = { false };
+			for (int i = 0; i < tehai->tehai.size(); ++i) {
+				int p;
+				if (tehai->tehai.at(i) == 0 || tehai->tehai.at(i) == 10 || tehai->tehai.at(i) == 20) {
+					p = tehai->tehai.at(i) + 5;
+				}
+				else {
+					p = tehai->tehai.at(i);
+				}
+				if (PaiNoR % 10 != 1 && PaiNoR - p == 2) {
+					paiAri[0] = true;
+				}
+				if (PaiNoR % 10 != 1 && PaiNoR - p == 1) {
+					paiAri[1] = true;
+				}
+				if (PaiNoR % 10 != 9 && PaiNoR - p == -1) {
+					paiAri[2] = true;
+				}
+				if (PaiNoR % 10 != 9 && PaiNoR - p == -2 && p < TON) {
+					paiAri[3] = true;
+				}
+			}
+			if ((paiAri[0] && paiAri[1])) {
+				agent->ChiDekiru = true;
+				agent->ChiDekiruList.push_back(std::pair<std::pair<int, int>, int>(std::pair<int, int>(PaiNoR - 2, PaiNoR - 1), 5));
+			}
+			if ((paiAri[1] && paiAri[2])) {
+				agent->ChiDekiru = true;
+				agent->ChiDekiruList.push_back(std::pair<std::pair<int, int>, int>(std::pair<int, int>(PaiNoR - 1, PaiNoR + 1), 4));
+			}
+			if ((paiAri[2] && paiAri[3])) {
+				agent->ChiDekiru = true;
+				agent->ChiDekiruList.push_back(std::pair<std::pair<int, int>, int>(std::pair<int, int>(PaiNoR + 1, PaiNoR + 2), 3));
+			}
+		}
+		///////////////////////////////				確認可否碰
+		int samepainum = 0;
 		for (int i = 0; i < tehai->tehai.size(); ++i) {
-			int p;
-			if (tehai->tehai.at(i) == 0 || tehai->tehai.at(i) == 10 || tehai->tehai.at(i) == 20) {
-				p = tehai->tehai.at(i) + 5;
+			int p = tehai->tehai.at(i);
+			if (p == 0 || p == 10 || p == 20) {
+				p += 5;
 			}
-			else {
-				p = tehai->tehai.at(i);
-			}
-			if (PaiNoR % 10 != 1 && PaiNoR - p == 2) {
-				paiAri[0] = true;
-			}
-			if (PaiNoR % 10 != 1 && PaiNoR - p == 1) {
-				paiAri[1] = true;
-			}
-			if (PaiNoR % 10 != 9 && PaiNoR - p == -1) {
-				paiAri[2] = true;
-			}
-			if (PaiNoR % 10 != 9 && PaiNoR - p == -2 && p < TON) {
-				paiAri[3] = true;
+			if (p == PaiNoR) {
+				++samepainum;
 			}
 		}
-		if ((paiAri[0] && paiAri[1])) {
-			agent->ChiDekiru = true;
-			agent->ChiDekiruList.push_back(std::pair<std::pair<int, int>, int>(std::pair<int, int>(PaiNoR - 2, PaiNoR - 1), 5));
+		if (samepainum >= 2) {
+			agent->PonDekiru = true;
 		}
-		if ((paiAri[1] && paiAri[2])) {
-			agent->ChiDekiru = true;
-			agent->ChiDekiruList.push_back(std::pair<std::pair<int, int>, int>(std::pair<int, int>(PaiNoR - 1, PaiNoR + 1), 4));
+		///////////////////////////////				確認可否明槓
+		if (samepainum == 3) {
+			agent->KanDekiru = true;
 		}
-		if ((paiAri[2] && paiAri[3])) {
-			agent->ChiDekiru = true;
-			agent->ChiDekiruList.push_back(std::pair<std::pair<int, int>, int>(std::pair<int, int>(PaiNoR + 1, PaiNoR + 2), 3));
-		}
-	}
-	///////////////////////////////				確認可否碰
-	int samepainum = 0;
-	for (int i = 0; i < tehai->tehai.size(); ++i) {
-		int p = tehai->tehai.at(i);
-		if (p == 0 || p == 10 || p == 20) {
-			p += 5;
-		}
-		if (p == PaiNoR) {
-			++samepainum;
-		}
-	}
-	if (samepainum >= 2) {
-		agent->PonDekiru = true;
-	}
-	///////////////////////////////				確認可否明槓
-	if (samepainum == 3) {
-		agent->KanDekiru = true;
+
 	}
 	///////////////////////////////				確認可否榮和
 	agent->RonDekiru = false;
 	tehai->ronhai = pai;
 	
-	if (AgariCheck(tehai)) {
+	if (AgariCheck(tehai) && !Furiten) {
 		//cout << endl;
 		//cout << "fuck error" << endl;
 		//tehai->ShowTehai();
 		//cout << "fuck error" << endl;
 		//try {
-			Yaku yaku = YakuCheck(tehai, Chanfon, Menfon);
+		Yaku yaku = YakuCheck(tehai, Chanfon, Menfon, lastPai, firstR, RinShan, ChanKan, ibatsu);
+			if (yaku.YakuAri) {
+				agent->RonDekiru = true;
+			}
 		//	yaku.ShowYaku();
 		//}
 		//catch (...) {
 		//	cout << "crash situation : point checking" << endl;
 		//}
 		//cout << endl;
-
-	
-
-		agent->RonDekiru = true;
 	}
 	else {
 		tehai->ronhai = -1;
@@ -144,13 +150,16 @@ bool Player::NakuDekiru(int pai, bool ShanJa)
 void Player::AnKanTsumoCheck()
 {
 	if (AgariCheck(tehai)) {
-		agent->TsumoDekiru = true;
+		Yaku yaku = YakuCheck(tehai, Chanfon, Menfon, lastPai, firstR, RinShan, ChanKan, ibatsu);
+		if (yaku.YakuAri) {
+			agent->TsumoDekiru = true;
+		}
 	}
 	else {
-//		WhatToTenPai = RichiCheck(tehai);
-//		if (!WhatToTenPai.empty() && tehai->agarihai.size() == 14) {
-//			agent->RichiDekiru = true;
-//		}
+		agent->WhatToTenPai = RichiCheck(tehai);
+		if (!agent->WhatToTenPai.empty() && tehai->chi.empty() && tehai->pon.empty() && tehai->minkan.empty() && !tehai->richi) {
+			agent->RichiDekiru = true;
+		}
 	}
 
 	int pin[9] = { 0 };
@@ -243,7 +252,22 @@ int Player::Kiru()
 //		cout << "fuck you\t" << id << endl;
 	}
 
+	FuritenCheck();
+	IbatsuKesu();
+	RinShan = false;
+
 	if (Suteru != -1) {
+		for (int i = 0; i < agent->WhatToTenPai.size(); ++i) {
+			if (Suteru == agent->WhatToTenPai.at(i).first) {
+				agent->Tenpai = agent->WhatToTenPai.at(i).second;
+			}
+		}
+		if (agent->WantToRichi == 1) {
+			tehai->richi = true;
+			ibatsu = true;
+			agent->WantToRichi = 0;
+			agent->RichiDekiru = false;
+		}
 		int s = Suteru;
 		tehai->Kiru(s);
 		Sutehai.push_back(s);
@@ -256,20 +280,25 @@ int Player::Kiru()
 
 void Player::Tsumo(int pai)
 {
+	ChanKan = 0;
 	tehai->ronhai = -1;
 	tehai->Tsumo(pai);
 	agent->WaitForKiru = true;
 }
 
-bool Player::Ankan()
+std::pair<int, int> Player::Ankan()
 {
 	if (NakuState == 2) {
 		cout << "fuck " << agent->KanDekiruList.size() << endl;
 		NakuState = -1;
+		bool ankan = false;
+		int kanpai;
 		if (agent->KanDekiruList.size() > agent->KanCase && agent->KanDekiruList.at(agent->KanCase).second == 0) {
+			kanpai = agent->KanDekiruList.at(agent->KanCase).first;
 			tehai->Ankan(agent->KanDekiruList.at(agent->KanCase).first);
 			FuRouOrder.push_back(AnKan);
 			cout << "ankan" << endl;
+			ankan = true;
 		}
 		else if(agent->KanDekiruList.size() > agent->KanCase) {
 			cout << "kakan" << endl;
@@ -286,6 +315,7 @@ bool Player::Ankan()
 					}
 				}
 			}
+			kanpai = agent->KanDekiruList.at(agent->KanCase).first;
 			tehai->Kakan(agent->KanDekiruList.at(agent->KanCase).first);
 			for (int i = 0; i < FuRouOrder.size(); ++i) {
 				if (FuRouOrder.at(i) == Pon) {
@@ -301,10 +331,15 @@ bool Player::Ankan()
 		agent->KanDekiruList.clear();
 		agent->WaitForKiru = false;
 		agent->AnKanDekiru = false;
-		return true;
+		if (ankan) {
+			return std::pair<int, int>(-1, kanpai);
+		}
+		else {
+
+		}
 	}
 	else {
-		return false;
+		return std::pair<int, int>(0, 0);
 	}
 }
 
@@ -347,16 +382,58 @@ int Player::Naku(int pai)
 	return NakuState;
 }
 
-void Player::Nakasareru()
+void Player::Nakasareru(bool isme)
 {
 	IbatsuKesu();
 	FirstRoundKesu();
-	SutehaiInOther.push_back(Sutehai.back());
-	Sutehai.pop_back();
+	if (isme) {
+		SutehaiInOther.push_back(Sutehai.back());
+		Sutehai.pop_back();
+	}
 }
 
 void Player::Nagasu()
 {
+}
+
+void Player::FuritenCheck()
+{
+	if (!tehai->richi) {
+		Furiten = false;
+	}
+	for (int i = 0; i < agent->Tenpai.size(); ++i) {
+		for (int j = 0; j < Sutehai.size(); ++j) {
+			int p = Sutehai.at(j);
+			if (p == 0 || p == 10 || p == 20) {
+				p += 5;
+			}
+			if (p == agent->Tenpai.at(i)) {
+				Furiten = true;
+				break;
+			}
+		}
+		for (int j = 0; j < SutehaiInOther.size(); ++j) {
+			int p = SutehaiInOther.at(j);
+			if (p == 0 || p == 10 || p == 20) {
+				p += 5;
+			}
+			if (p == agent->Tenpai.at(i)) {
+				Furiten = true;
+				break;
+			}
+		}
+	}
+}
+
+bool Player::HasChanKan(int ronhai, int kan)
+{
+	tehai->ronhai = ronhai;
+	Yaku yaku = YakuCheck(tehai, Chanfon, Menfon, lastPai, firstR, RinShan, kan, ibatsu);
+	tehai->ronhai = -1;
+	if (yaku.YakuAri) {
+		agent->RonDekiru = true;
+	}
+	return yaku.YakuAri;
 }
 
 void Player::SetAgariCallback(bool * a)

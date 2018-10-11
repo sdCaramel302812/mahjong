@@ -1,7 +1,7 @@
 ﻿#include "stdafx.h"
 #include "tenpai.h"
 
-Yaku YakuCheck(Tehai *pai, int Chanfon, int Menfon, bool last, bool first, bool rinshan, bool chankan, bool ibatsu)
+Yaku YakuCheck(Tehai *pai, int Chanfon, int Menfon, bool last, bool first, bool rinshan, int chankan, bool ibatsu)
 {
 	if (AgariCheck(pai)) {
 		
@@ -803,10 +803,17 @@ Yaku YakuCheck(Tehai *pai, int Chanfon, int Menfon, bool last, bool first, bool 
 			yakunashi = false;
 		}
 		//搶槓
-		if (chankan) {
-			yaku.Chankan = true;
-			++yaku.Han;
-			yakunashi = false;
+		if (chankan > 0) {
+			if (chankan == 2 && kokushi) {
+				yaku.Chankan = true;
+				++yaku.Han;
+				yakunashi = false;
+			}
+			else if (chankan == 1) {
+				yaku.Chankan = true;
+				++yaku.Han;
+				yakunashi = false;
+			}
 		}
 		//海底撈月
 		if (last&&pai->tsumohai != -1) {
@@ -1827,7 +1834,7 @@ std::vector<int> TenpaiCheck(Tehai *pai)
 			++single;
 		}
 	}
-	for (int i = 0; i < 9; +i) {
+	for (int i = 0; i < 9; ++i) {
 		if (i == 0) {
 			if (pin[0] == 1 && pin[1] == 0 && pin[2] == 0) {
 				++single;
@@ -1937,7 +1944,7 @@ std::vector<int> TenpaiCheck(Tehai *pai)
 		}
 	}
 	if (pin[2] == 1 && pin[3] == 1 && pin[4] == 2 && pin[5] == 1 && pin[6] == 2 && pin[7] == 1 && pin[8] == 1 && pin[0] == 0) {
-		for (int i = 2; i < 0; ++i) {
+		for (int i = 2; i < 9; ++i) {
 			pin[i] = 0;
 		}
 	}
@@ -2326,7 +2333,7 @@ std::vector<int> TenpaiCheck(Tehai *pai)
 		int DanKi = -1;
 		while (checkpai.tehai.size() > 1)
 		{
-			if (checkpai.tehai.back() == checkpai.tehai.at(checkpai.tehai.size() - 2)) {
+			if (checkpai.tehai.back() == checkpai.tehai.at((int)checkpai.tehai.size() - 2)) {
 				checkpai.tehai.pop_back();
 				checkpai.tehai.pop_back();
 			}
@@ -2336,6 +2343,7 @@ std::vector<int> TenpaiCheck(Tehai *pai)
 					checkpai.tehai.pop_back();
 				}
 				else {
+					DanKi = -1;
 					break;
 				}
 			}

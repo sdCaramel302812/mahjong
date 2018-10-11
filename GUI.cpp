@@ -3,6 +3,7 @@
 #include "GUI.h"
 #include "SDL/SDL_timer.h"
 
+CEGUI::OpenGL3Renderer* GUI::m_renderer = nullptr;
 
 bool GUI::ChnInjectChar(CEGUI::utf32 code_point)
 {

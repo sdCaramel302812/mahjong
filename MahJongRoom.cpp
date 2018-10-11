@@ -34,6 +34,23 @@ bool MahJongRoom::init()
 	frontPlayer.resize(14);
 	myPai.resize(14);
 
+
+	//vvvvvvvvvvvvvvvvvvv		立直棒初始化
+	myRichiBo = m_gui->createWidget("MJ_material/Image", glm::vec4(0.45, 0.612, 0.095, 0.01), glm::vec4(), "", background);
+	myRichiBo->setProperty("Image", "MJ_material/Point1000");
+	myRichiBo->setVisible(false);
+	rightRichiBo = m_gui->createWidget("MJ_material/Image", glm::vec4(0.51, 0.5, 0.095, 0.01), glm::vec4(), "", background);
+	rightRichiBo->setProperty("Image", "MJ_material/Point1000");
+	rightRichiBo->setRotation(CEGUI::Quaternion::axisAngleDegrees(CEGUI::Vector3f(0, 0, 1), 90));
+	rightRichiBo->setVisible(false);
+	frontRichiBo = m_gui->createWidget("MJ_material/Image", glm::vec4(0.45, 0.39, 0.095, 0.01), glm::vec4(), "", background);
+	frontRichiBo->setProperty("Image", "MJ_material/Point1000");
+	frontRichiBo->setVisible(false);
+	leftRichiBo = m_gui->createWidget("MJ_material/Image", glm::vec4(0.39, 0.5, 0.095, 0.01), glm::vec4(), "", background);
+	leftRichiBo->setProperty("Image", "MJ_material/Point1000");
+	leftRichiBo->setRotation(CEGUI::Quaternion::axisAngleDegrees(CEGUI::Vector3f(0, 0, 1), 90));
+	leftRichiBo->setVisible(false);
+	//^^^^^^^^^^^^^^^^^^^		立直棒初始化
 	//vvvvvvvvvvvvvvvvvvv		副露初始化
 	{
 		int middle[] = { 0.763, 0.723, 0.802 };
@@ -541,14 +558,45 @@ bool MahJongRoom::init()
 							}
 						}
 					}
+					else if (switchRichi) {
+						if (reorder.size() > i) {
+							for (int j = 0; j < richiDekiruPai.size(); ++j) {
+								if (reorder.at(i) == richiDekiruPai.at(j)) {
+									player->WantToRichi = 1;
+									*player->Suteru = reorder.at(i);
+									player->WantToTsumo = -1;
+									player->WantToKan = -1;
+									switchRichi = false;
+									break;
+								}
+							}
+						}
+						else if (tsumohai != -1) {
+							for (int j = 0; j < richiDekiruPai.size(); ++j) {
+								player->WantToRichi = 1;
+								*player->Suteru = tsumohai;
+								player->WantToTsumo = -1;
+								player->WantToKan = -1;
+								switchRichi = false;
+								break;
+							}
+						}
+					}
 					else {
 						player->WantToTsumo = -1;
 						player->WantToKan = -1;
-						if (reorder.size() > i) {
-							*player->Suteru = reorder.at(i);
+						if (myRichi == 0) {
+							if (reorder.size() > i) {
+								*player->Suteru = reorder.at(i);
+							}
+							else if (tsumohai != -1) {
+								*player->Suteru = tsumohai;
+							}
 						}
-						else if (tsumohai != -1) {
-							*player->Suteru = tsumohai;
+						else {
+							if (reorder.size() == i) {
+								*player->Suteru = tsumohai;
+							}
 						}
 					}
 				}
@@ -834,11 +882,26 @@ void MahJongRoom::Reset()
 	leftSuteNumber = 0;
 	frontSuteNumber = 0;
 
+	myRichiBo->setVisible(false);
+	rightRichiBo->setVisible(false);
+	frontRichiBo->setVisible(false);
+	leftRichiBo->setVisible(false);
+
 	for (int i = 0; i < mySutehai.size(); ++i) {
 		mySutehai.at(i)->setProperty("Image", "MJ_material/Nothing");
+		mySutehai.at(i)->setRotation(CEGUI::Quaternion::axisAngleDegrees(CEGUI::Vector3f(0, 0, 1), 0));
+	}
+	for (int i = 0; i < frontSutehai.size(); ++i) {
 		frontSutehai.at(i)->setProperty("Image", "MJ_material/Nothing");
+		frontSutehai.at(i)->setRotation(CEGUI::Quaternion::axisAngleDegrees(CEGUI::Vector3f(0, 0, 1), 180));
+	}
+	for (int i = 0; i < leftSutehai.size(); ++i) {
 		leftSutehai.at(i)->setProperty("Image", "MJ_material/Nothing");
+		leftSutehai.at(i)->setRotation(CEGUI::Quaternion::axisAngleDegrees(CEGUI::Vector3f(0, 0, 1), 90));
+	}
+	for (int i = 0; i < rightSutehai.size(); ++i) {
 		rightSutehai.at(i)->setProperty("Image", "MJ_material/Nothing");
+		rightSutehai.at(i)->setRotation(CEGUI::Quaternion::axisAngleDegrees(CEGUI::Vector3f(0, 0, 1), 270));
 	}
 
 	for (int i = 0; i < 4; ++i) {
@@ -869,6 +932,8 @@ void MahJongRoom::ShowTehai()
 
 void MahJongRoom::GetInfo(const Player * pai1, const Player * pai2, const Player * pai3, const Player * pai4)
 {
+	
+
 	reorder = pai1->tehai->tehai;
 	if (reorder.size() > 1) {
 		for (int i = 0; i < reorder.size() - 1; ++i) {
@@ -1328,6 +1393,32 @@ void MahJongRoom::GetInfo(const Player * pai1, const Player * pai2, const Player
 			leftSutehai.at(leftSuteNumber - 1)->setProperty("Image", "MJ_material/Nothing");
 			--leftSuteNumber;
 		}
+
+		richiDekiruPai.clear();
+		for (int i = 0; i < pai1->agent->WhatToTenPai.size(); ++i) {
+			richiDekiruPai.push_back(pai1->agent->WhatToTenPai.at(i).first);
+		}
+		if (pai1->tehai->richi&&myRichi == 0) {
+			myRichi = mySuteNumber;
+			myRichiBo->setVisible(true);
+			mySutehai.at(myRichi - 1)->setRotation(CEGUI::Quaternion::axisAngleDegrees(CEGUI::Vector3f(0, 0, 1), 90));
+		}
+		if (pai2->tehai->richi && rightRichi == 0) {
+			rightRichi = rightSuteNumber;
+			rightRichiBo->setVisible(true);
+			rightSutehai.at(myRichi - 1)->setRotation(CEGUI::Quaternion::axisAngleDegrees(CEGUI::Vector3f(0, 0, 1), 180));
+		}
+		if (pai3->tehai->richi && frontRichi == 0) {
+			frontRichi = frontSuteNumber;
+			rightRichiBo->setVisible(true);
+			frontSutehai.at(myRichi - 1)->setRotation(CEGUI::Quaternion::axisAngleDegrees(CEGUI::Vector3f(0, 0, 1), 270));
+		}
+		if (pai4->tehai->richi && leftRichi == 0) {
+			leftRichi = leftSuteNumber;
+			rightRichiBo->setVisible(true);
+			leftSutehai.at(myRichi - 1)->setRotation(CEGUI::Quaternion::axisAngleDegrees(CEGUI::Vector3f(0, 0, 1), 0));
+		}
+
 
 		if (pai1->Sutehai.size() > mySuteNumber) {
 			++mySuteNumber;
@@ -2785,6 +2876,7 @@ void MahJongRoom::ButtonFunction(int n)
 		player->WantToRichi = -1;
 		switchChi = false;
 		switchKan = false;
+		switchRichi = false;
 		break;
 	case 2:
 		player->WantToChi = 1;
@@ -2801,6 +2893,7 @@ void MahJongRoom::ButtonFunction(int n)
 		break;
 	case 5:
 		player->WantToRichi = 1;
+		switchRichi = true;
 		break;
 	case 6:
 		player->WantToTsumo = 1;

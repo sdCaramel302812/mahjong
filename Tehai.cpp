@@ -23,6 +23,7 @@ void Tehai::Init()
 	tsumohai = -1;
 	ronhai = -1;
 	tehai.resize(13);
+	richi = false;
 }
 
 void Tehai::Peipai(int p1, int p2, int p3, int p4, int p5, int p6, int p7, int p8, int p9, int p10, int p11, int p12, int p13)

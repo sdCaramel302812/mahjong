@@ -2,11 +2,12 @@
 #include "Agent.h"
 
 
-Agent::Agent(int *s, int *n, std::vector<int> *t)
+Agent::Agent(int *s, int *n, bool *f, std::vector<int> *t)
 {
 	Suteru = s;
 	NakuState = n;
 	tehai = t;
+	Furiten = f;
 }
 
 
@@ -23,6 +24,7 @@ void Agent::Init()
 	RonDekiru = false;
 	TsumoDekiru = false;
 	WaitForKiru = false;
+	RichiDekiru = false;
 	WantToChi = 0;
 	WantToKan = 0;
 	WantToPon = 0;
@@ -66,6 +68,12 @@ void Agent::Act()
 					*NakuState = 2;
 					KanCase = 0;
 				}
+			}
+			else if (RichiDekiru) {
+				int p = WhatToTenPai.front().first;
+				WantToRichi = 1;
+				RichiDekiru = false;
+				*Suteru = p;
 			}
 			else {
 				int rnd = rand() % 2;
@@ -112,8 +120,11 @@ void Agent::Act()
 		}
 
 
-		if ((AnKanDekiru && WantToKan == -1) || (ChiDekiru && WantToChi == -1) || (PonDekiru && WantToPon == -1) || (KanDekiru && WantToKan == -1) || (RonDekiru && WantToRon == -1) || (TsumoDekiru && WantToTsumo == -1)) {
+		if ((RichiDekiru && WantToRichi == -1) || (AnKanDekiru && WantToKan == -1) || (ChiDekiru && WantToChi == -1) || (PonDekiru && WantToPon == -1) || (KanDekiru && WantToKan == -1) || (RonDekiru && WantToRon == -1) || (TsumoDekiru && WantToTsumo == -1)) {
 			*NakuState = 0;
+			if (WantToRon = -1) {
+				*Furiten = true;
+			}
 			ResetActState();
 			return;
 		}
@@ -136,6 +147,7 @@ void Agent::Act()
 		}
 		if (RonDekiru && WantToRon == 1) {
 			*Agari = true;
+			*NakuState = 6;
 			ResetActState();
 		}
 		if (TsumoDekiru && WantToTsumo == 1) {
@@ -158,6 +170,9 @@ void Agent::Act()
 		if (!TsumoDekiru) {
 			WantToTsumo = 0;
 		}
+		if (!RichiDekiru) {
+			WantToRichi = 0;
+		}
 	}
 	
 }
@@ -170,6 +185,7 @@ void Agent::ResetActState()
 	RonDekiru = false;
 	AnKanDekiru = false;
 	TsumoDekiru = false;
+	RichiDekiru = false;
 
 	ChiDekiruList.clear();
 	//KanDekiruList.clear();
@@ -179,6 +195,7 @@ void Agent::ResetActState()
 	WantToPon = 0;
 	WantToRon = 0;
 	WantToTsumo = 0;
+	WantToRichi = 0;
 
 	ChiCase = -1;
 }

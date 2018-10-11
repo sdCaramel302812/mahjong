@@ -9,7 +9,7 @@ using std::endl;
 class Agent
 {
 public:
-	Agent(int *s, int *n, std::vector<int> *t);
+	Agent(int *suteru, int *nakustate, bool *furiten, std::vector<int> *tehai);
 	~Agent();
 
 
@@ -59,9 +59,13 @@ public:
 	std::vector<std::pair<std::pair<int, int>, int>> ChiDekiruList;
 	int ChiCase = -1;							// index of ChiDekiruList
 
+	std::vector<std::pair<int, std::vector<int>>> WhatToTenPai;
+	std::vector<int> Tenpai;
+
 	int *Suteru;
 	int *NakuState;
 	bool *Agari;
+	bool *Furiten;
 
 	std::vector<int> *tehai;
 
