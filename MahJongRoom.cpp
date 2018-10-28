@@ -18,7 +18,7 @@ bool MahJongRoom::init()
 	//vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv		GUI 相關
 	m_gui->init("../GUI");
 	m_gui->loadScheme("AlfiskoSkin.scheme");
-	m_gui->loadScheme("TaharezLook.scheme");
+	m_gui->loadScheme("OgreTray.scheme");
 	m_gui->loadScheme("MJ_material.scheme");
 	m_gui->setFont("HanSansTC-14");
 	background = m_gui->createWidget("MJ_material/Image", glm::vec4(0, 0, 1, 1), glm::vec4(), "background");
@@ -34,7 +34,38 @@ bool MahJongRoom::init()
 	frontPlayer.resize(14);
 	myPai.resize(14);
 
-
+	//vvvvvvvvvvvvvvvvvvv		場況資訊初始化
+	/*
+	0.524	0.577
+	0.533	0.42
+	0.446	0.4
+	0.436	0.555
+	*/
+	{
+		ChanfonBan = m_gui->createWidget("MJ_material/Image", glm::vec4(0.436, 0.555, 0.026, 0.03), glm::vec4(), "", background);
+		ChanfonBan->setRotation(CEGUI::Quaternion::axisAngleDegrees(CEGUI::Vector3f(0, 0, 1), 90));
+		ChanfonBan->setProperty("Image", "MJ_material/TonBa");
+		myInfo = m_gui->createWidget("OgreTray/Label", glm::vec4(0.44, 0.548, 0.1, 0.03), glm::vec4(), "", background);
+		wstring text1 = L"東25000";
+		myInfo->setText(wcharToUTF8(text1));
+		myInfo->setProperty("NormalTextColour", "FFDDDDDD");
+		rightInfo = m_gui->createWidget("OgreTray/Label", glm::vec4(0.48, 0.5, 0.1, 0.03), glm::vec4(), "", background);
+		rightInfo->setRotation(CEGUI::Quaternion::axisAngleDegrees(CEGUI::Vector3f(0, 0, 1), 270));
+		wstring text2 = L"南25000";
+		rightInfo->setText(wcharToUTF8(text2));
+		rightInfo->setProperty("NormalTextColour", "FFDDDDDD");
+		frontInfo = m_gui->createWidget("OgreTray/Label", glm::vec4(0.455, 0.43, 0.1, 0.03), glm::vec4(), "", background);
+		frontInfo->setRotation(CEGUI::Quaternion::axisAngleDegrees(CEGUI::Vector3f(0, 0, 1), 180));
+		wstring text3 = L"西25000";
+		frontInfo->setText(wcharToUTF8(text3));
+		frontInfo->setProperty("NormalTextColour", "FFDDDDDD");
+		leftInfo = m_gui->createWidget("OgreTray/Label", glm::vec4(0.415, 0.478, 0.1, 0.03), glm::vec4(), "", background);
+		leftInfo->setRotation(CEGUI::Quaternion::axisAngleDegrees(CEGUI::Vector3f(0, 0, 1), 90));
+		wstring text4 = L"北25000";
+		leftInfo->setText(wcharToUTF8(text4));
+		leftInfo->setProperty("NormalTextColour", "FFDDDDDD");
+	}
+	//^^^^^^^^^^^^^^^^^^^		場況資訊初始化
 	//vvvvvvvvvvvvvvvvvvv		立直棒初始化
 	myRichiBo = m_gui->createWidget("MJ_material/Image", glm::vec4(0.45, 0.612, 0.095, 0.01), glm::vec4(), "", background);
 	myRichiBo->setProperty("Image", "MJ_material/Point1000");
@@ -811,6 +842,12 @@ bool MahJongRoom::init()
 	button5->setVisible(false);
 	//^^^^^^^^^^^^^^^^^^^^^^^^^^		按鈕初始化
 
+	//vvvvvvvvvvvvvvvvvvvvvvvvvv		結算畫面初始化
+	ResultPanel = m_gui->createWidget("MJ_material/Image", glm::vec4(0, 0, 1, 1), glm::vec4(), "", background);
+	ResultPanel->setProperty("Image", "MJ_material/Nothing");
+	ResultText = m_gui->createWidget("OgreTray/Label", glm::vec4(0.3, 0.4, 0.4, 0.2), glm::vec4(), "", ResultPanel);
+	//^^^^^^^^^^^^^^^^^^^^^^^^^^		結算畫面初始化
+
 	ShowPaiSan();
 	return true;
 }
@@ -930,9 +967,116 @@ void MahJongRoom::ShowTehai()
 {
 }
 
-void MahJongRoom::GetInfo(const Player * pai1, const Player * pai2, const Player * pai3, const Player * pai4)
+void MahJongRoom::GetInfo(const Player * pai1, const Player * pai2, const Player * pai3, const Player * pai4, RoomInfo *info)
 {
-	
+	//vvvvvvvvvvvvvvvvvvvvv		場況資訊
+	if (info->FirstOya != FirstOya) {
+		switch (info->FirstOya)
+		{
+		case 1:
+			ChanfonBan->setRotation(CEGUI::Quaternion::axisAngleDegrees(CEGUI::Vector3f(0, 0, 1), 0));
+			ChanfonBan->setPosition(CEGUI::UVector2(CEGUI::UDim(0.524, 0), CEGUI::UDim(0.577, 0)));
+			break;
+		case 2:
+			ChanfonBan->setRotation(CEGUI::Quaternion::axisAngleDegrees(CEGUI::Vector3f(0, 0, 1), 270));
+			ChanfonBan->setPosition(CEGUI::UVector2(CEGUI::UDim(0.533, 0), CEGUI::UDim(0.42, 0)));
+			break;
+		case 3:
+			ChanfonBan->setRotation(CEGUI::Quaternion::axisAngleDegrees(CEGUI::Vector3f(0, 0, 1), 180));
+			ChanfonBan->setPosition(CEGUI::UVector2(CEGUI::UDim(0.446, 0), CEGUI::UDim(0.4, 0)));
+			break;
+		case 4:
+			ChanfonBan->setRotation(CEGUI::Quaternion::axisAngleDegrees(CEGUI::Vector3f(0, 0, 1), 90));
+			ChanfonBan->setPosition(CEGUI::UVector2(CEGUI::UDim(0.436, 0), CEGUI::UDim(0.555, 0)));
+			break;
+		}
+	}
+	if (info->Chanfon != Chanfon) {
+		Chanfon = info->Chanfon;
+		if (Chanfon == TON) {
+			ChanfonBan->setProperty("Image", "MJ_material/TonBa");
+		}
+		else if (Chanfon == NAN) {
+			ChanfonBan->setProperty("Image", "MJ_material/NanBa");
+		}
+	}
+	{
+		wstring text1 = L"東";
+		wstring text2 = L"南";
+		wstring text3 = L"西";
+		wstring text4 = L"北";
+		switch (info->Oya)
+		{
+		case 1:
+			text1.append(TString().number(pai1->Point).data());
+			text2.append(TString().number(pai2->Point).data());
+			text3.append(TString().number(pai3->Point).data());
+			text4.append(TString().number(pai4->Point).data());
+			myInfo->setText(wcharToUTF8(text1));
+			rightInfo->setText(wcharToUTF8(text2));
+			frontInfo->setText(wcharToUTF8(text3));
+			leftInfo->setText(wcharToUTF8(text4));
+			break;
+		case 2:
+			text1.append(TString().number(pai2->Point).data());
+			text2.append(TString().number(pai3->Point).data());
+			text3.append(TString().number(pai4->Point).data());
+			text4.append(TString().number(pai1->Point).data());
+			myInfo->setText(wcharToUTF8(text4));
+			rightInfo->setText(wcharToUTF8(text1));
+			frontInfo->setText(wcharToUTF8(text2));
+			leftInfo->setText(wcharToUTF8(text3));
+			break;
+		case 3:
+			text1.append(TString().number(pai3->Point).data());
+			text2.append(TString().number(pai4->Point).data());
+			text3.append(TString().number(pai1->Point).data());
+			text4.append(TString().number(pai2->Point).data());
+			myInfo->setText(wcharToUTF8(text3));
+			rightInfo->setText(wcharToUTF8(text4));
+			frontInfo->setText(wcharToUTF8(text1));
+			leftInfo->setText(wcharToUTF8(text2));
+			break;
+		case 4:
+			text1.append(TString().number(pai4->Point).data());
+			text2.append(TString().number(pai1->Point).data());
+			text3.append(TString().number(pai2->Point).data());
+			text4.append(TString().number(pai3->Point).data());
+			myInfo->setText(wcharToUTF8(text2));
+			rightInfo->setText(wcharToUTF8(text3));
+			frontInfo->setText(wcharToUTF8(text4));
+			leftInfo->setText(wcharToUTF8(text1));
+			break;
+		}
+	}
+	switch (info->CurrentPlayer)
+	{
+	case 1:
+		myInfo->setProperty("NormalTextColour", "FFCC0000");
+		rightInfo->setProperty("NormalTextColour", "FFDDDDDD");
+		frontInfo->setProperty("NormalTextColour", "FFDDDDDD");
+		leftInfo->setProperty("NormalTextColour", "FFDDDDDD");
+		break;
+	case 2:
+		myInfo->setProperty("NormalTextColour", "FFDDDDDD");
+		rightInfo->setProperty("NormalTextColour", "FFCC0000");
+		frontInfo->setProperty("NormalTextColour", "FFDDDDDD");
+		leftInfo->setProperty("NormalTextColour", "FFDDDDDD");
+		break;
+	case 3:
+		myInfo->setProperty("NormalTextColour", "FFDDDDDD");
+		rightInfo->setProperty("NormalTextColour", "FFDDDDDD");
+		frontInfo->setProperty("NormalTextColour", "FFCC0000");
+		leftInfo->setProperty("NormalTextColour", "FFDDDDDD");
+		break;
+	case 4:
+		myInfo->setProperty("NormalTextColour", "FFDDDDDD");
+		rightInfo->setProperty("NormalTextColour", "FFDDDDDD");
+		frontInfo->setProperty("NormalTextColour", "FFDDDDDD");
+		leftInfo->setProperty("NormalTextColour", "FFCC0000");
+		break;
+	}
+	//^^^^^^^^^^^^^^^^^^^^^		場況資訊
 
 	reorder = pai1->tehai->tehai;
 	if (reorder.size() > 1) {
@@ -1376,6 +1520,39 @@ void MahJongRoom::GetInfo(const Player * pai1, const Player * pai2, const Player
 		}
 		}
 		//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^		手牌情報
+		//vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv		流局聽牌
+		if (info->RemainPai < 0) {
+			if (!pai2->agent->Tenpai.empty()) {
+				for (int i = 0; i < pai2->tehai->tehai.size(); ++i) {
+					rightPlayer.at(13 - i)->setProperty("Image", PaiIdToString(pai2->tehai->tehai.at(i)));
+					rightPlayer.at(13 - i)->setSize(CEGUI::USize(CEGUI::UDim(0.024, 0), CEGUI::UDim(0.056, 0)));
+				}
+			}
+			if (!pai3->agent->Tenpai.empty()) {
+				for (int i = 0; i < pai3->tehai->tehai.size(); ++i) {
+					frontPlayer.at(13 - i)->setProperty("Image", PaiIdToString(pai3->tehai->tehai.at(i)));
+					frontPlayer.at(13 - i)->setSize(CEGUI::USize(CEGUI::UDim(0.024, 0), CEGUI::UDim(0.056, 0)));
+				}
+			}
+			if (!pai4->agent->Tenpai.empty()) {
+				for (int i = 0; i < pai4->tehai->tehai.size(); ++i) {
+					leftPlayer.at(i)->setProperty("Image", PaiIdToString(pai4->tehai->tehai.at(i)));
+					leftPlayer.at(i)->setSize(CEGUI::USize(CEGUI::UDim(0.024, 0), CEGUI::UDim(0.056, 0)));
+				}
+			}
+		}
+		if (info->RemainPai >= 69) {
+			for (int i = 0; i < 14; ++i) {
+				rightPlayer.at(i)->setSize(CEGUI::USize(CEGUI::UDim(0.024, 0), CEGUI::UDim(0.016, 0)));
+			}
+			for (int i = 0; i < 14; ++i) {
+				frontPlayer.at(i)->setSize(CEGUI::USize(CEGUI::UDim(0.024, 0), CEGUI::UDim(0.016, 0)));
+			}
+			for (int i = 0; i < 14; ++i) {
+				leftPlayer.at(i)->setSize(CEGUI::USize(CEGUI::UDim(0.024, 0), CEGUI::UDim(0.016, 0)));
+			}
+		}
+		//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^		流局聽牌
 		//vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv		捨牌情報
 		if (pai1->Sutehai.size() < mySuteNumber) {
 			mySutehai.at(mySuteNumber - 1)->setProperty("Image", "MJ_material/Nothing");
@@ -1392,31 +1569,6 @@ void MahJongRoom::GetInfo(const Player * pai1, const Player * pai2, const Player
 		if (pai4->Sutehai.size() < leftSuteNumber) {
 			leftSutehai.at(leftSuteNumber - 1)->setProperty("Image", "MJ_material/Nothing");
 			--leftSuteNumber;
-		}
-
-		richiDekiruPai.clear();
-		for (int i = 0; i < pai1->agent->WhatToTenPai.size(); ++i) {
-			richiDekiruPai.push_back(pai1->agent->WhatToTenPai.at(i).first);
-		}
-		if (pai1->tehai->richi&&myRichi == 0) {
-			myRichi = mySuteNumber;
-			myRichiBo->setVisible(true);
-			mySutehai.at(myRichi - 1)->setRotation(CEGUI::Quaternion::axisAngleDegrees(CEGUI::Vector3f(0, 0, 1), 90));
-		}
-		if (pai2->tehai->richi && rightRichi == 0) {
-			rightRichi = rightSuteNumber;
-			rightRichiBo->setVisible(true);
-			rightSutehai.at(myRichi - 1)->setRotation(CEGUI::Quaternion::axisAngleDegrees(CEGUI::Vector3f(0, 0, 1), 180));
-		}
-		if (pai3->tehai->richi && frontRichi == 0) {
-			frontRichi = frontSuteNumber;
-			rightRichiBo->setVisible(true);
-			frontSutehai.at(myRichi - 1)->setRotation(CEGUI::Quaternion::axisAngleDegrees(CEGUI::Vector3f(0, 0, 1), 270));
-		}
-		if (pai4->tehai->richi && leftRichi == 0) {
-			leftRichi = leftSuteNumber;
-			rightRichiBo->setVisible(true);
-			leftSutehai.at(myRichi - 1)->setRotation(CEGUI::Quaternion::axisAngleDegrees(CEGUI::Vector3f(0, 0, 1), 0));
 		}
 
 
@@ -1891,6 +2043,31 @@ void MahJongRoom::GetInfo(const Player * pai1, const Player * pai2, const Player
 				leftSutehai.at(i)->setProperty("Image", "MJ_material/Chun");
 				break;
 			}
+		}
+
+		richiDekiruPai.clear();
+		for (int i = 0; i < pai1->agent->WhatToTenPai.size(); ++i) {
+			richiDekiruPai.push_back(pai1->agent->WhatToTenPai.at(i).first);
+		}
+		if (pai1->tehai->richi && myRichi == 0) {
+			myRichi = mySuteNumber;
+			myRichiBo->setVisible(true);
+			mySutehai.at(myRichi - 1)->setRotation(CEGUI::Quaternion::axisAngleDegrees(CEGUI::Vector3f(0, 0, 1), 90));
+		}
+		if (pai2->tehai->richi && rightRichi == 0) {
+			rightRichi = rightSuteNumber;
+			rightRichiBo->setVisible(true);
+			rightSutehai.at(rightRichi - 1)->setRotation(CEGUI::Quaternion::axisAngleDegrees(CEGUI::Vector3f(0, 0, 1), 180));
+		}
+		if (pai3->tehai->richi && frontRichi == 0) {
+			frontRichi = frontSuteNumber;
+			frontRichiBo->setVisible(true);
+			frontSutehai.at(frontRichi - 1)->setRotation(CEGUI::Quaternion::axisAngleDegrees(CEGUI::Vector3f(0, 0, 1), 270));
+		}
+		if (pai4->tehai->richi && leftRichi == 0) {
+			leftRichi = leftSuteNumber;
+			leftRichiBo->setVisible(true);
+			leftSutehai.at(leftRichi - 1)->setRotation(CEGUI::Quaternion::axisAngleDegrees(CEGUI::Vector3f(0, 0, 1), 0));
 		}
 		//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^		捨牌情報
 		//vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv		副露情報更新
@@ -2900,6 +3077,130 @@ void MahJongRoom::ButtonFunction(int n)
 		break;
 	case 7:
 		player->WantToRon = 1;
+		break;
+	}
+}
+
+std::string MahJongRoom::PaiIdToString(int id)
+{
+	switch (id)
+	{
+	case 0:
+		return std::string("MJ_material/Pin5R");
+		break;
+	case 1:
+		return std::string("MJ_material/Pin1");
+		break;
+	case 2:
+		return std::string("MJ_material/Pin2");
+		break;
+	case 3:
+		return std::string("MJ_material/Pin3");
+		break;
+	case 4:
+		return std::string("MJ_material/Pin4");
+		break;
+	case 5:
+		return std::string("MJ_material/Pin5");
+		break;
+	case 6:
+		return std::string("MJ_material/Pin6");
+		break;
+	case 7:
+		return std::string("MJ_material/Pin7");
+		break;
+	case 8:
+		return std::string("MJ_material/Pin8");
+		break;
+	case 9:
+		return std::string("MJ_material/Pin9");
+		break;
+	case 10:
+		return std::string("MJ_material/Man5R");
+		break;
+	case 11:
+		return std::string("MJ_material/Man1");
+		break;
+	case 12:
+		return std::string("MJ_material/Man2");
+		break;
+	case 13:
+		return std::string("MJ_material/Man3");
+		break;
+	case 14:
+		return std::string("MJ_material/Man4");
+		break;
+	case 15:
+		return std::string("MJ_material/Man5");
+		break;
+	case 16:
+		return std::string("MJ_material/Man6");
+		break;
+	case 17:
+		return std::string("MJ_material/Man7");
+		break;
+	case 18:
+		return std::string("MJ_material/Man8");
+		break;
+	case 19:
+		return std::string("MJ_material/Man9");
+		break;
+	case 20:
+		return std::string("MJ_material/Sou5R");
+		break;
+	case 21:
+		return std::string("MJ_material/Sou1");
+		break;
+	case 22:
+		return std::string("MJ_material/Sou2");
+		break;
+	case 23:
+		return std::string("MJ_material/Sou3");
+		break;
+	case 24:
+		return std::string("MJ_material/Sou4");
+		break;
+	case 25:
+		return std::string("MJ_material/Sou5");
+		break;
+	case 26:
+		return std::string("MJ_material/Sou6");
+		break;
+	case 27:
+		return std::string("MJ_material/Sou7");
+		break;
+	case 28:
+		return std::string("MJ_material/Sou8");
+		break;
+	case 29:
+		return std::string("MJ_material/Sou9");
+		break;
+	case 30:
+		return std::string("MJ_material/Ton");
+		break;
+	case 31:
+		return std::string("MJ_material/Nan");
+		break;
+	case 32:
+		return std::string("MJ_material/Sha");
+		break;
+	case 33:
+		return std::string("MJ_material/Pei");
+		break;
+	case 34:
+		return std::string("MJ_material/Haku");
+		break;
+	case 35:
+		return std::string("MJ_material/Fa");
+		break;
+	case 36:
+		return std::string("MJ_material/Chun");
+		break;
+	case 37:
+		return std::string("MJ_material/PaiBack");
+		break;
+	case -1:
+		return std::string("MJ_material/Nothing");
 		break;
 	}
 }

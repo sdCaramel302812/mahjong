@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Tehai.h"
 #include <iostream>
+#include "Log.h"
 
 
 Tehai::Tehai()
@@ -288,7 +289,7 @@ bool Tehai::Kakan(int pai)
 		if ((i->at(0) != 0 && i->at(0) != 10 && i->at(0) != 20) && i->at(0) == pai) {
 			std::vector<int> kanpai;
 			kanpai.push_back(pai);
-			kanpai.push_back(i->at(1));
+			kanpai.push_back(i->at(3));
 			minkan.push_back(kanpai);
 			pon.erase(i);
 			for (std::vector<int>::iterator j = tehai.begin(); j != tehai.end(); ++j) {
@@ -302,13 +303,12 @@ bool Tehai::Kakan(int pai)
 				}
 			}
 			agarihai = tehai;
-			break;
 			return true;
 		}	
-		if ((i->at(0) == 0 && i->at(0) == 10 && i->at(0) == 20) && i->at(0) == pai - 5) {
+		if ((i->at(0) == 0 || i->at(0) == 10 || i->at(0) == 20) && i->at(0) == pai - 5) {
 			std::vector<int> kanpai;
 			kanpai.push_back(pai);
-			kanpai.push_back(i->at(1));
+			kanpai.push_back(i->at(3));
 			minkan.push_back(kanpai);
 			pon.erase(i);
 			for (std::vector<int>::iterator j = tehai.begin(); j != tehai.end(); ++j) {
@@ -316,13 +316,12 @@ bool Tehai::Kakan(int pai)
 					tehai.erase(j);
 					break;
 				}
-				else if ((*j == 0 || *j == 10 || *j == 20) && *j == pai) {
+				else if ((*j == 0 || *j == 10 || *j == 20) && *j == pai - 5) {
 					tehai.erase(j);
 					break;
 				}
 			}
 			agarihai = tehai;
-			break;
 			return true;
 		}
 	}
@@ -418,38 +417,52 @@ void Tehai::Ron(int pai)
 }
 
 void Tehai::ShowTehai()
-{
+{/*
 	for (int i = 0; i < tehai.size(); ++i) {
 		cout << tehai.at(i) << " ";
+		Log::LogFile << tehai.at(i) << " ";
 	}
 	cout << "\t" << tsumohai << endl;
+	Log::LogFile << "\t" << tsumohai << endl;
 	for (int i = 0; i < chi.size(); ++i) {
 		for (int j = 0; j < 3; ++j) {
 			cout << chi.at(i).at(j) << " ";
+			Log::LogFile << chi.at(i).at(j) << " ";
 		}
 		cout << "\t";
+		Log::LogFile << "\t";
 	}
 	for (int i = 0; i < pon.size(); ++i) {
 		for (int j = 0; j < 3; ++j) {
 			cout << pon.at(i).at(0) << " ";
+			Log::LogFile << pon.at(i).at(0) << " ";
 		}
 		cout << "\t";
+		Log::LogFile << "\t";
 	}
 	for (int i = 0; i < minkan.size(); ++i) {
 		for (int j = 0; j < 4; ++j) {
 			cout << minkan.at(i).at(0) << " ";
+			Log::LogFile << minkan.at(i).at(0) << " ";
 		}
 		cout << "\t";
+		Log::LogFile << "\t";
 	}
 	for (int i = 0; i < ankan.size(); ++i) {
 		for (int j = 0; j < 4; ++j) {
 			cout << ankan.at(i) << " ";
+			Log::LogFile << ankan.at(i) << " ";
 		}
 		cout << "\t";
+		Log::LogFile << "\t";
 	}
 	if (richi) {
 		cout << "richi";
+		Log::LogFile << "richi";
 	}
 	cout << endl;
 	cout << "==============================================\n";
+	Log::LogFile << endl;
+	Log::LogFile << "==============================================\n";
+	*/
 }

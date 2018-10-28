@@ -23,20 +23,22 @@ public:
 
 	/*
 	嶺上牌 : 0 1 2 3
-	指示牌 : 4 6 8 10
-			 5 7 9 11
-	海底牌 : 12 (每一槓加一)
+	指示牌 : 4 6 8 10 12
+			 5 7 9 11 13
+	海底牌 : 14 (每一槓加一)
 	*/
 	int Rinshanhai = 0;
-	int Shijihai1 = 4;
-	int Shijihai2 = 6;
-	int Shijihai3 = 8;
-	int Shijihai4 = 10;
-	int UraShijihai1 = 5;
-	int UraShijihai2 = 7;
-	int UraShijihai3 = 9;
-	int UraShijihai4 = 11;
-	int Haiteihai = 12;
+	int Hyoujihai1 = 4;
+	int Hyoujihai2 = 6;
+	int Hyoujihai3 = 8;
+	int Hyoujihai4 = 10;
+	int Hyoujihai5 = 12;
+	int UraHyoujihai1 = 5;
+	int UraHyoujihai2 = 7;
+	int UraHyoujihai3 = 9;
+	int UraHyoujihai4 = 11;
+	int UraHyoujihai5 = 13;
+	int Haiteihai = 14;
 
 };
 

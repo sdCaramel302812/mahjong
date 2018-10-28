@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "Scene.h"
 #include <Imm.h>
 #include <iostream>
@@ -18,7 +18,7 @@ Scene::Scene(int wid, int hei)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	//glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-	window = glfwCreateWindow(wid, hei, "mahjong", NULL, NULL);// glfwGetPrimaryMonitor() to be full screen
+	window = glfwCreateWindow(wid, hei, "Saki - Unportable", NULL, NULL);// glfwGetPrimaryMonitor() to be full screen
 	full_sc = false;
 	if (window == nullptr) // window creation failed
 	{

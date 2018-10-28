@@ -15,7 +15,7 @@ void Yama::Init(bool aka)
 {
 	srand(time(NULL));
 	Rinshanhai = 0;
-	Haiteihai = 12;
+	Haiteihai = 14;
 	PaiSan.resize(136);
 	int akaN = 0;
 	for (int i = 0; i < 37; ++i) {

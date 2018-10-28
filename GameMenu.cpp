@@ -22,11 +22,17 @@ bool GameMenu::init()
 	m_gui->setFont("HanSansTC-14");
 	background = m_gui->createWidget("MJ_material/Image", glm::vec4(0, 0, 1, 1), glm::vec4(), "MenuBackground");
 	background->setProperty("Image", "MenuBackground/BackgroundBuilding");
+	CharacterImage = m_gui->createWidget("MJ_material/Image", glm::vec4(0.6, 0.15, 0.279, 0.85), glm::vec4(), "", background);
+	CharacterImage->setProperty("Image", "SakiCharacter/SakiNormal");
+	CharacterImage->setEnabled(false);
+	CharacterImage->setRotation(CEGUI::Quaternion::axisAngleDegrees(CEGUI::Vector3f(0, 1, 0), 180));
 	backgroundTop = m_gui->createWidget("MJ_material/Image", glm::vec4(0, 0, 1, 0.08), glm::vec4(), "", background);
 	backgroundTop->setProperty("Image", "MenuBackground/HorizontalBar");
 	backgroundDown = m_gui->createWidget("MJ_material/Image", glm::vec4(0, 0.92, 1, 0.08), glm::vec4(), "", background);
 	backgroundDown->setProperty("Image", "MenuBackground/HorizontalBar");
 	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^		GUI ¬ÛÃö
+
+	
 
 	ChallengeButton = m_gui->createWidget("OgreTray/Button", glm::vec4(0.04, 0.15, 0.15, 0.07), glm::vec4(), "", background);
 	FreeGameButton = m_gui->createWidget("OgreTray/Button", glm::vec4(0.04, 0.26, 0.15, 0.07), glm::vec4(), "", background);

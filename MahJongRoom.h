@@ -8,6 +8,7 @@
 #include "Agent.h"
 #include "Player.h"
 #include "nstdlib.h"
+#include "Room.h"
 
 class MahJongRoom : public Layout
 {
@@ -28,7 +29,7 @@ public:
 	void ShowTehai();
 	//^^^^^^^^^^^^^		似乎也是沒用到的
 
-	void GetInfo(const Player *pai1, const Player *pai2, const Player *pai3, const Player *pai4);
+	void GetInfo(const Player *pai1, const Player *pai2, const Player *pai3, const Player *pai4, RoomInfo *info);
 
 	void SetAgent(Agent *p);
 	Agent *player;
@@ -43,6 +44,11 @@ public:
 	int tsumohai = -1;
 
 	CEGUI::Window *background;
+	CEGUI::Window *ChanfonBan;
+	CEGUI::Window *myInfo;
+	CEGUI::Window *rightInfo;
+	CEGUI::Window *frontInfo;
+	CEGUI::Window *leftInfo;
 	//vvvvvvvvvvvvvvv						牌山
 	std::vector<CEGUI::Window *>leftPaiSan;
 	std::vector<CEGUI::Window *>rightPaiSan;
@@ -123,5 +129,15 @@ public:
 	std::vector<std::vector<int>> frontFuRouPai;
 	std::vector<std::vector<int>> leftFuRouPai;
 	//^^^^^^^^^^^^^^^^		副露
+
+	//vvvvvvvvvvvvvvvv		結算畫面
+	CEGUI::Window *ResultPanel;
+	CEGUI::Window *ResultText;
+	//^^^^^^^^^^^^^^^^		結算畫面
+
+	std::string PaiIdToString(int id);
+
+	int FirstOya = 0;
+	int Chanfon = TON;
 };
 

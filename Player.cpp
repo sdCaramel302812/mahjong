@@ -5,8 +5,10 @@
 Player::Player()
 {
 	tehai = new Tehai();
-	agent = new Agent(&Suteru, &NakuState, &Furiten, &tehai->tehai);
+	agent = new Agent(&Suteru, &NakuState, &Furiten, &tehai->agarihai, &tehai->tsumohai);
 	Init();
+
+	Point = 25000;
 }
 
 
@@ -118,16 +120,16 @@ bool Player::NakuDekiru(int pai, bool ShanJa)
 	tehai->ronhai = pai;
 	
 	if (AgariCheck(tehai) && !Furiten) {
-		//cout << endl;
+		cout << endl;
 		//cout << "fuck error" << endl;
-		//tehai->ShowTehai();
-		//cout << "fuck error" << endl;
+		tehai->ShowTehai();
+		cout << endl;
 		//try {
 		Yaku yaku = YakuCheck(tehai, Chanfon, Menfon, lastPai, firstR, RinShan, ChanKan, ibatsu);
 			if (yaku.YakuAri) {
 				agent->RonDekiru = true;
 			}
-		//	yaku.ShowYaku();
+			yaku.ShowYaku();
 		//}
 		//catch (...) {
 		//	cout << "crash situation : point checking" << endl;
@@ -150,7 +152,9 @@ bool Player::NakuDekiru(int pai, bool ShanJa)
 void Player::AnKanTsumoCheck()
 {
 	if (AgariCheck(tehai)) {
+		tehai->ShowTehai();
 		Yaku yaku = YakuCheck(tehai, Chanfon, Menfon, lastPai, firstR, RinShan, ChanKan, ibatsu);
+		yaku.ShowYaku();
 		if (yaku.YakuAri) {
 			agent->TsumoDekiru = true;
 		}
@@ -200,24 +204,24 @@ void Player::AnKanTsumoCheck()
 		if (pin[i] == 4) {
 			agent->AnKanDekiru = true;
 			agent->KanDekiruList.push_back(std::pair<int, int>(i + 1, 0));
-			cout << "kan : " << i + 1 << endl;
+//			cout << "kan : " << i + 1 << endl;
 		}
 		if (man[i] == 4) {
 			agent->AnKanDekiru = true;
 			agent->KanDekiruList.push_back(std::pair<int, int>(i + 11, 0));
-			cout << "kan : " << i + 11 << endl;
+//			cout << "kan : " << i + 11 << endl;
 		}
 		if (sou[i] == 4) {
 			agent->AnKanDekiru = true;
 			agent->KanDekiruList.push_back(std::pair<int, int>(i + 21, 0));
-			cout << "kan : " << i + 21 << endl;
+//			cout << "kan : " << i + 21 << endl;
 		}
 	}
 	for (int i = 0; i < 7; ++i) {
 		if (other[i] == 4) {
 			agent->AnKanDekiru = true;
 			agent->KanDekiruList.push_back(std::pair<int, int>(i + 30, 0));
-			cout << "kan : " << i + 30 << endl;
+//			cout << "kan : " << i + 30 << endl;
 		}
 	}
 
@@ -232,14 +236,14 @@ void Player::AnKanTsumoCheck()
 				if (tehai->agarihai.at(j) == p - 5) {
 					agent->AnKanDekiru = true;
 					agent->KanDekiruList.push_back(std::pair<int, int>(p, 1));
-					cout << "kan : " << p << endl;
+//					cout << "kan : " << p << endl;
 				}
 			}
 			else {
 				if (tehai->agarihai.at(j) == p) {
 					agent->AnKanDekiru = true;
 					agent->KanDekiruList.push_back(std::pair<int, int>(p, 1));
-					cout << "kan : " << p << endl;
+//					cout << "kan : " << p << endl;
 				}
 			}
 		}
@@ -262,6 +266,10 @@ int Player::Kiru()
 				agent->Tenpai = agent->WhatToTenPai.at(i).second;
 			}
 		}
+		if (agent->WhatToTenPai.empty() && !tehai->richi) {
+			agent->Tenpai.clear();
+		}
+		agent->WhatToTenPai.clear();
 		if (agent->WantToRichi == 1) {
 			tehai->richi = true;
 			ibatsu = true;
@@ -289,7 +297,7 @@ void Player::Tsumo(int pai)
 std::pair<int, int> Player::Ankan()
 {
 	if (NakuState == 2) {
-		cout << "fuck " << agent->KanDekiruList.size() << endl;
+//		cout << "fuck " << agent->KanDekiruList.size() << endl;
 		NakuState = -1;
 		bool ankan = false;
 		int kanpai;
@@ -297,11 +305,11 @@ std::pair<int, int> Player::Ankan()
 			kanpai = agent->KanDekiruList.at(agent->KanCase).first;
 			tehai->Ankan(agent->KanDekiruList.at(agent->KanCase).first);
 			FuRouOrder.push_back(AnKan);
-			cout << "ankan" << endl;
+//			cout << "ankan" << endl;
 			ankan = true;
 		}
 		else if(agent->KanDekiruList.size() > agent->KanCase) {
-			cout << "kakan" << endl;
+//			cout << "kakan" << endl;
 			int pon_pos = 0;
 			for (int i = 0; i < tehai->pon.size(); ++i) {
 				if ((tehai->pon.at(i).at(0) == 0 || tehai->pon.at(i).at(0) == 10 || tehai->pon.at(i).at(0) == 20)) {
@@ -335,7 +343,7 @@ std::pair<int, int> Player::Ankan()
 			return std::pair<int, int>(-1, kanpai);
 		}
 		else {
-
+			return std::pair<int, int>(1, kanpai);
 		}
 	}
 	else {

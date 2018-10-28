@@ -9,7 +9,7 @@ using std::endl;
 class Agent
 {
 public:
-	Agent(int *suteru, int *nakustate, bool *furiten, std::vector<int> *tehai);
+	Agent(int *suteru, int *nakustate, bool *furiten, std::vector<int> *tehai, int *tsumohai);
 	~Agent();
 
 
@@ -27,6 +27,9 @@ public:
 
 	bool WaitForKiru = false;
 	bool IsAI = true;
+
+	bool richi = false;
+	int *tsumohai;
 
 	/*
 	return
@@ -48,7 +51,7 @@ public:
 
 	int PonDekiruPai = -1;
 	/*
-			(µP , ©ú / ¥[)
+			(µP , ·t / ¥[)
 				, 0  / 1
 	*/
 	std::vector<std::pair<int, int>> KanDekiruList;

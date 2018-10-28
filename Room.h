@@ -6,6 +6,19 @@
 #include "tenpai.h"
 #include "Debug.h"
 
+class RoomInfo {
+public:
+	int Chanfon = TON;			//場風
+	int Kyouku = 0;				//局數
+	int Honba = 0;				//本場數
+	int Kyoutaku = 0;			//供託
+	int Oya = 1;				//莊家
+	bool UpdateScene = true;	//是否更新畫面
+	int RemainPai = 70;			//剩餘牌數
+	int FirstOya = 0;
+	int CurrentPlayer = 1;
+};
+
 class Room
 {
 public:
@@ -18,11 +31,10 @@ public:
 	Yama *yama;				//牌山
 	Rule *rule;				//房間規則
 
-	int Chanfon = TON;		//場風
-	int Kyouku = 0;			//局數
-	int Honba = 0;			//本場數
-	int Kyoutaku = 0;		//供託
-	int Oya = 1;			//莊家
+	RoomInfo info;
+
+			
+			
 	bool kyoukuover = true;
 	bool gameover = false;
 	int round = 1;			//巡數
@@ -38,8 +50,7 @@ public:
 	bool WaitForNaku = false;
 	//^^^^^		後來似乎沒用到
 
-	//			是否更新畫面
-	bool UpdateScene = true;
+	
 
 	/*
 	0 : wait for kiru
@@ -51,7 +62,6 @@ public:
 	bool MoRinShan = false;
 
 
-	int CurrentPlayer = 1;
 	int Sutehai = -1;			//	當前捨牌
 
 
@@ -73,5 +83,10 @@ public:
 	bool WaitForMoPai = true;		
 	int MoPaiWaitingTime = 0;
 	//	摸牌延遲
+
+	//	結算延遲
+	bool WaitForResult = true;
+	int ResultWaitingTime = 10000;
+	//	結算延遲
 };
 

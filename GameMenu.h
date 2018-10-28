@@ -15,6 +15,8 @@ public:
 	CEGUI::Window *backgroundTop;
 	CEGUI::Window *backgroundDown;
 
+	CEGUI::Window *CharacterImage;
+
 	CEGUI::Window *ChallengeButton;
 	CEGUI::Window *FreeGameButton;
 	CEGUI::Window *OnlineGameButton;

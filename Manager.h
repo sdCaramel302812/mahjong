@@ -4,6 +4,7 @@
 #include "Room.h"
 #include <string>
 #include <map>
+#include <fstream>
 
 class Manager
 {
@@ -20,5 +21,6 @@ public:
 	Game		¹CÀ¸¤¤
 	*/
 	static std::string CurrentLayout;
+
 };
 

@@ -2,12 +2,13 @@
 #include "Agent.h"
 
 
-Agent::Agent(int *s, int *n, bool *f, std::vector<int> *t)
+Agent::Agent(int *s, int *n, bool *f, std::vector<int> *t, int *tsumo)
 {
 	Suteru = s;
 	NakuState = n;
 	tehai = t;
 	Furiten = f;
+	tsumohai = tsumo;
 }
 
 
@@ -30,6 +31,8 @@ void Agent::Init()
 	WantToPon = 0;
 	WantToRon = 0;
 	WantToTsumo = 0;
+
+	richi = false;
 }
 
 void Agent::Act()
@@ -43,6 +46,7 @@ void Agent::Act()
 	if (IsAI) {
 		if (RonDekiru || TsumoDekiru) {
 			*Agari = true;
+			return;
 		}
 		if (WaitForKiru) {	
 
@@ -61,32 +65,51 @@ void Agent::Act()
 			}
 
 			if (AnKanDekiru) {
-				cout << "why" << endl;
+//				cout << "why" << endl;
 				if (KanDekiruList.size() != 0) {
-					cout << "it doesn't make sence" << endl;
+//					cout << "it doesn't make sence" << endl;
 					AnKanDekiru = false;
 					*NakuState = 2;
 					KanCase = 0;
 				}
 			}
 			else if (RichiDekiru) {
-				int p = WhatToTenPai.front().first;
-				WantToRichi = 1;
-				RichiDekiru = false;
-				*Suteru = p;
-			}
-			else {
-				int rnd = rand() % 2;
-				if (rnd == 1) {
-					*Suteru = tehai->back();
+				if (!WhatToTenPai.empty()) {
+					int p = WhatToTenPai.front().first;
+					WantToRichi = 1;
+					RichiDekiru = false;
+					richi = true;
+					*Suteru = p;
 				}
 				else {
-					*Suteru = tehai->front();
+					RichiDekiru = false;
 				}
+			}
+			else {
+				if (richi) {
+					*Suteru = *tsumohai;
+					return;
+				}
+				for (int i = 0; i < (int)tehai->size() - 1; ++i) {
+					if (i == 0) {
+						if (tehai->at(i + 1) - tehai->at(i) > 1) {
+							*Suteru = tehai->at(i);
+						}
+					}
+					else {
+						if (tehai->at(i + 1) - tehai->at(i) > 1 && tehai->at(i) - tehai->at(i - 1) > 1) {
+							*Suteru = tehai->at(i);
+						}
+					}
+				}
+				if (*Suteru == -1) {
+					*Suteru = tehai->back();
+				}
+
 				return;
 			}
 		}
-		else if (ChiDekiru) {
+		else if (false) {
 			ChiDekiru = false;
 			KanDekiru = false;
 			PonDekiru = false;
@@ -96,12 +119,12 @@ void Agent::Act()
 				ChiDekiruList.clear();
 			}
 		}
-		else if (KanDekiru) {
+		else if (false) {
 			KanDekiru = false;
 			PonDekiru = false;
 			*NakuState = 2;
 		}
-		else if (PonDekiru) {
+		else if (false) {
 			PonDekiru = false;
 			*NakuState = 1;
 		}

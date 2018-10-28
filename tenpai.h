@@ -4,9 +4,9 @@
 
 /*
 chankan : 
-0 : no chan kan
-1 : kakan
-2 : ankan
+0  : no chan kan
+1  : kakan
+-1 : ankan
 */
 Yaku YakuCheck(Tehai *pai, int Chanfon, int Menfon, bool last = false, bool first = false, bool rinshan = false, int chankan = 0, bool ibatsu = false);
 
